@@ -1,9 +1,14 @@
-# Descartes
+# Descartes Backend
 
-I think, therefore I am.
+Backend server for Descartes.
 
 <div align="right"><sup>
   made with ❤️ in Pittsburgh, PA by <a href="https://quantumstack.xyz">QuantumStack</a>
 </sup></div>
+
+## API Documentation
+
+https://descartesqs.docs.apiary.io/
+
 
 
