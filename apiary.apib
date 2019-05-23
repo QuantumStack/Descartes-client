@@ -121,9 +121,9 @@ Create a new user.
 
 ### Login [POST /auth/login]
 
-Login to an existing user account.
+Login to an existing user account. Note that the responses for an incorrect email or incorrect password are identical.
 
-+ Request (application/json)
++ Request 200 Valid Login (application/json)
     + Body
 
             {
@@ -142,4 +142,38 @@ Login to an existing user account.
                 "email": "aditya@example.com",
                 "fullName": "Aditya Pillai"
             }
+        }
+
++ Request 400 Incorrect Email (application/json)
+    + Body
+
+            {
+                "email": "nonexistent-user@example.com",
+                "password": "example_password"
+            }
+            
+
++ Response 400 (application/json; charset=utf-8)
+
+        {
+            "success": false,
+            "error": "incorrect-credentials",
+            "message": "Incorrect email or password."
+        }
+
++ Request 400 Incorrect Password (application/json)
+    + Body
+
+            {
+                "email": "aditya@example.com",
+                "password": "incorrect_password"
+            }
+            
+
++ Response 400 (application/json; charset=utf-8)
+
+        {
+            "success": false,
+            "error": "incorrect-credentials",
+            "message": "Incorrect email or password."
         }
