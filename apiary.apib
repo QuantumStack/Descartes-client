@@ -178,10 +178,18 @@ Create a new user.
             "message": "Please provide your full name."
         }
 
-### Email Verification [GET /auth/verify/{id}]
+### Email Verification [POST /auth/verify]
+
+Verify an email address given a confirmation code and email address. Note that the responses for an incorrect email or confirmation ID are both the same.
 
 + Request 200 Valid Email Confirmation (application/json)
+    + Body
 
+            {
+                "email": "aditya@example.com",
+                "confirmationId": "abc123"
+            }
+            
 + Response 200 (application/json; charset=utf-8)
 
         {
@@ -190,6 +198,12 @@ Create a new user.
         }
 
 + Request 400 Invalid Email Confirmation (application/json)
+    + Body
+
+            {
+                "email": "invalid-email@example.com",
+                "confirmationId": "abc123"
+            }
 
 + Response 400 (application/json; charset=utf-8)
 
@@ -198,10 +212,28 @@ Create a new user.
             "error": "invalid-email-confirmation",
             "message": "Your email has not been verified."
         }
-        
-### Resend Email Verification [POST /auth/resend]
 
-+ Request 200 Valid Email Verification Resend (application/json)
++ Request 400 Invalid Confirmation ID (application/json)
+    + Body
+
+            {
+                "email": "aditya@example.com",
+                "confirmationId": "invalid-id"
+            }
+            
++ Response 400 (application/json; charset=utf-8)
+
+        {
+            "success": false,
+            "error": "invalid-email-confirmation",
+            "message": "Your email has not been verified."
+        }
+
+### Resend Email Confirmation [POST /auth/resend]
+
+Request to resend another email confirmation. 
+
++ Request 200 Valid Email Confirmation Resend (application/json)
     + Body
 
             {
@@ -231,13 +263,13 @@ Create a new user.
         }
         
         
-+ Request 400 Invalid Email Verification Resend (application/json)
++ Request 400 Invalid Email Confirmation Resend (application/json)
 
     + Body
 
             {
-                "email": "non-existent@example.com",
-            tio}
+                "email": "non-existent@example.com"
+            }
         
 
 + Response 400 (application/json; charset=utf-8)
