@@ -13,112 +13,6 @@ I think, therefore I am. [Open-source](https://github.com/quantumstack/descartes
 
 This API uses OAuth v2 Bearer Token / Personal Access Token for its authentication.
 
-### Signup [POST /auth/signup]
-
-Create a new user.
-
-+ Request 200 Valid Signup (application/json)
-    + Body
-
-            {
-                "email": "aditya@example.com",
-                "password": "example_password",
-                "fullName": "Aditya Pillai"
-            }
-
-+ Response 200 (application/json; charset=utf-8)
-
-        {
-            "success": true,
-            "message": "You have successfully created an account."
-        }
-    
-        
-+ Request 409 User Account Already Exists (application/json; charset=utf-8)
-    + Body
-
-            {
-                "email": "aditya@example.com",
-                "password": "example_password",
-                "fullName": "Aditya Pillai"
-            }
-        
-+ Response 409 (application/json)
-
-        {
-            "success": false,
-            "error": "user-already-exists",
-            "message": "A user with this email address already exists."
-        }
-
-
-+ Request 400 Password Too Short (application/json; charset=utf-8)
-    + Body
-
-            {
-                "email": "aditya@example.com",
-                "password": "short",
-                "fullName": "Aditya Pillai"
-            }
-            
-+ Response 400 (application/json)
-
-        {
-            "success": false,
-            "error": "password-too-short",
-            "message": "Please provide a password of length 8+."
-        }
-        
-+ Request 400 Email Not Provided (application/json; charset=utf-8)
-    + Body
-
-            {
-                "password": "example_password",
-                "fullName": "Aditya Pillai"
-            }
-        
-+ Response 400 (application/json)
-
-        {
-            "success": false,
-            "error": "no-email",
-            "message": "Please provide your email."
-        }
-
-+ Request 400 Password Not Provided (application/json; charset=utf-8)
-    + Body
-
-            {
-                "email": "aditya@example.com",
-                "fullName": "Aditya Pillai"
-            }
-            
-+ Response 400 (application/json)
-
-        {
-            "success": false,
-            "error": "no-password",
-            "message": "Please provide a password"
-        }
-
-+ Request 400 Full Name Not Provided (application/json; charset=utf-8)
-    + Body
-
-            {
-                "email": "aditya@example.com",
-                "password": "example_password",
-            }
-            
-
-+ Response 400 (application/json)
-
-        {
-            "success": false,
-            "error": "no-fullname",
-            "message": "Please provide your full name."
-        }
-
-
 ### Login [POST /auth/login]
 
 Login to an existing user account. Note that the responses for an incorrect email or incorrect password are identical.
@@ -176,4 +70,180 @@ Login to an existing user account. Note that the responses for an incorrect emai
             "success": false,
             "error": "incorrect-credentials",
             "message": "Incorrect email or password."
+        }
+
+
+### Signup [POST /auth/signup]
+
+Create a new user.
+
++ Request 200 Valid Signup (application/json)
+    + Body
+
+            {
+                "email": "aditya@example.com",
+                "password": "example_password",
+                "fullName": "Aditya Pillai"
+            }
+
++ Response 200 (application/json; charset=utf-8)
+
+        {
+            "success": true,
+            "message": "You have successfully created an account."
+        }
+    
+        
++ Request 409 User Account Already Exists (application/json8)
+    + Body
+
+            {
+                "email": "aditya@example.com",
+                "password": "example_password",
+                "fullName": "Aditya Pillai"
+            }
+        
++ Response 409 (application/json; charset=utf-)
+
+        {
+            "success": false,
+            "error": "user-already-exists",
+            "message": "A user with this email address already exists."
+        }
+
+
++ Request 400 Password Too Short (application/json)
+    + Body
+
+            {
+                "email": "aditya@example.com",
+                "password": "short",
+                "fullName": "Aditya Pillai"
+            }
+            
++ Response 400 (application/json; charset=utf-8)
+
+        {
+            "success": false,
+            "error": "password-too-short",
+            "message": "Please provide a password of length 8+."
+        }
+        
++ Request 400 Email Not Provided (application/json)
+    + Body
+
+            {
+                "password": "example_password",
+                "fullName": "Aditya Pillai"
+            }
+        
++ Response 400 (application/json; charset=utf-8)
+
+        {
+            "success": false,
+            "error": "no-email",
+            "message": "Please provide your email."
+        }
+
++ Request 400 Password Not Provided (application/json)
+    + Body
+
+            {
+                "email": "aditya@example.com",
+                "fullName": "Aditya Pillai"
+            }
+            
++ Response 400 (application/json; charset=utf-8)
+
+        {
+            "success": false,
+            "error": "no-password",
+            "message": "Please provide a password"
+        }
+
++ Request 400 Full Name Not Provided (application/json)
+    + Body
+
+            {
+                "email": "aditya@example.com",
+                "password": "example_password",
+            }
+            
+
++ Response 400 (application/json; charset=utf-8)
+
+        {
+            "success": false,
+            "error": "no-fullname",
+            "message": "Please provide your full name."
+        }
+
+### Email Verification [GET /auth/verify/{id}]
+
++ Request 200 Valid Email Confirmation (application/json)
+
++ Response 200 (application/json; charset=utf-8)
+
+        {
+            "success": true,
+            "message": "Your email has been successfully verified."
+        }
+
++ Request 400 Invalid Email Confirmation (application/json)
+
++ Response 400 (application/json; charset=utf-8)
+
+        {
+            "success": false,
+            "error": "invalid-email-confirmation",
+            "message": "Your email has not been verified."
+        }
+        
+### Resend Email Verification [POST /auth/resend]
+
++ Request 200 Valid Email Verification Resend (application/json)
+    + Body
+
+            {
+                "email": "aditya@example.com"
+            }
+        
++ Response 200 (application/json; charset=utf-8)
+
+        {
+            "success": true,
+            "message": "Another confirmation email has been successfully sent."
+        }
+
++ Request 400 Email Already Verified (application/json)
+    + Body
+
+            {
+                "email": "already-verified@example.com"
+            }
+        
++ Response 400 (application/json; charset=utf-8)
+
+        {
+            "success": false,
+            "error": "email-already-verified",
+            "message": "This email has already been confirmed."
+        }
+        
+        
++ Request 400 Invalid Email Verification Resend (application/json)
+
+    + Body
+
+            {
+                "email": "non-existent@example.com",
+            tio}
+        
+
++ Response 400 (application/json; charset=utf-8)
+
+        {
+            "success": false,
+            "error": "non-existent-email",
+            "message": "An account with this email address does not exist, try signing up first."
         }
