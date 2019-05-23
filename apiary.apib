@@ -24,7 +24,7 @@ Create a new user.
                 "fullName": "Aditya Pillai"
             }
 
-+ Response 200 (application/json)
++ Response 200 (application/json; charset=utf-8)
 
         {
             "success": true,
@@ -32,7 +32,7 @@ Create a new user.
         }
     
         
-+ Request 409 User Account Already Exists (application/json)
++ Request 409 User Account Already Exists (application/json; charset=utf-8)
     + Body
 
             {
@@ -50,7 +50,7 @@ Create a new user.
         }
 
 
-+ Request 400 Password Too Short (application/json)
++ Request 400 Password Too Short (application/json; charset=utf-8)
     + Body
 
             {
@@ -67,7 +67,7 @@ Create a new user.
             "message": "Please provide a password of length 8+."
         }
         
-+ Request 400 Email Not Provided (application/json)
++ Request 400 Email Not Provided (application/json; charset=utf-8)
     + Body
 
             {
@@ -83,7 +83,7 @@ Create a new user.
             "message": "Please provide your email."
         }
 
-+ Request 400 Password Not Provided (application/json)
++ Request 400 Password Not Provided (application/json; charset=utf-8)
     + Body
 
             {
@@ -99,7 +99,7 @@ Create a new user.
             "message": "Please provide a password"
         }
 
-+ Request 400 Full Name Not Provided (application/json)
++ Request 400 Full Name Not Provided (application/json; charset=utf-8)
     + Body
 
             {
@@ -129,7 +129,7 @@ Login to an existing user account.
                 "password": "example_password"
             }
             
-+ Response 200 (application/json)
++ Response 200 (application/json; charset=utf-8)
 
         {
             "success": true,
