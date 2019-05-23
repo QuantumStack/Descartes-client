@@ -15,7 +15,7 @@ This API uses OAuth v2 Bearer Token / Personal Access Token for its authenticati
 
 Create a new user.
 
-+ Request (application/json)
++ Request 200 Valid Signup (application/json)
     + Body
 
             {
@@ -32,7 +32,7 @@ Create a new user.
         }
     
         
-+ Request (application/json)
++ Request 409 User Account Already Exists (application/json)
     + Body
 
             {
@@ -50,7 +50,7 @@ Create a new user.
         }
 
 
-+ Request (application/json)
++ Request 400 Password Too Short (application/json)
     + Body
 
             {
@@ -67,7 +67,7 @@ Create a new user.
             "message": "Please provide a password of length 8+."
         }
         
-+ Request (application/json)
++ Request 400 Email Not Provided (application/json)
     + Body
 
             {
@@ -83,7 +83,7 @@ Create a new user.
             "message": "Please provide your email."
         }
 
-+ Request (application/json)
++ Request 400 Password Not Provided (application/json)
     + Body
 
             {
@@ -99,7 +99,7 @@ Create a new user.
             "message": "Please provide a password"
         }
 
-+ Request (application/json)
++ Request 400 Full Name Not Provided (application/json)
     + Body
 
             {
