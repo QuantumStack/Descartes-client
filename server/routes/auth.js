@@ -18,6 +18,7 @@ router.post('/login', (req, res, next) => {
       if (err.name === 'IncorrectCredentialsError') {
         return res.status(400).json({
           success: false,
+          error: 'incorrect-credentials',
           message: err.message,
         });
       }

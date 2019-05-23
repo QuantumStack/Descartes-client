@@ -17,6 +17,14 @@ module.exports = new PassportLocalStrategy({
 }, (req, email, password, done) => {
   User.findOne({ where: { email: email.trim() } })
     .then((user) => {
+
+      if (!user) {
+        const error = new Error('Incorrect email or password.');
+        error.name = 'IncorrectCredentialsError';
+
+        return done(error);
+      }
+
       bcrypt.compare(password, user.password, (err, matched) => {
         if (err) return done(err);
 
@@ -31,7 +39,7 @@ module.exports = new PassportLocalStrategy({
           sub: user.id,
         };
 
-        const token = jwt.sign(payload, config.jwtSecret);
+        const token = jwt.sign(payload, config.JWT_SECRET);
         const data = {
           userId: user.id,
           email: user.email,

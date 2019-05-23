@@ -1,7 +1,7 @@
 
 const bcrypt = require('bcryptjs');
 
-const { saltRounds } = require('./../config');
+const { SALT_ROUNDS } = require('./../config');
 
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
   User.beforeSave((user) => {
     if (!user.changed('password')) { return Promise.resolve(); }
 
-    return bcrypt.genSalt(saltRounds)
+    return bcrypt.genSalt(SALT_ROUNDS)
       .then(salt => bcrypt.hash(user.password, salt)
         .then((hash) => {
           user.password = hash;

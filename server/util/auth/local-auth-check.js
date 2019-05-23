@@ -17,7 +17,7 @@ module.exports = (req, res, next) => {
   const token = req.headers.authorization.split(' ')[1];
 
   // decode the token using a secret key-phrase
-  return jwt.verify(token, config.jwtSecret, (err, decoded) => {
+  return jwt.verify(token, config.JWT_SECRET, (err, decoded) => {
     // the 401 code is for unauthorized status
     if (err) { return res.status(401).end(); }
 
@@ -29,6 +29,6 @@ module.exports = (req, res, next) => {
         req.user = foundUser;
         return next();
       })
-      .catch(() => res.status(401).end());
+      .catch(() => res.sendStatus(401));
   });
 };

@@ -1,4 +1,8 @@
 {
-  "jwtSecret": "Here goes the secret!",
-  "saltRounds": 10
+  "JWT_SECRET": "Here goes the secret!",
+  "SALT_ROUNDS": 10,
+  "SMTP_SERVER": "",
+  "SMTP_PORT": "",
+  "SMTP_USER": "",
+  "SMTP_PASS": ""
 }
