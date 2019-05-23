@@ -1,11 +1,14 @@
-import React, { Component } from 'react';
-import LegalModal from './../components/LegalModal';
+import React from 'react';
+import Modal from '../components/Modal';
+import LegalInfo from './../components/LegalInfo';
 
-class Foot extends Component {
+class Foot extends React.Component {
   render() {
     return (
       <div>
-        <LegalModal />
+        <Modal name='legal' isLarge>
+          <LegalInfo />
+        </Modal>
         <div className='uk-section uk-section-secondary uk-section-small'>
           <div className='uk-container uk-text-center'>
             <span><a data-uk-toggle='target: #legal-modal'>Legal</a> | <a href="https://github.com/QuantumStack/Descartes">GitHub</a> | Copyright &copy; 2019</span>

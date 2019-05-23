@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-class PricingPlan extends Component {
+class PricingPlan extends React.Component {
   render() {
     const { pops, flat, name, price, features } = this.props;
     return (
@@ -12,10 +13,10 @@ class PricingPlan extends Component {
           {features.map(f => <li>{f}</li>)}
         </ul>
         <hr />
-        <a className='uk-button uk-button-text'>
+        <Link to='/signup?type=instructor' className='uk-button uk-button-text'>
           <span>Sign up now</span>
           <span data-uk-icon='icon: arrow-right' />
-        </a>
+        </Link>
       </div>
     );
   }

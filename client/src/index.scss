@@ -1,5 +1,13 @@
 // 1. Your custom variables and variable overwrites.
+@import url("https://fonts.googleapis.com/css?family=Lato");
 
+$global-font-family: 'Lato';
+$global-link-color: #203fb6;
+$global-link-hover-color: #008afb;
+$base-selection-background: $global-link-hover-color;
+$global-primary-background: #be0575;
+$global-warning-background: #ffec4a;
+$global-danger-background: #f62336;
 
 // 2. Import default variables and available mixins.
 @import "uikit/src/scss/variables-theme.scss";

@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import Typist from 'react-typist';
-import Navbar from './../components/Navbar';
+import BasicNavbar from '../components/BasicNavbar';
 import PricingPlan from './../components/PricingPlan';
-import Foot from './../components/Foot';
+import Foot from '../components/Foot';
 import 'react-typist/dist/Typist.css';
-import blackboard from '../blackboard.jpg';
+import blackboard from '../assets/blackboard.jpg';
 
 class Home extends Component {
   render() {
@@ -16,7 +17,7 @@ class Home extends Component {
         </Helmet>
         <div className='uk-section-default uk-section-large uk-light uk-background-cover' style={{ backgroundImage: `url(${blackboard})` }}>
           <div className='uk-position-top'>
-            <Navbar />
+            <BasicNavbar showLinks />
           </div>
           <div className='uk-section'>
             <div className='uk-container uk-text-center uk-margin-top'>
@@ -25,8 +26,8 @@ class Home extends Component {
                 <span className='uk-text-lead'>Tools to make activities and office hours easier.</span>
               </Typist>
               <p className='uk-margin-top uk-animation-slide-bottom-small'>
-                <a className='uk-button uk-button-default uk-button-small'>I'm a student</a>
-                <a className='uk-button uk-button-default uk-button-small uk-margin-small-left'>I'm an instructor</a>
+                <Link to='/signup?type=student' className='uk-button uk-button-default uk-button-small'>I'm a student</Link>
+                <Link to='/signup?type=instructor' className='uk-button uk-button-default uk-button-small uk-margin-small-left'>I'm an instructor</Link>
               </p>
             </div>
           </div>
