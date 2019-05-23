@@ -22,11 +22,11 @@ module.exports = (req, res, next) => {
     if (err) { return res.status(401).end(); }
 
     const userId = decoded.sub;
-
+    
     // check if a user exists
-    User.findOne({ where: { email: email.trim() } })
-      .then((user) => {
-        req.user = user;
+    User.findOne({ where: { id: userId } })
+      .then((foundUser) => {
+        req.user = foundUser;
         return next();
       })
       .catch(() => res.status(401).end());

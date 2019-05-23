@@ -60,6 +60,9 @@ router.post('/signup', (req, res, next) => {
 
 const authCheckMiddleware = require('./../util/auth/local-auth-check');
 
-router.get('/test', authCheckMiddleware, (req, res) => res.sendStatus(200));
+router.get('/test', authCheckMiddleware, (req, res) => res.json({
+  success: true,
+  message: 'Congrats, you made it.',
+}));
 
 module.exports = router;
