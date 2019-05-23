@@ -1,6 +1,6 @@
-'use strict';
 
 const bcrypt = require('bcryptjs');
+
 const { saltRounds } = require('./../config');
 
 module.exports = (sequelize, DataTypes) => {

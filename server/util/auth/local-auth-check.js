@@ -1,6 +1,6 @@
 
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
+
 const config = require('./../../config');
 const { User } = require('../../models');
 
@@ -22,7 +22,7 @@ module.exports = (req, res, next) => {
     if (err) { return res.status(401).end(); }
 
     const userId = decoded.sub;
-    
+
     // check if a user exists
     User.findOne({ where: { id: userId } })
       .then((foundUser) => {

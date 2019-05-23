@@ -1,6 +1,7 @@
 
-const { User } = require('./../../models');
 const PassportLocalStrategy = require('passport-local').Strategy;
+
+const { User } = require('./../../models');
 
 /**
  * Return the Passport Local Strategy object.

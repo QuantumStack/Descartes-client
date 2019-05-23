@@ -10,12 +10,10 @@ const passport = require('passport');
 const logger = require('morgan');
 
 
-// .env configuration
+/**
+ * .env configuration
+ */
 require('dotenv').config();
-
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
-const authRouter = require('./routes/auth');
 
 const app = express();
 
@@ -39,8 +37,23 @@ const localLoginStrategy = require('./util/auth/local-login');
 passport.use('local-signup', localSignupStrategy);
 passport.use('local-login', localLoginStrategy);
 
+// Checks authentication for any API calls.
+const authCheckMiddleware = require('./util/auth/local-auth-check');
+
+app.use('/api', authCheckMiddleware);
+
+
+/**
+ * Routing to other aspects.
+ */
+const indexRouter = require('./routes/index');
+const apiRouter = require('./routes/api');
+const usersRouter = require('./routes/users');
+const authRouter = require('./routes/auth');
+
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 app.use('/auth', authRouter);
+app.use('/users', usersRouter);
+app.use('/api', apiRouter);
 
 module.exports = app;

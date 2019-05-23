@@ -1,8 +1,9 @@
 
 const jwt = require('jsonwebtoken');
-const { User } = require('../../models');
 const PassportLocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcryptjs');
+
+const { User } = require('../../models');
 const config = require('./../../config');
 
 /**
