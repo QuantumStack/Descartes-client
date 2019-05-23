@@ -1,0 +1,4 @@
+{
+  "jwtSecret": "Here goes the secret!",
+  "saltRounds": 10
+}
