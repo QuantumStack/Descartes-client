@@ -1,5 +1,5 @@
 FORMAT: 1A
-HOST: http://polls.apiblueprint.org/
+HOST: https://descartes-api.quantumstack.xyz/
 
 # Descartes
 
@@ -9,76 +9,135 @@ I think, therefore I am.
 
 ## Authentication Collection [/auth]
 
-### Login [POST /auth/login]
-
-+ Response 200 (application/json)
-
-        [
-            {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 2048
-                    }, {
-                        "choice": "Python",
-                        "votes": 1024
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 512
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 256
-                    }
-                ]
-            }
-        ]
+This API uses OAuth v2 Bearer Token / Personal Access Token for its authentication.
 
 ### Signup [POST /auth/signup]
 
-You may create your own question using this action. It takes a JSON
-object containing a question and a collection of answers in the
-form of choices.
+Create a new user.
 
 + Request (application/json)
-
-        {
-            "question": "Favourite programming language?",
-            "choices": [
-                "Swift",
-                "Python",
-                "Objective-C",
-                "Ruby"
-            ]
-        }
-
-+ Response 201 (application/json)
-
-    + Headers
-
-            Location: /questions/2
-
     + Body
 
             {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 0
-                    }, {
-                        "choice": "Python",
-                        "votes": 0
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 0
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 0
-                    }
-                ]
+                "email": "aditya@example.com",
+                "password": "example_password",
+                "fullName": "Aditya Pillai"
             }
 
-# Labs [/lab]
++ Response 200 (application/json)
+
+        {
+            "success": true,
+            "message": "You have successfully created an account."
+        }
+    
+        
++ Request (application/json)
+    + Body
+
+            {
+                "email": "aditya@example.com",
+                "password": "example_password",
+                "fullName": "Aditya Pillai"
+            }
+        
++ Response 409 (application/json)
+
+        {
+            "success": false,
+            "error": "user-already-exists",
+            "message": "A user with this email address already exists."
+        }
+
+
++ Request (application/json)
+    + Body
+
+            {
+                "email": "aditya@example.com",
+                "password": "short",
+                "fullName": "Aditya Pillai"
+            }
+            
++ Response 400 (application/json)
+
+        {
+            "success": false,
+            "error": "password-too-short",
+            "message": "Please provide a password of length 8+."
+        }
+        
++ Request (application/json)
+    + Body
+
+            {
+                "password": "example_password",
+                "fullName": "Aditya Pillai"
+            }
+        
++ Response 400 (application/json)
+
+        {
+            "success": false,
+            "error": "no-email",
+            "message": "Please provide your email."
+        }
+
++ Request (application/json)
+    + Body
+
+            {
+                "email": "aditya@example.com",
+                "fullName": "Aditya Pillai"
+            }
+            
++ Response 400 (application/json)
+
+        {
+            "success": false,
+            "error": "no-password",
+            "message": "Please provide a password"
+        }
+
++ Request (application/json)
+    + Body
+
+            {
+                "email": "aditya@example.com",
+                "password": "example_password",
+            }
+            
+
++ Response 400 (application/json)
+
+        {
+            "success": false,
+            "error": "no-fullname",
+            "message": "Please provide your full name."
+        }
+
+
+### Login [POST /auth/login]
+
+Login to an existing user account.
+
++ Request (application/json)
+    + Body
+
+            {
+                "email": "aditya@example.com",
+                "password": "example_password"
+            }
+            
++ Response 200 (application/json)
+
+        {
+            "success": true,
+            "message": "You have successfully logged in.",
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjI0LCJpYXQiOjE1NTg2MzI2NTN9.gpRK6QPQpPkHJ7iOjFuL7mvaghJFdQJNnCRuDimlaKM",
+            "user": {
+                "userId": 24,
+                "email": "aditya@example.com",
+                "fullName": "Aditya Pillai"
+            }
+        }
