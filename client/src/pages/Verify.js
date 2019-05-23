@@ -3,7 +3,6 @@ import { withRouter } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { ax, VERIFY_URL } from '../util/api';
 import CenterBox from '../components/CenterBox';
-import Foot from '../components/Foot';
 import { modal } from 'uikit';
 
 class Verify extends React.Component {
@@ -56,7 +55,6 @@ class Verify extends React.Component {
             </div>
           )}
         </CenterBox>
-        <Foot />
       </div>
     );
   }

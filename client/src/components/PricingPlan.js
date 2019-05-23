@@ -10,7 +10,7 @@ class PricingPlan extends React.Component {
         <h2 className='uk-margin-remove-top'>${price}{!flat && <small className='uk-text-muted'>/course</small>}</h2>
         <hr />
         <ul className='uk-list uk-list-large'>
-          {features.map(f => <li>{f}</li>)}
+          {features.map((f, i) => <li key={i}>{f}</li>)}
         </ul>
         <hr />
         <Link to='/signup?type=instructor' className='uk-button uk-button-text'>

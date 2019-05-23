@@ -2,7 +2,6 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import CenterBox from '../components/CenterBox';
 import SignUpForm from '../components/SignUpForm';
-import Foot from '../components/Foot';
 
 class SignUp extends React.Component {
   render() {
@@ -15,7 +14,6 @@ class SignUp extends React.Component {
         <CenterBox>
           <SignUpForm />
         </CenterBox>
-        <Foot />
       </div>
     );
   }

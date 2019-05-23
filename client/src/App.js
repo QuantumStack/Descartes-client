@@ -8,6 +8,7 @@ import Verify from './pages/Verify';
 import LogIn from './pages/LogIn';
 import SignUp from './pages/SignUp';
 import ScrollToTop from './components/ScrollToTop';
+import Foot from './components/Foot';
 
 class App extends React.Component {
   render() {
@@ -16,10 +17,12 @@ class App extends React.Component {
         <ScrollToTop>
           <Route exact path='/' component={Home} />
           <Route path='/legal' component={Legal} />
-          <PrivateRoute path='/dashboard' component={Dashboard} />
+          <PrivateRoute exact path='/dashboard' component={Dashboard} />
+          <PrivateRoute path='/dashboard/account' component={Home} />
           <UnprivateRoute path='/verify/:id' component={Verify} />
           <UnprivateRoute path='/login' component={LogIn} />
           <UnprivateRoute path='/signup' component={SignUp} />
+          <Foot />
         </ScrollToTop>
       </Router>
     );

@@ -2,7 +2,6 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import CenterBox from '../components/CenterBox';
 import LogInForm from '../components/LogInForm';
-import Foot from '../components/Foot';
 
 class LogIn extends React.Component {
   render() {
@@ -14,7 +13,6 @@ class LogIn extends React.Component {
         <CenterBox width='2-5'>
           <LogInForm />
         </CenterBox>
-        <Foot />
       </div>
     );
   }

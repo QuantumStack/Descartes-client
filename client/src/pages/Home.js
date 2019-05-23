@@ -4,7 +4,6 @@ import { Helmet } from 'react-helmet';
 import Typist from 'react-typist';
 import BasicNavbar from '../components/BasicNavbar';
 import PricingPlan from './../components/PricingPlan';
-import Foot from '../components/Foot';
 import 'react-typist/dist/Typist.css';
 import blackboard from '../assets/blackboard.jpg';
 
@@ -92,7 +91,6 @@ class Home extends Component {
             </div>
           </div>
         </div>
-        <Foot />
       </div>
     );
   }
