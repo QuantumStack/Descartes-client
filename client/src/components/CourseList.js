@@ -30,7 +30,7 @@ class ClassList extends React.Component {
   }
 
   getCourses() {
-    const filterDrop = drop(`#${this.props.role}-filter-drop`);
+    const filterDrop = drop(`#${this.props.key}-filter-drop`);
     if (filterDrop) filterDrop.hide();
     const { expired, search, sort } = this.state;
     return this.props.courses.filter(course => 
@@ -44,7 +44,7 @@ class ClassList extends React.Component {
   }
 
   render() {
-    const { children, title, role } = this.props;
+    const { children, title, key } = this.props;
     const { expired, search, sort } = this.state;
     
     const filteredCourses = this.getCourses();
@@ -81,7 +81,7 @@ class ClassList extends React.Component {
           <div className='uk-hidden@m'>
             <div className='uk-inline'>
               <button className='uk-icon-button' data-uk-icon='cog'></button>
-              <div id={`${role}-filter-drop`} data-uk-drop='mode: click; pos: bottom-right'>
+              <div id={`${key}-filter-drop`} data-uk-drop='mode: click; pos: bottom-right'>
                 <div className='uk-card uk-card-body uk-card-default uk-card-small'>
                   <h6 className='uk-margin-small-bottom uk-text-center uk-text-uppercase'>Filter courses</h6>
                   {filters}
@@ -99,7 +99,7 @@ class ClassList extends React.Component {
           <div className='uk-grid-small uk-child-width-1-2@s uk-child-width-1-3@m uk-child-width-1-4@l' data-uk-grid data-uk-scrollspy='target: div; cls: uk-animation-slide-top-small; delay: 50'>
             {filteredCourses.map(course => (
               <div key={course.id}>
-                <CourseBox role={role} {...course} />
+                <CourseBox {...course} />
               </div>
             ))}
           </div>
