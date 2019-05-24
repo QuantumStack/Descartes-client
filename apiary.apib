@@ -72,6 +72,21 @@ Login to an existing user account. Note that the responses for an incorrect emai
             "message": "Incorrect email or password."
         }
 
++ Request 400 Unverified Email (application/json)
+    + Body
+
+            {
+                "email": "aditya@example.com",
+                "password": "example_password"
+            }
+
++ Response 400 (application/json; charset=utf-8)
+
+        {
+            "success": false,
+            "error": "unverified-email",
+            "message": "Please verify your email address before logging in."
+        }
 
 ### Signup [POST /auth/signup]
 
@@ -94,14 +109,32 @@ Create a new user.
             "message": "You have successfully created an account."
         }
     
-        
-+ Request 409 User Account Already Exists (application/json8)
++ Request 400 Invalid reCAPTCHA Token (application/json)
     + Body
 
             {
                 "email": "aditya@example.com",
                 "password": "example_password",
-                "fullName": "Aditya Pillai"
+                "fullName": "Aditya Pillai",
+                "g-recaptcha-response": "invalid-recaptcha-token"
+            }
+
++ Response 400 (application/json; charset=utf-8)
+
+        {
+            "success": false,
+            "error": "invalid-recaptcha",
+            "message": "The reCAPTCHA verification failed, please try again."
+        }
+
++ Request 409 User Account Already Exists (application/json)
+    + Body
+
+            {
+                "email": "aditya@example.com",
+                "password": "example_password",
+                "fullName": "Aditya Pillai",
+                "g-recaptcha-response": "recaptcha-token"
             }
         
 + Response 409 (application/json; charset=utf-)
@@ -119,7 +152,8 @@ Create a new user.
             {
                 "email": "aditya@example.com",
                 "password": "short",
-                "fullName": "Aditya Pillai"
+                "fullName": "Aditya Pillai",
+                "g-recaptcha-response": "recaptcha-token"
             }
             
 + Response 400 (application/json; charset=utf-8)
@@ -135,7 +169,8 @@ Create a new user.
 
             {
                 "password": "example_password",
-                "fullName": "Aditya Pillai"
+                "fullName": "Aditya Pillai",
+                "g-recaptcha-response": "recaptcha-token"
             }
         
 + Response 400 (application/json; charset=utf-8)
@@ -143,7 +178,8 @@ Create a new user.
         {
             "success": false,
             "error": "no-email",
-            "message": "Please provide your email."
+            "message": "Please provide your email.",
+
         }
 
 + Request 400 Password Not Provided (application/json)
@@ -151,7 +187,8 @@ Create a new user.
 
             {
                 "email": "aditya@example.com",
-                "fullName": "Aditya Pillai"
+                "fullName": "Aditya Pillai",
+                "g-recaptcha-response": "recaptcha-token"
             }
             
 + Response 400 (application/json; charset=utf-8)
@@ -168,6 +205,7 @@ Create a new user.
             {
                 "email": "aditya@example.com",
                 "password": "example_password",
+                "g-recaptcha-response": "recaptcha-token"
             }
             
 
@@ -322,6 +360,7 @@ Get details about a user's courses.
                     "students": 500,
                     "activities": 5,
                     "polls": 10,
+                    "oh": true,
                     "expired": false
                 }
             ],
