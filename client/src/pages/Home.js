@@ -38,7 +38,7 @@ class Home extends Component {
               <div>
                   <span className='uk-icon' data-uk-icon='icon: bolt; ratio: 2' />
                   <h4 className='uk-margin-small'>Activities</h4>
-                  <p className='uk-margin-remove-top'>Simple <strong>check-in</strong> for class activites such as labs. Flag repeated attempts and section mismatches.</p>
+                  <p className='uk-margin-remove-top'>Simple <strong>check-in</strong> for class activities such as labs. Flag repeated attempts and section mismatches.</p>
               </div>
               <div>
                   <span className='uk-icon' data-uk-icon='icon: users; ratio: 2' />
@@ -81,7 +81,7 @@ class Home extends Component {
               <div>
                 <PricingPlan name='Lite' price='15' features={[
                   <span>Up to <strong>50</strong> students</span>,
-                  <span>In-class activites and labs</span>,
+                  <span>In-class activities and labs</span>,
                   <span>Up to <strong>10</strong> instructors/TAs</span>,
                   <span>Robust office hours queue</span>,
                   <span><strong>25</strong> participation polls</span>,
