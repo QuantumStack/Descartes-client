@@ -296,3 +296,42 @@ Request to resend another email confirmation.
             "error": "non-existent-email",
             "message": "An account with this email address does not exist, try signing up first."
         }
+
+### Dashboard Overview [GET /overview{?id}]
+
+Get details about a user's courses.
+
++ Request 200 (application/json)
+    + Headers
+        
+        Authorization: bearer JWT
+
++ Response 200 (application/json; charset=utf-8)
+
+        {
+            "user": {
+                "name": "Aditya Pillai",
+                "email": "aditya@example.com"
+            },
+            "myCourses": [
+                {
+                    "id": "...",
+                    "name": "15112 Very interesting course",
+                    "instructors": 10,
+                    "students": 500,
+                    "activites": 5,
+                    "polls": 10
+                }
+            ],
+            "enrolledCourses": [
+                {
+                    "id": "...",
+                    "name": "15112 Very interesting course",
+                    "head": "Mr. Head Instructor",
+                    "activites": 5,
+                    "polls": 10,
+                    "oh": true
+                }
+            ]
+        }
+
