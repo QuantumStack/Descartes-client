@@ -32,6 +32,9 @@ Object.keys(db).forEach(modelName => {
   }
 });
 
+if (env === 'production') sequelize.sync();
+else sequelize.sync({ force: true });
+
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 

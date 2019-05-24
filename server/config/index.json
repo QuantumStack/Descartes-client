@@ -1,5 +1,7 @@
 {
   "JWT_SECRET": "Here goes the secret!",
+  "EMAIL_VERIFICATION_EXPIRY": 3600000,
+  "EMAIL_VERIFICATION_DELAY": 100000,
   "SALT_ROUNDS": 10,
   "SMTP_SERVER": "",
   "SMTP_PORT": "",

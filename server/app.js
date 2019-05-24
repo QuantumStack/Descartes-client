@@ -4,7 +4,6 @@ const path = require('path');
 
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-
 const passport = require('passport');
 
 const logger = require('morgan');
@@ -48,12 +47,10 @@ app.use('/api', authCheckMiddleware);
  */
 const indexRouter = require('./routes/index');
 const apiRouter = require('./routes/api');
-const usersRouter = require('./routes/users');
 const authRouter = require('./routes/auth');
 
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
-app.use('/users', usersRouter);
 app.use('/api', apiRouter);
 
 module.exports = app;
