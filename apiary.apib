@@ -248,6 +248,22 @@ Request to resend another email confirmation.
             "message": "Another confirmation email has been successfully sent."
         }
 
++ Request 400 Requesting Verification Too Quickly (application/json)
+    + Body
+
+            {
+                "email": "aditya@example.com"
+            }
+        
++ Response 400 (application/json; charset=utf-8)
+
+        {
+            "success": false,
+            "error": "email-verification-too-quickly",
+            "message": "You have already requested an email verification recently."
+        }
+
+
 + Request 400 Email Already Verified (application/json)
     + Body
 
