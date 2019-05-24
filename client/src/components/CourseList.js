@@ -1,5 +1,6 @@
 import React from 'react';
 import CourseBox from './CourseBox';
+import { drop } from 'uikit';
 
 class ClassList extends React.Component {
   constructor(props) {
@@ -29,6 +30,8 @@ class ClassList extends React.Component {
   }
 
   getCourses() {
+    const filterDrop = drop(`#${this.props.role}-filter-drop`);
+    if (filterDrop) filterDrop.hide();
     const { expired, search, sort } = this.state;
     return this.props.courses.filter(course => 
       course.name.toLowerCase().includes(search.toLowerCase())
@@ -45,6 +48,24 @@ class ClassList extends React.Component {
     const { expired, search, sort } = this.state;
     
     const filteredCourses = this.getCourses();
+    const filters = [
+      <div key='expired'>
+        <label>
+          <input className='uk-checkbox' name='expired' type='checkbox' checked={expired} onChange={this.handleFilterChange} />
+          &nbsp;
+          Show expired
+        </label>
+      </div>,
+      <div key='sort'>
+        <a className='uk-icon-link' data-uk-icon={sort === 1 ? 'download' : 'upload'} data-uk-tooltip='Reverse sort' onClick={this.toggleSort}></a>
+      </div>,
+      <div key='search'>
+        <div className='uk-inline'>
+          <span className='uk-form-icon' data-uk-icon='icon: search; ratio: 0.7' />
+          <input className='uk-input uk-form-small' name='search' type='text' placeholder='Filter...' value={search} onChange={this.handleFilterChange} />
+        </div>
+      </div>,
+    ];
 
     return (
       <div className='uk-section uk-section-xsmall'>
@@ -55,19 +76,21 @@ class ClassList extends React.Component {
           <div>
             {children}
           </div>
-          <div className='uk-width-expand@s'></div>
-          <div>
-            <label><input className='uk-checkbox' name='expired' type='checkbox' checked={expired} onChange={this.handleFilterChange} /> Show expired</label>
-          </div>
-          <div>
-            <a className='uk-icon-link' data-uk-icon={sort === 1 ? 'download' : 'upload'} data-uk-tooltip='Reverse sort' onClick={this.toggleSort}></a>
-          </div>
-          <div>
+          <div className='uk-hidden@s'>
             <div className='uk-inline'>
-              <span className='uk-form-icon' data-uk-icon='icon: search; ratio: 0.7' />
-              <input className='uk-input uk-form-small' name='search' type='text' placeholder='Filter...' value={search} onChange={this.handleFilterChange} />
+              <button className='uk-icon-button' data-uk-icon='cog'></button>
+              <div id={`${role}-filter-drop`} data-uk-drop='mode: click; pos: bottom-right'>
+                <div className='uk-card uk-card-body uk-card-default uk-card-small'>
+                  <h6 className='uk-margin-small-bottom uk-text-center uk-text-uppercase'>Filter courses</h6>
+                  <div className='uk-grid-small uk-flex-middle' data-uk-grid>
+                    {filters}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
+          <div className='uk-width-expand@s uk-visible@s'></div>
+          {filters}
         </div>
         {filteredCourses.length > 0 ? (
           <div className='uk-grid-small uk-child-width-1-2@s uk-child-width-1-3@m uk-child-width-1-4@l' data-uk-grid data-uk-scrollspy='target: div; cls: uk-animation-slide-top-small; delay: 50'>
