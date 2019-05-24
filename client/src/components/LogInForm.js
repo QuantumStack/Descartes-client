@@ -22,9 +22,9 @@ class LoginModal extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  goTo(loc) {
+  goTo(loc, search) {
     modal('#login-modal').hide();
-    this.props.history.push(`/${loc}${this.props.location.search}`);
+    this.props.history.push(`/${loc}${search ? this.props.location.search : ''}`);
   }
 
   handleInputChange(event) {
@@ -64,9 +64,14 @@ class LoginModal extends React.Component {
       .then(res => {
         this.setState({ indicator: '✅' });
         authenticate(res.data.token);
-        this.goTo('dashboard');
+        if (this.props.location.search === '?type=student') this.goTo('enroll');
+        else if (this.props.location.search === '?type=instructor') this.goTo('create');
+        else this.goTo('dashboard');
       })
-      .catch(() => this.setState({ failure: true, indicator: '🚨' }));
+      .catch(res => {
+        console.log(res);
+        this.setState({ failure: true, indicator: '🚨' });
+      });
     }
   }
 
@@ -80,14 +85,14 @@ class LoginModal extends React.Component {
         <div>
           <form onSubmit={this.handleSubmit}>
             <h4 className='uk-margin-remove-bottom'>Log into Descartes</h4>
-            <small>Click <a onClick={() => this.goTo('signup')}>here</a> to create an account</small>
+            <small>Click <a onClick={() => this.goTo('signup', true)}>here</a> to create an account</small>
             <div className='uk-inline uk-margin-small-top'>
               <span className='uk-form-icon' data-uk-icon='icon: user'></span>
-              <input className='uk-input uk-form-width-large' type='email' name='email' placeholder='Email' value={email} onChange={this.handleInputChange} onFocus={this.handleInputFocus} onBlur={this.handleInputBlur} />
+              <input className='uk-input uk-form-width-large' type='email' name='email' placeholder='Email' value={email} onChange={this.handleInputChange} onFocus={this.handleInputFocus} onBlur={this.handleInputBlur} required />
             </div>
             <div className='uk-inline uk-margin-small'>
               <span className='uk-form-icon' data-uk-icon='icon: lock'></span>
-              <input className='uk-input uk-form-width-large' type='password' name='password' placeholder='Password' value={password} onChange={this.handleInputChange} onFocus={this.handleInputFocus} onBlur={this.handleInputBlur} />
+              <input className='uk-input uk-form-width-large' type='password' name='password' placeholder='Password' value={password} onChange={this.handleInputChange} onFocus={this.handleInputFocus} onBlur={this.handleInputBlur} required />
             </div>
             <button className={`uk-button uk-button-${failure ? 'danger' : 'default'} uk-width-expand`} type='submit'>
               <span>Log In</span>

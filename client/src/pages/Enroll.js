@@ -44,7 +44,7 @@ class Enroll extends React.Component {
             <p className='uk-text-meta uk-margin-small uk-text-justify'>Join a course on Descartes with the unique code provided by your instructor.</p>
             <div className='uk-inline uk-margin-small-top'>
               <span className='uk-form-icon' data-uk-icon='icon: link' data-uk-scrollspy='cls: uk-animation-scale-up; delay: 100'></span>
-              <input className='uk-input uk-form-width-large' type='text' name='code' placeholder='Paste course code' value={code} onChange={this.handleCodeChange} />
+              <input className='uk-input uk-form-width-large' type='text' name='code' placeholder='Paste course code' value={code} onChange={this.handleCodeChange} required />
             </div>
             <button className='uk-button uk-button-primary uk-margin-small-top uk-width-expand' onClick={this.doVerify}>
               {isLoading ? (

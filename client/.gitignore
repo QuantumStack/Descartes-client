@@ -24,3 +24,6 @@ yarn-error.log*
 
 # built css
 src/**/*.css
+
+# config
+config.js

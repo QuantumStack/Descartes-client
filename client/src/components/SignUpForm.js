@@ -3,7 +3,7 @@ import { withRouter, Link } from 'react-router-dom';
 import ReCaptcha from 'react-recaptcha';
 import zxcvbn from 'zxcvbn';
 import { ax, SIGN_UP_URL, RESEND_URL } from '../util/api';
-import { recaptcha_site_key } from '../config.json';
+import { recaptcha_site_key } from '../config';
 import { modal } from 'uikit';
 import { error } from '../util/alert';
 
@@ -54,10 +54,9 @@ class SignUp extends React.Component {
     if (name && email && password && !mismatch && strength >= 3 && agreement && recaptcha) {
       this.setState({ isLoading: true });
       ax.post(SIGN_UP_URL, { fullName: name, email, password, 'g-recaptcha-response': recaptcha })
-        .then(() => this.setState({ isSuccess: true }))
-        .catch(({ response: res = {} }) => {
-          error(res.statusText).then(() => this.setState({ isLoading: false }));
-        });
+        .then(() => this.setState({ isLoading: false, isSuccess: true }))
+        .catch(({ response: res = {} }) => 
+          error(res.statusText).then(() => this.setState({ isLoading: false })));
     }
   }
 
@@ -118,24 +117,24 @@ class SignUp extends React.Component {
         <p className='uk-text-meta uk-margin-small uk-margin-remove-top uk-text-justify'>Creating an account and all student services are <strong>free</strong>, but you'll need to subscribe to a paid plan to register a course.</p>
         <div className='uk-inline uk-margin-small-top'>
           <span className='uk-form-icon' data-uk-icon='icon: happy'></span>
-          <input className='uk-input uk-form-width-large' type='text' name='name' placeholder='Full Name' value={name} onChange={this.handleInputChange} />
+          <input className='uk-input uk-form-width-large' type='text' name='name' placeholder='Full Name' value={name} onChange={this.handleInputChange} required />
         </div>
         <div className='uk-inline uk-margin-small-top'>
           <span className='uk-form-icon' data-uk-icon='icon: user'></span>
-          <input className='uk-input uk-form-width-large' type='email' name='email' placeholder='Email' value={email} onChange={this.handleInputChange} />
+          <input className='uk-input uk-form-width-large' type='email' name='email' placeholder='Email' value={email} onChange={this.handleInputChange} required />
         </div>
         <div className='uk-inline uk-margin-small uk-margin-remove-bottom'>
           <span className='uk-form-icon' data-uk-icon='icon: lock'></span>
-          <input className={`uk-input uk-form-width-large ${strengthClass}`} type='password' name='password' placeholder='Password' value={password} onChange={this.handleInputChange} />
+          <input className={`uk-input uk-form-width-large ${strengthClass}`} type='password' name='password' placeholder='Password' value={password} onChange={this.handleInputChange} required />
         </div>
         {strengthMsg}
         <div className='uk-inline uk-margin-small-top'>
           <span className='uk-form-icon' data-uk-icon='icon: check'></span>
-          <input className={`uk-input uk-form-width-large ${mismatch ? 'uk-form-danger' : ''}`} type='password' name='password2' placeholder='Verify Password' value={password2} onChange={this.handleInputChange} />
+          <input className={`uk-input uk-form-width-large ${mismatch ? 'uk-form-danger' : ''}`} type='password' name='password2' placeholder='Verify Password' value={password2} onChange={this.handleInputChange} required />
         </div>
         {mismatch && <small className='uk-text-danger'>Passwords do not match</small>}
         <div className='uk-margin-small'>
-          <label><input className='uk-checkbox' type='checkbox' name='agreement' checked={agreement} onChange={this.handleInputChange} /> I agree to the <a data-uk-toggle='target: #legal-modal'>terms and conditions</a></label>
+          <label><input className='uk-checkbox' type='checkbox' name='agreement' checked={agreement} onChange={this.handleInputChange} required /> I agree to the <a data-uk-toggle='target: #legal-modal'>terms and conditions</a></label>
         </div>
         <div style={{ height: '74px' }}>
           <ReCaptcha sitekey={recaptcha_site_key} render='explicit' onloadCallback={() => { }} verifyCallback={this.verifyCallback} />

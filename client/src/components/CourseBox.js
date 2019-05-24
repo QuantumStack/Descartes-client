@@ -4,7 +4,7 @@ import pluralize from 'pluralize';
 
 class CourseBox extends React.Component {
   render() {
-    const { role, id, name, instructors, students, head, grade, activities, polls, oh, expired } = this.props;
+    const { role = 'student', id, name, instructors, students, head, grade, activities, polls, oh, expired } = this.props;
     return (
       <div className={`uk-card uk-card-${expired ? 'secondary' : 'default'} uk-card-small uk-card-hover uk-card-body`}>
         {(grade || role !== 'student') && (

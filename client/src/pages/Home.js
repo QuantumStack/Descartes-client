@@ -1,13 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import Typist from 'react-typist';
 import BasicNavbar from '../components/BasicNavbar';
-import PricingPlan from './../components/PricingPlan';
+import PricingPlan from '../components/PricingPlan';
 import 'react-typist/dist/Typist.css';
 import blackboard from '../assets/blackboard.jpg';
+import { plans } from '../config';
 
-class Home extends Component {
+class Home extends React.Component {
   render() {
     return (
       <div>
@@ -68,26 +69,16 @@ class Home extends Component {
                 <p>All of Descartes' tools are bundled into a single low price for your course. Smaller classes should select the Lite plan, while the Standard plan is great for courses with more than 50 students.</p>
                 <p>Each plan lasts for 6 months or a semester, and students pay nothing. Most of our revenue is used for server costs, maintenance, and development efforts. We donate a percentage of any profits to charity.</p>
               </div>
-              <div>
-                <PricingPlan pops name='Standard' price='25' features={[
-                  <span><strong>Unlimited</strong> students</span>,
-                  <span>In-class activities and labs</span>,
-                  <span><strong>Unlimited</strong> instructors/TAs</span>,
-                  <span>Robust office hours queue</span>,
-                  <span><strong>Unlimited</strong> participation polls</span>,
-                  <span>Lasts for 6 months</span>
-                ]} />
-              </div>
-              <div>
-                <PricingPlan name='Lite' price='15' features={[
-                  <span>Up to <strong>50</strong> students</span>,
-                  <span>In-class activities and labs</span>,
-                  <span>Up to <strong>10</strong> instructors/TAs</span>,
-                  <span>Robust office hours queue</span>,
-                  <span><strong>25</strong> participation polls</span>,
-                  <span>Lasts for 6 months</span>
-                ]} />
-              </div>
+              {plans.map((plan, i) => (
+                <div key={plan.id}>
+                  <PricingPlan pops={i === 0} {...plan}>
+                    <Link to='/signup?type=instructor' className='uk-button uk-button-text'>
+                      <span>Sign up now</span>
+                      <span data-uk-icon='icon: arrow-right' />
+                    </Link>
+                  </PricingPlan>
+                </div>
+              ))}
             </div>
           </div>
         </div>

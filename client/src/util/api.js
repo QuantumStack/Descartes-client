@@ -8,6 +8,7 @@ export const
   RESEND_URL = 'auth/resend',
   VERIFY_URL = 'auth/verify',
   USER_INFO_URL = '',
+  CREATE_URL = '',
   ENROLL_URL = '',
   authHeader = () => ({ Authorization: `bearer ${getToken()}` }),
   ax = axios.create({ baseURL: BASE_URL });

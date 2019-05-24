@@ -10,7 +10,7 @@ class LogIn extends React.Component {
         <Helmet>
           <title>Log in | Descartes</title>
         </Helmet>
-        <CenterBox width='uk-width-5-6 uk-width-1-2@m uk-width-1-3@l'>
+        <CenterBox width='uk-width-5-6 uk-width-1-2@m uk-width-1-3@xl'>
           <LogInForm />
         </CenterBox>
       </div>
