@@ -74,13 +74,13 @@ class Dashboard extends React.Component {
       <div className='uk-container'>
         <UserNavbar name='Ashwin' />
         <CourseList role='instructor' title={'I\'m An Instructor'} courses={instructorCourses}>
-          <a to='' className='uk-button uk-button-secondary uk-button-small' data-uk-scrollspy='cls: uk-animation-slide-left-small'>
+          <a to='' className='uk-button uk-button-secondary uk-button-small'>
             <span data-uk-icon='icon: file-edit; ratio: 0.7' className='uk-margin-small-right' />
             <span>Create</span>
           </a>
         </CourseList>
         <CourseList role='student' title={'Courses I\'m Taking'} courses={studentCourses}>
-          <Link to='/enroll' className='uk-button uk-button-secondary uk-button-small' data-uk-scrollspy='cls: uk-animation-slide-left-small'>
+          <Link to='/enroll' className='uk-button uk-button-secondary uk-button-small'>
             <span data-uk-icon='icon: plus; ratio: 0.7' className='uk-margin-small-right' />
             <span>Enroll</span>
           </Link>

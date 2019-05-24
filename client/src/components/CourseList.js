@@ -6,7 +6,7 @@ class ClassList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      expired: true,
+      expired: false,
       search: '',
       sort: 1
     };

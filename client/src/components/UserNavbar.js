@@ -18,7 +18,7 @@ class UserNavbar extends React.Component {
     const greeting = (
       <div data-uk-scrollspy='cls: uk-animation-slide-left-small'>
         <span className='uk-text-middle'>Hello,&nbsp;<strong>{name}</strong></span>
-        <span className='uk-margin-small-left' data-uk-icon='icon: happy'></span>
+        <span className='uk-margin-small-left uk-animation-scale-up' data-uk-icon='icon: happy'></span>
       </div>
     );
     const links = [
