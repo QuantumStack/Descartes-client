@@ -83,7 +83,8 @@ Create a new user.
             {
                 "email": "aditya@example.com",
                 "password": "example_password",
-                "fullName": "Aditya Pillai"
+                "fullName": "Aditya Pillai",
+                "g-recaptcha-response": "recaptcha-token"
             }
 
 + Response 200 (application/json; charset=utf-8)
@@ -301,11 +302,11 @@ Request to resend another email confirmation.
 
 Get details about a user's courses.
 
-+ Request 200 (application/json)
++ Request (application/json)
     + Headers
-        
-        Authorization: bearer JWT
 
+            Authentication: Bearer JWT
+            
 + Response 200 (application/json; charset=utf-8)
 
         {
@@ -316,7 +317,7 @@ Get details about a user's courses.
             "myCourses": [
                 {
                     "id": "...",
-                    "name": "15112 Very interesting course",
+                    "name": "15-112: Fall 2019",
                     "instructors": 10,
                     "students": 500,
                     "activities": 5,
@@ -337,4 +338,3 @@ Get details about a user's courses.
                 }
             ]
         }
-
