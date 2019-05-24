@@ -37,22 +37,22 @@ class Home extends React.Component {
             <div className='uk-child-width-1-4@m' data-uk-grid data-uk-scrollspy=
             'target: .uk-icon; cls: uk-animation-slide-top-small; delay: 100'>
               <div>
-                  <span className='uk-icon' data-uk-icon='icon: bolt; ratio: 2' />
+                  <span className='uk-icon uk-text-link' data-uk-icon='icon: bolt; ratio: 2' />
                   <h4 className='uk-margin-small'>Activities</h4>
                   <p className='uk-margin-remove-top'>Simple <strong>check-in</strong> for class activities such as labs. Flag repeated attempts and section mismatches.</p>
               </div>
               <div>
-                  <span className='uk-icon' data-uk-icon='icon: users; ratio: 2' />
+                  <span className='uk-icon uk-text-link' data-uk-icon='icon: users; ratio: 2' />
                   <h4 className='uk-margin-small'>Queue</h4>
                   <p className='uk-margin-remove-top'>Office hours can get congested. Descartes organizes student questions for <strong>collaborative</strong> learning.</p>
               </div>
               <div>
-                  <span className='uk-icon' data-uk-icon='icon: comment; ratio: 2' />
+                  <span className='uk-icon uk-text-link' data-uk-icon='icon: comment; ratio: 2' />
                   <h4 className='uk-margin-small'>Polls</h4>
                   <p className='uk-margin-remove-top'><strong>Engage</strong> with students and take attendance with polls and quizzes, with location verification.</p>
               </div>
               <div>
-                  <span className='uk-icon' data-uk-icon='icon: happy; ratio: 2' />
+                  <span className='uk-icon uk-text-link' data-uk-icon='icon: happy; ratio: 2' />
                   <h4 className='uk-margin-small'>Centralized</h4>
                   <p className='uk-margin-remove-top'>Descartes securely stores grades in <strong>one place</strong>, with tools for students to get back on track.</p>
               </div>

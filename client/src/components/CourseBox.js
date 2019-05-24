@@ -7,11 +7,16 @@ class CourseBox extends React.Component {
     const { role = 'student', id, name, instructors, students, head, grade, activities, polls, oh, expired } = this.props;
     return (
       <div className={`uk-card uk-card-${expired ? 'secondary' : 'default'} uk-card-small uk-card-hover uk-card-body`}>
-        {(grade || role !== 'student') && (
-          <span className='uk-badge uk-align-right uk-text-center'>{grade || students}</span>
-        )}
-        <h5 className='uk-align-left uk-margin-remove-bottom'><strong>{name}</strong></h5>
-        <br />
+        <div className='uk-grid-small' data-uk-grid>
+          <div className='uk-width-expand'>
+            <h5 className='uk-margin-remove-bottom'><strong>{name}</strong></h5>
+          </div>
+          {(grade || role !== 'student') && (
+            <div>
+              <span className='uk-badge uk-align-right uk-text-center uk-margin-remove'>{grade || students}</span>
+            </div>
+          )}
+        </div>
         <p className='uk-text-meta uk-margin-remove-top uk-margin-small-bottom'>
           {head || (role.charAt(0).toUpperCase() + role.slice(1))}
         </p>

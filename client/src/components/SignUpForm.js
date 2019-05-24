@@ -93,7 +93,7 @@ class SignUp extends React.Component {
     return isSuccess ? (
       <div data-uk-scrollspy='target: h4, p, a; cls: uk-animation-scale-down; delay: 100'>
         <h4 className='uk-margin-small uk-text-success'>
-          <span className='uk-icon' data-uk-icon='icon: heart; ratio: 2' />
+          <span className='uk-icon' data-uk-icon='icon: check; ratio: 2' />
           <span className='uk-text-middle uk-margin-small-left'>Welcome!</span>
         </h4>
         <p className='uk-margin-remove-top uk-margin-small-bottom'>You should have received a <strong>confirmation email</strong>. Click the verification link, then proceed to log in.</p>
@@ -116,11 +116,11 @@ class SignUp extends React.Component {
         <h4 className='uk-margin-remove-bottom'>Sign up</h4>
         <p className='uk-text-meta uk-margin-small uk-margin-remove-top uk-text-justify'>Creating an account and all student services are <strong>free</strong>, but you'll need to subscribe to a paid plan to register a course.</p>
         <div className='uk-inline uk-margin-small-top'>
-          <span className='uk-form-icon' data-uk-icon='icon: happy'></span>
+          <span className='uk-form-icon' data-uk-icon='icon: user'></span>
           <input className='uk-input uk-form-width-large' type='text' name='name' placeholder='Full Name' value={name} onChange={this.handleInputChange} required />
         </div>
         <div className='uk-inline uk-margin-small-top'>
-          <span className='uk-form-icon' data-uk-icon='icon: user'></span>
+          <span className='uk-form-icon' data-uk-icon='icon: mail'></span>
           <input className='uk-input uk-form-width-large' type='email' name='email' placeholder='Email' value={email} onChange={this.handleInputChange} required />
         </div>
         <div className='uk-inline uk-margin-small uk-margin-remove-bottom'>
@@ -129,7 +129,7 @@ class SignUp extends React.Component {
         </div>
         {strengthMsg}
         <div className='uk-inline uk-margin-small-top'>
-          <span className='uk-form-icon' data-uk-icon='icon: check'></span>
+          <span className='uk-form-icon' data-uk-icon='icon: refresh'></span>
           <input className={`uk-input uk-form-width-large ${mismatch ? 'uk-form-danger' : ''}`} type='password' name='password2' placeholder='Verify Password' value={password2} onChange={this.handleInputChange} required />
         </div>
         {mismatch && <small className='uk-text-danger'>Passwords do not match</small>}
