@@ -16,7 +16,7 @@ class Home extends Component {
         </Helmet>
         <div className='uk-section-default uk-section-large uk-light uk-background-cover' style={{ backgroundImage: `url(${blackboard})` }}>
           <div className='uk-position-top'>
-            <BasicNavbar showLinks />
+            <BasicNavbar showLeft showRight />
           </div>
           <div className='uk-section'>
             <div className='uk-container uk-text-center uk-margin-top'>

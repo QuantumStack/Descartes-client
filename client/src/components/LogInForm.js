@@ -2,6 +2,7 @@ import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import { ax, LOG_IN_URL } from '../util/api';
 import { authenticate } from '../util/auth';
+import { modal } from 'uikit';
 
 const DEFAULT_INDICATOR = '🐶';
 
@@ -14,10 +15,16 @@ class LoginModal extends React.Component {
       indicator: DEFAULT_INDICATOR,
       failure: false,
     };
+    this.goTo = this.goTo.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleInputFocus = this.handleInputFocus.bind(this);
     this.handleInputBlur = this.handleInputBlur.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  goTo(loc) {
+    modal('#login-modal').hide();
+    this.props.history.push(`/${loc}${this.props.location.search}`);
   }
 
   handleInputChange(event) {
@@ -57,7 +64,7 @@ class LoginModal extends React.Component {
       .then(res => {
         this.setState({ indicator: '✅' });
         authenticate(res.data.token);
-        this.props.history.push(`/dashboard${this.props.location.search}`);
+        this.goTo('dashboard');
       })
       .catch(() => this.setState({ failure: true, indicator: '🚨' }));
     }
@@ -73,7 +80,7 @@ class LoginModal extends React.Component {
         <div>
           <form onSubmit={this.handleSubmit}>
             <h4 className='uk-margin-remove-bottom'>Log into Descartes</h4>
-            <small>Click <Link to='/signup'>here</Link> to create an account</small>
+            <small>Click <a onClick={() => this.goTo('signup')}>here</a> to create an account</small>
             <div className='uk-inline uk-margin-small-top'>
               <span className='uk-form-icon' data-uk-icon='icon: user'></span>
               <input className='uk-input uk-form-width-large' type='email' name='email' placeholder='Email' value={email} onChange={this.handleInputChange} onFocus={this.handleInputFocus} onBlur={this.handleInputBlur} />

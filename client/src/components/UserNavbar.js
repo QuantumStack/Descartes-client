@@ -16,7 +16,7 @@ class UserNavbar extends React.Component {
   render() {
     const { name } = this.props;
     const greeting = (
-      <div>
+      <div data-uk-scrollspy='cls: uk-animation-slide-left-small'>
         <span className='uk-text-middle'>Hello,&nbsp;<strong>{name}</strong></span>
         <span className='uk-margin-small-left' data-uk-icon='icon: happy'></span>
       </div>
@@ -29,34 +29,32 @@ class UserNavbar extends React.Component {
     ];
     return (
       <div>
-        <div className='uk-container'>
-          <div className='uk-navbar-container uk-navbar-transparent' data-uk-navbar>
-            <div className='uk-navbar-left'>
-              <Link className='uk-navbar-item uk-logo' to='/'>Descartes</Link>
-              <div className='uk-navbar-item uk-text-uppercase uk-text-muted uk-visible@s'>
-                {greeting}
-              </div>
+        <div id='user-navbar-offcanvas' data-uk-offcanvas='flip: true; overlay: true; mode: push'>
+          <div className='uk-offcanvas-bar'>
+            <button className='uk-offcanvas-close' type='button' data-uk-close></button>
+            <h3>Descartes</h3>
+            <ul className='uk-nav uk-nav-default'>
+              <li className='uk-active'>{greeting}</li>
+              <li className='uk-nav-header'>Navigation</li>
+              {links}
+            </ul>
+          </div>
+        </div>
+        <div className='uk-navbar-container uk-navbar-transparent' data-uk-navbar>
+          <div className='uk-navbar-left'>
+            <Link className='uk-navbar-item uk-logo' to='/'>Descartes</Link>
+            <div className='uk-navbar-item uk-text-uppercase uk-text-muted uk-visible@m'>
+              {greeting}
             </div>
-            <div className='uk-navbar-right'>
-              <a className='uk-navbar-toggle uk-hidden@s' data-uk-toggle='target: #user-navbar-offcanvas'>
-                <span className='uk-margin-small-right'>Menu</span>
-                <span data-uk-navbar-toggle-icon />
-              </a>
-              <div id='user-navbar-offcanvas' data-uk-offcanvas='flip: true; overlay: true; mode: push'>
-                <div className='uk-offcanvas-bar'>
-                  <button className='uk-offcanvas-close' type='button' data-uk-close></button>
-                  <h3>Descartes</h3>
-                  <ul className='uk-nav uk-nav-default'>
-                    <li className='uk-active'>{greeting}</li>
-                    <li className='uk-nav-header'>Navigation</li>
-                    {links}
-                  </ul>
-                </div>
-              </div>
-              <ul className='uk-navbar-nav uk-visible@s'>
-                {links}
-              </ul>
-            </div>
+          </div>
+          <div className='uk-navbar-right'>
+            <a className='uk-navbar-toggle uk-hidden@m' data-uk-toggle='target: #user-navbar-offcanvas'>
+              <span className='uk-margin-small-right'>Menu</span>
+              <span data-uk-navbar-toggle-icon />
+            </a>
+            <ul className='uk-navbar-nav uk-visible@m'>
+              {links}
+            </ul>
           </div>
         </div>
       </div>

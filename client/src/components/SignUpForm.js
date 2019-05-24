@@ -5,6 +5,7 @@ import zxcvbn from 'zxcvbn';
 import { ax, SIGN_UP_URL, RESEND_URL } from '../util/api';
 import { recaptcha_site_key } from '../config.json';
 import { modal } from 'uikit';
+import { error } from '../util/alert';
 
 class SignUp extends React.Component {
   constructor(props) {
@@ -28,6 +29,8 @@ class SignUp extends React.Component {
   }
 
   verifyCallback(response) {
+    // TODO: remove verify token logging
+    console.log(response);
     this.setState({ recaptcha: response });
   }
 
@@ -52,8 +55,8 @@ class SignUp extends React.Component {
       this.setState({ isLoading: true });
       ax.post(SIGN_UP_URL, { fullName: name, email, password, 'g-recaptcha-response': recaptcha })
         .then(() => this.setState({ isSuccess: true }))
-        .catch(({ response: res }) => {
-          modal.alert(`Uh-oh, something went wrong: ${res.statusText}`).then(() => this.setState({ isLoading: false }));
+        .catch(({ response: res = {} }) => {
+          error(res.statusText).then(() => this.setState({ isLoading: false }));
         });
     }
   }
@@ -66,8 +69,8 @@ class SignUp extends React.Component {
         modal.alert('Sent! Check your inbox again');
         this.setState({ isLoading: false });
       })
-      .catch(({ response: res}) => {
-        modal.alert(`Uh-oh, something went wrong: ${res.statusText}`).then(() => this.setState({ isLoading: false }));
+      .catch(({ response: res = {} }) => {
+        error(res.statusText).then(() => this.setState({ isLoading: false }));
       });
   }
 

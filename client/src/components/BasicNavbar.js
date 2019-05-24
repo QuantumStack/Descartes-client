@@ -6,7 +6,7 @@ import { isAuthenticated } from './../util/auth';
 
 class BasicNavbar extends React.Component {  
   render() {
-    const { showLinks } = this.props;
+    const { showLeft, showRight } = this.props;
     return (
       <div>
         <Modal name='login'>
@@ -14,7 +14,7 @@ class BasicNavbar extends React.Component {
         </Modal>
         <div className='uk-navbar-container uk-navbar-transparent' data-uk-navbar>
           <div className='uk-navbar-center'>
-            {showLinks && 
+            {showLeft && 
               <div className='uk-navbar-center-left'><div>
                 <ul className='uk-navbar-nav'>
                   <li><a href='#about' data-uk-scroll>About</a></li>
@@ -22,7 +22,7 @@ class BasicNavbar extends React.Component {
               </div></div>
             }
             <Link className='uk-navbar-item uk-logo' to='/'>Descartes</Link>
-            {showLinks && 
+            {showRight && 
               <div className='uk-navbar-center-right'><div>
                 <ul className='uk-navbar-nav'>
                   <li>

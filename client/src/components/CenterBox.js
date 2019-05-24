@@ -4,13 +4,13 @@ import desk from '../assets/desk.jpg';
 
 class CenterBox extends React.Component {
   render() {
-    const { children, width = '1-3' } = this.props;
+    const { children, navOptions, width } = this.props;
     return (
       <div className='uk-section uk-section-muted uk-flex uk-flex-center uk-flex-middle uk-height-viewport uk-background-cover' style={{ backgroundImage: `url(${desk})` }}>
         <div className='uk-position-top'>
-          <BasicNavbar />
+          <BasicNavbar {...navOptions} />
         </div>
-        <div className={`uk-card uk-card-default uk-card-body uk-width-${width}@s`}>
+        <div className={`uk-card uk-card-default uk-card-body ${width}`}>
           {children}
         </div>
       </div>
