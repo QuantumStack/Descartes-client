@@ -199,7 +199,7 @@ class CreateForm extends React.Component {
     return (
       <div>
         <h4 className='uk-margin-small-bottom'>Create a course</h4>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit} data-uk-scrollspy='target: .uk-form-icon; cls: uk-animation-scale-up; delay: 100'>
           {phases[phase][1]}
           <div className='uk-flex uk-flex-middle'>
             {phase !== 0 && (
