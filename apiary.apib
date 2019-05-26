@@ -427,6 +427,103 @@ Get details about a user's courses.
             ]
         }
 
+### Student Course Details [GET /course/{id}/student]
+
+Get all details about a course from a student's perspective. Note: course admins specify categories for activity and poll data. These categories can also include activities of type `custom`.
+
++ Parameters
+    + id - course ID
+
++ Request (application/json)
+    + Headers
+
+        Authentication: Bearer JWT
+
++ Response 200 (application/json; charset=utf-8)
+
+        {
+            "user": {
+                "name": "Aditya Pillai",
+                "email": "aditya@example.com"
+            },
+            "name": "15-122: Fall 2019",
+            "id": "761",
+            "head": "Mr. Head Instructor",
+            "instructors": [
+                {
+                    "name": "Albert Einstein",
+                    "role": "admin"
+                },
+                {
+                    "name": "Ashwin Srinivasan",
+                    "role": "instructor"
+                }
+            ],
+            "oh": true,
+            "expired": false,
+            "grade": 100,
+            "assignments": [
+                {
+                    "name":  "Midterm 1",
+                    "description": "This one was **hard**",
+                    "type": "custom",
+                    "score": 95,
+                    "category":  "Exams",
+                    "date": 1558885206658
+                },
+                {
+                    "name": "Homework 1",
+                    "type": "custom",
+                    "score": 100,
+                    "category": "Homeworks",
+                    "date": 1558885258178
+                },
+                {
+                    "name": "Lab 1",
+                    "type": "activity",
+                    "activity": "id of activity",
+                    "score": 100,
+                    "category": "Labs",
+                    "date": 1558886442796
+                },
+                {
+                    "name": "Poll 1",
+                    "description": "Really *simple, easy* to start class",
+                    "type": "poll",
+                    "poll": "id of poll",
+                    "score": 100,
+                    "category": "Polls",
+                    "date": 1558886493794
+                }
+            ],
+            "categories":  [
+                {
+                    "name": "Exams",
+                    "description": "*You'll  do great*",
+                    "weight": 0
+                },
+                {
+                    "name": "Homeworks",
+                    "description": "*Lots of fun*",
+                    "weight": 50
+                },
+                {
+                    "name": "Labs",
+                    "description": "Labs  are  *easy*",
+                    "activities": true,
+                    "weight": 25
+                },
+                {
+                    "name": "Polls",
+                    "description": "Check your **attendance**",
+                    "polls": true,
+                    "weight": 25
+                }
+            ] 
+        }
+
+## Account Collection [/account]
+
 ### Account Overview [GET /account]
 
 Get just the details about a user.
