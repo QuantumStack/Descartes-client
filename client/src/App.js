@@ -4,8 +4,10 @@ import { PrivateRoute, UnprivateRoute } from './util/auth';
 import Home from './pages/Home';
 import Legal from './pages/Legal';
 import Dashboard from './pages/Dashboard';
+import Account from './pages/Account';
 import Create from './pages/Create';
 import Enroll from './pages/Enroll';
+import Instructor from './pages/Instructor';
 import Verify from './pages/Verify';
 import LogIn from './pages/LogIn';
 import SignUp from './pages/SignUp';
@@ -22,9 +24,11 @@ class App extends React.Component {
             <Route exact path='/' component={Home} />
             <Route path='/legal' component={Legal} />
             <PrivateRoute exact path='/dashboard' component={Dashboard} />
+            <PrivateRoute path='/dashboard/account' component={Account} />
             <PrivateRoute path='/create' component={Create} />
             <PrivateRoute exact path='/enroll' component={Enroll} />
             <PrivateRoute path='/enroll/:code' component={Enroll} />
+            <PrivateRoute path='/instructor/:id' component={Instructor} />
             <UnprivateRoute path='/verify/:id' component={Verify} />
             <UnprivateRoute path='/login' component={LogIn} />
             <UnprivateRoute path='/signup' component={SignUp} />

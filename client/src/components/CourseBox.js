@@ -13,7 +13,7 @@ class CourseBox extends React.Component {
           </div>
           {(grade || role !== 'student') && (
             <div>
-              <span className='uk-badge uk-align-right uk-text-center uk-margin-remove'>{grade || students}</span>
+              <span className='uk-badge uk-align-right uk-text-center uk-margin-remove'>{students || `${grade}%`}</span>
             </div>
           )}
         </div>

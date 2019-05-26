@@ -13,7 +13,7 @@ class CourseFilters extends React.Component {
           </label>
         </div>
         <div key='sort'>
-          <a className='uk-icon-link' data-uk-icon={sort === 1 ? 'download' : 'upload'} data-uk-tooltip='Reverse sort' onChange={toggleSort}></a>
+          <a className='uk-icon-link' data-uk-icon={sort === 1 ? 'download' : 'upload'} data-uk-tooltip='Reverse sort' onClick={toggleSort}></a>
         </div>
         <div key='search'>
           <div className='uk-inline'>

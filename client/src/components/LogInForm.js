@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { ax, LOG_IN_URL } from '../util/api';
 import { authenticate } from '../util/auth';
 import { modal } from 'uikit';
@@ -14,6 +14,7 @@ class LoginModal extends React.Component {
       password: '',
       indicator: DEFAULT_INDICATOR,
       failure: false,
+      isLoading: false,
     };
     this.goTo = this.goTo.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -23,7 +24,6 @@ class LoginModal extends React.Component {
   }
 
   goTo(loc, search) {
-    modal('#login-modal').hide();
     this.props.history.push(`/${loc}${search ? this.props.location.search : ''}`);
   }
 
@@ -59,24 +59,26 @@ class LoginModal extends React.Component {
     event.preventDefault(); 
     const { email, password } = this.state;
     if (email && password) {
-      this.setState({ indicator: '✈️' });
+      this.setState({ isLoading: true, indicator: '✈️' });
       ax.post(LOG_IN_URL, { email, password })
       .then(res => {
-        this.setState({ indicator: '✅' });
+        this.setState({ isLoading: false, indicator: '✅' });
         authenticate(res.data.token);
         if (this.props.location.search === '?type=student') this.goTo('enroll');
         else if (this.props.location.search === '?type=instructor') this.goTo('create');
         else this.goTo('dashboard');
       })
-      .catch(res => {
-        console.log(res);
-        this.setState({ failure: true, indicator: '🚨' });
-      });
+      .catch(res => this.setState({ isLoading: false, failure: true, indicator: '🚨' }));
     }
   }
 
+  componentWillUnmount() {
+    const logInModal = modal('#login-modal');
+    if (logInModal) logInModal.hide();
+  }
+
   render() {
-    const { email, password, indicator, failure } = this.state;
+    const { email, password, indicator, failure, isLoading } = this.state;
     return (
       <div className='uk-child-width-expand@s' data-uk-grid>
         <div className='uk-text-center uk-text-middle'>
@@ -95,8 +97,14 @@ class LoginModal extends React.Component {
               <input className='uk-input uk-form-width-large' type='password' name='password' placeholder='Password' value={password} onChange={this.handleInputChange} onFocus={this.handleInputFocus} onBlur={this.handleInputBlur} required />
             </div>
             <button className={`uk-button uk-button-${failure ? 'danger' : 'default'} uk-width-expand`} type='submit'>
-              <span>Log In</span>
-              <span data-uk-icon='icon: arrow-right'></span>
+              {isLoading ? (
+                <div key='loading' data-uk-spinner='ratio: 0.5'></div>
+              ) : (
+                <div key='log-in'>
+                  <span>Log In</span>
+                  <span data-uk-icon='icon: arrow-right'></span>
+                </div>
+              )}
             </button>
           </form>
         </div>

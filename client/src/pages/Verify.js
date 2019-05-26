@@ -49,7 +49,7 @@ class Verify extends React.Component {
                 {isLoading ? (
                   <div data-uk-spinner='ratio: 0.5'></div>
                 ) : (
-                  <span>Click me!</span>
+                  <span key='verify-click'>Click me!</span>
                 )}
               </button>
             </div>

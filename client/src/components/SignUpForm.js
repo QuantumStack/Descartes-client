@@ -2,6 +2,7 @@ import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import ReCaptcha from 'react-recaptcha';
 import zxcvbn from 'zxcvbn';
+import NewPassword from './NewPassword';
 import { ax, SIGN_UP_URL, RESEND_URL } from '../util/api';
 import { recaptcha_site_key } from '../config';
 import { modal } from 'uikit';
@@ -30,7 +31,6 @@ class SignUp extends React.Component {
 
   verifyCallback(response) {
     // TODO: remove verify token logging
-    console.log(response);
     this.setState({ recaptcha: response });
   }
 
@@ -44,7 +44,8 @@ class SignUp extends React.Component {
     });
 
     if (name.includes('password')) {
-      this.setState(({ password, password2 }) => ({ strength: zxcvbn(password).score, mismatch: password2 && password !== password2 }));
+      this.setState(({ password, password2 }) =>
+        ({ strength: zxcvbn(password).score, mismatch: password2 && password !== password2 }));
     }
   }
 
@@ -76,20 +77,7 @@ class SignUp extends React.Component {
   render() {
     const { name, email, password, password2, mismatch, strength, agreement, isLoading, isSuccess } = this.state;
     const { location } = this.props;
-    let strengthClass, strengthMsg;
-    if (password) {
-      switch (strength) {
-        case 3:
-          strengthMsg = <small>Good password, but it could be stonger</small>;
-        case 4:
-          strengthClass = 'uk-form-success';
-          break;
-        default:
-          strengthClass = 'uk-form-danger';
-          strengthMsg = <small className='uk-text-danger'>Please use a stronger password</small>;
-          break;
-      }
-    }
+    
     return isSuccess ? (
       <div data-uk-scrollspy='target: h4, p, a; cls: uk-animation-scale-down; delay: 100'>
         <h4 className='uk-margin-small uk-text-success'>
@@ -100,9 +88,9 @@ class SignUp extends React.Component {
         <p>
           <a className='uk-button uk-button-default uk-button-small uk-margin-small-right' onClick={this.resendEmail}>
             {isLoading ? (
-              <div data-uk-spinner='ratio: 0.5'></div>
+              <div key='loading' data-uk-spinner='ratio: 0.5'></div>
             ) : (
-              <span>Resend email</span>
+              <span key='resend-email'>Resend email</span>
             )}
           </a>
           <Link to={`/login${location.search}`} className='uk-button uk-button-primary uk-button-small'>
@@ -119,20 +107,11 @@ class SignUp extends React.Component {
           <span className='uk-form-icon' data-uk-icon='icon: user'></span>
           <input className='uk-input uk-form-width-large' type='text' name='name' placeholder='Full Name' value={name} onChange={this.handleInputChange} required />
         </div>
-        <div className='uk-inline uk-margin-small-top'>
+        <div className='uk-inline uk-margin-small'>
           <span className='uk-form-icon' data-uk-icon='icon: mail'></span>
           <input className='uk-input uk-form-width-large' type='email' name='email' placeholder='Email' value={email} onChange={this.handleInputChange} required />
         </div>
-        <div className='uk-inline uk-margin-small uk-margin-remove-bottom'>
-          <span className='uk-form-icon' data-uk-icon='icon: lock'></span>
-          <input className={`uk-input uk-form-width-large ${strengthClass}`} type='password' name='password' placeholder='Password' value={password} onChange={this.handleInputChange} required />
-        </div>
-        {strengthMsg}
-        <div className='uk-inline uk-margin-small-top'>
-          <span className='uk-form-icon' data-uk-icon='icon: refresh'></span>
-          <input className={`uk-input uk-form-width-large ${mismatch ? 'uk-form-danger' : ''}`} type='password' name='password2' placeholder='Verify Password' value={password2} onChange={this.handleInputChange} required />
-        </div>
-        {mismatch && <small className='uk-text-danger'>Passwords do not match</small>}
+        <NewPassword password={password} password2={password2} strength={strength} mismatch={mismatch} onChange={this.handleInputChange} />
         <div className='uk-margin-small'>
           <label><input className='uk-checkbox' type='checkbox' name='agreement' checked={agreement} onChange={this.handleInputChange} required /> I agree to the <a data-uk-toggle='target: #legal-modal'>terms and conditions</a></label>
         </div>
@@ -141,9 +120,9 @@ class SignUp extends React.Component {
         </div>
         <button className='uk-button uk-button-default uk-width-expand uk-margin-small-top' type='submit'>
           {isLoading ? (
-            <div data-uk-spinner='ratio: 0.5'></div>
+            <div key='loading' data-uk-spinner='ratio: 0.5'></div>
           ) : (
-            <div>
+            <div key='sign-up'>
               <span>Get Started</span>
               <span data-uk-scrollspy='cls: uk-animation-slide-left-small; delay: 500' data-uk-icon='icon: arrow-right'></span>
             </div>

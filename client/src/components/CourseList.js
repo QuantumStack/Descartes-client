@@ -31,7 +31,7 @@ class CourseList extends React.Component {
   }
 
   getCourses() {
-    const filterDrop = drop(`#${this.props.key}-filter-drop`);
+    const filterDrop = drop(`#${this.props.id}-filter-drop`);
     if (filterDrop) filterDrop.hide();
     const { expired, search, sort } = this.state;
     return this.props.courses.filter(course => 
@@ -46,7 +46,6 @@ class CourseList extends React.Component {
 
   render() {
     const { children, title, id } = this.props;
-    const { expired, search, sort } = this.state;
     
     const filteredCourses = this.getCourses();
     const filters = (
@@ -80,7 +79,7 @@ class CourseList extends React.Component {
         </div>
         
         {filteredCourses.length > 0 ? (
-          <div className='uk-grid-small uk-child-width-1-2@s uk-child-width-1-3@m uk-child-width-1-4@l' data-uk-grid data-uk-scrollspy='target: div; cls: uk-animation-slide-top-small; delay: 50'>
+          <div className='uk-grid-small uk-child-width-1-2@s uk-child-width-1-3@m uk-child-width-1-4@l' data-uk-grid data-uk-scrollspy='target: > div; cls: uk-animation-slide-top-small; delay: 100'>
             {filteredCourses.map(course => (
               <div key={course.id}>
                 <CourseBox {...course} />

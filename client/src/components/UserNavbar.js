@@ -1,5 +1,6 @@
 import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
+import NavLink from './NavLink';
 import { deauthenticate } from '../util/auth';
 
 class UserNavbar extends React.Component {
@@ -22,10 +23,16 @@ class UserNavbar extends React.Component {
       </div>
     );
     const links = [
-      <li><a><span className='uk-margin-small-right' data-uk-icon='icon: question'></span> Get Help</a></li>,
-      <li><Link to='/dashboard/account'><span className='uk-margin-small-right' uk-icon='icon: cog'></span> Account Settings</Link></li>,
+      <li>
+        <a><span className='uk-margin-small-right' data-uk-icon='icon: question'></span> Get Help</a>
+      </li>,
+      <NavLink to='/dashboard/account'>
+        <span className='uk-margin-small-right' data-uk-icon='icon: cog'></span> Account Settings
+      </NavLink>,
       <li className='uk-nav-divider'></li>,
-      <li><a onClick={this.doLogout}><span className='uk-margin-small-right' uk-icon='icon: sign-out'></span> Log out</a></li>,
+      <li>
+        <a onClick={this.doLogout}><span className='uk-margin-small-right' uk-icon='icon: sign-out'></span> Log out</a>
+      </li>,
     ];
     return (
       <div>
@@ -42,7 +49,7 @@ class UserNavbar extends React.Component {
         </div>
         <div className='uk-navbar-container uk-navbar-transparent' data-uk-navbar>
           <div className='uk-navbar-left'>
-            <Link className='uk-navbar-item uk-logo' to='/'>Descartes</Link>
+            <Link className='uk-navbar-item uk-logo' to='/dashboard'>Descartes</Link>
             <div className='uk-navbar-item uk-text-uppercase uk-text-muted uk-visible@m'>
               {greeting}
             </div>

@@ -15,8 +15,8 @@ class Foot extends React.Component {
               <div>
                 Copyright &copy; 2019
               </div>
-              <div>
-                Built with <span data-uk-icon='heart' /> in Pittsburgh by <a href="https://quantumstack.xyz">QuantumStack</a>
+              <div data-uk-scrollspy='target: span, a; cls: uk-animation-scale-down; delay: 100'>
+                Built with <span data-uk-icon='heart' /> in <span>Pittsburgh</span> by <a href="https://quantumstack.xyz">QuantumStack</a>
               </div>
               <div className='uk-width-expand uk-visible@s'>
               </div>

@@ -25,7 +25,7 @@ class Enroll extends React.Component {
     const { code } = this.state;
     this.setState({ isLoading: true });
     ax.post(ENROLL_URL, { data: { code }, headers: authHeader() })
-    .then(({ data: id }) => this.props.history.push(`/student/${id}`))
+    .then(({ data }) => this.props.history.push(`/student/${data.id}`))
     .catch(({ response: res = {} }) => {
       error(res.statusText).then(() => this.setState({ isLoading: false }));
     })
@@ -48,9 +48,9 @@ class Enroll extends React.Component {
             </div>
             <button className='uk-button uk-button-primary uk-margin-small-top uk-width-expand' onClick={this.doVerify}>
               {isLoading ? (
-                <div data-uk-spinner='ratio: 0.5'></div>
+                <div key='loading' data-uk-spinner='ratio: 0.5'></div>
               ) : (
-                <div>
+                <div key='join-course'>
                   <span>Join Course</span>
                   <span data-uk-scrollspy='cls: uk-animation-slide-left-small; delay: 300' data-uk-icon='icon: arrow-right'></span>
                 </div>
