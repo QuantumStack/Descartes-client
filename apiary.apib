@@ -337,15 +337,45 @@ Request to resend another email confirmation.
         }
 
 ## General Collection [/]
- fr
-### Dashboard Overview [GET /overview{?id}]
+
+### Create Course [POST /create]
+
+Want to create a course. Redirect to Stripe for Checkout session.
+
++ Request (application/json)
+    + Headers
+        
+        Authentication: Bearer JWT
+
++ Response 200 (application/json; charset=utf-8)
+
+        {
+            "id": "stripe checkout session id"
+        }
+
+### Enroll In Course [POST /enroll]
+
+Join a course a student.
+
++ Request (application/json)
+    + Headers
+
+        Authentication: Bearer JWT
+
++ Response 200 (application/json; charset=utf-8)
+
+        {
+            "id": "descartes course id"
+        }
+
+### Dashboard Overview [GET /overview]
 
 Get details about a user's courses.
 
 + Request (application/json)
     + Headers
 
-            Authentication: Bearer JWT
+        Authentication: Bearer JWT
             
 + Response 200 (application/json; charset=utf-8)
 
@@ -357,7 +387,7 @@ Get details about a user's courses.
             "instructorCourses": [
                 {
                     "id": "379",
-                    "role": "admin | instructor",
+                    "role": "admin",
                     "name": "15-112: Fall 2019",
                     "instructors": 10,
                     "students": 500,
