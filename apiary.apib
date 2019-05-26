@@ -452,9 +452,9 @@ Get just the details about a user.
             ]
         }
 
-### Change Account Name [POST /account/name]
+### Change Account Details [POST /account]
 
-Modify a user's name.
+Modify a user's name and/or password.
 
 + Request (application/json)
     + Headers (application/json)
@@ -464,29 +464,11 @@ Modify a user's name.
     + Body
 
         {
-            "name": "Ashwin Srinivasan"
-        }
-
-+ Response 200 (text/plain; charset=utf-8)
-
-        User name changed.
-
-### Change Account Password [POST /account/password]
-
-Modify a user's password.
-
-+ Request (application/json)
-    + Headers
-        
-        Authentication: Bearer JWT
-
-    + Body
-
-        {
+            "name": "Ashwin Srinivasan",
             "old": "example_password",
             "new": "super_secure"
         }
 
 + Response 200 (text/plain; charset=utf-8)
 
-        User password changed.
+        User details changed.
