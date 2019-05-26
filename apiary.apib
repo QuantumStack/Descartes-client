@@ -429,7 +429,11 @@ Get details about a user's courses.
 
 ### Student Course Details [GET /course/student{?id}]
 
-Get all details about a course from a student's perspective. Note: course admins specify categories for activity and poll data. These categories can also include activities of type `custom`.
+Get all details about a course from a student's perspective. Notes:
+    - `points` (calculated by server) is an assignment's individual contribution to overall grade.
+    - Assignment grade percent is calculated automatically except when an `override` is specified.
+    - Course admins specify categories for activity and poll data. These categories can also include activities of type `custom`.
+    - `activity` and `poll` assignments may have an additional flags field.
 
 + Parameters
     + id - course ID
@@ -448,7 +452,8 @@ Get all details about a course from a student's perspective. Note: course admins
             },
             "name": "15-122: Fall 2019",
             "id": "761",
-            "head": "Mr. Head Instructor",
+            "description": "### Hello\n**Welcome** to this course!",
+            "head": "Mr. Head Instructor",  
             "instructors": [
                 {
                     "name": "Albert Einstein",
@@ -461,20 +466,28 @@ Get all details about a course from a student's perspective. Note: course admins
             ],
             "oh": true,
             "expired": false,
+            "section": "A",
             "grade": 100,
+            "activities": 5,
+            "polls": 10,
             "assignments": [
                 {
                     "name":  "Midterm 1",
                     "description": "This one was **hard**",
                     "type": "custom",
                     "score": 95,
+                    "out_of": 100,
+                    "override": 97,
+                    "points": 0,
                     "category":  "Exams",
                     "date": 1558885206658
                 },
                 {
                     "name": "Homework 1",
                     "type": "custom",
-                    "score": 100,
+                    "score": 25,
+                    "out_of": 25,
+                    "points": 50,
                     "category": "Homeworks",
                     "date": 1558885258178
                 },
@@ -482,7 +495,14 @@ Get all details about a course from a student's perspective. Note: course admins
                     "name": "Lab 1",
                     "type": "activity",
                     "activity": "id of activity",
-                    "score": 100,
+                    "flags": [
+                        {
+                            "type": "section"
+                        }
+                    ],
+                    "score": 3,
+                    "out_of": 3,
+                    "points": 25,
                     "category": "Labs",
                     "date": 1558886442796
                 },
@@ -491,7 +511,9 @@ Get all details about a course from a student's perspective. Note: course admins
                     "description": "Really *simple, easy* to start class",
                     "type": "poll",
                     "poll": "id of poll",
-                    "score": 100,
+                    "score": 5,
+                    "out_of": 5,
+                    "points": 25,
                     "category": "Polls",
                     "date": 1558886493794
                 }
