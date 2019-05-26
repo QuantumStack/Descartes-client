@@ -347,6 +347,15 @@ Want to create a course. Redirect to Stripe for Checkout session.
         
         Authentication: Bearer JWT
 
+    + Body
+
+        {
+            "name": "15-122: Fall 2019",
+            "description": "**Very interesting and fun**",
+            "plan": "plan id (std or lite)",
+            "price": 25
+        }
+
 + Response 200 (application/json; charset=utf-8)
 
         {
@@ -361,6 +370,12 @@ Join a course a student.
     + Headers
 
         Authentication: Bearer JWT
+
+    + Body
+
+        {
+            "code": "course code given to students"
+        }
 
 + Response 200 (application/json; charset=utf-8)
 
