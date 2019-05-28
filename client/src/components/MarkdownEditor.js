@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactMde from 'react-mde';
-import { Converter } from 'showdown';
-import xssFilter from 'showdown-xss-filter';
+import converter from '../util/markdown';
 import 'react-mde/lib/styles/css/react-mde-all.css';
 
 class MarkdownEditor extends React.Component {
@@ -10,14 +9,7 @@ class MarkdownEditor extends React.Component {
     this.state = {
       tab: this.props.tab || 'write',
     };
-    this.converter = new Converter({
-      tables: true,
-      noHeaderId: true,
-      simplifiedAutoLink: true,
-      strikethrough: true,
-      tasklists: true,
-      extensions: [ xssFilter ],
-    });
+    this.converter = converter;
     this.handleTabChange = this.handleTabChange.bind(this);
     this.generatePreview = this.generatePreview.bind(this);
   }
@@ -27,8 +19,6 @@ class MarkdownEditor extends React.Component {
   }
 
   generatePreview(md) {
-    console.log(md);
-    console.log(this.converter.makeHtml(md));
     return Promise.resolve(this.converter.makeHtml(md));
   }
 

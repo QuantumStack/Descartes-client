@@ -29,7 +29,7 @@ class CourseBox extends React.Component {
           )}
           <strong>{activities}</strong> {pluralize('activity', activities)}, <strong>{polls}</strong> {pluralize('poll', polls)}
         </p>
-        <Link to={`/${role}/${id}`} className='uk-button uk-button-primary uk-button-small'>
+        <Link to={`/dashboard/${role === 'student' ? role : 'instructor'}/${id}`} className='uk-button uk-button-primary uk-button-small'>
           <span>Details</span>
           <span data-uk-icon='icon: arrow-right' />
         </Link>

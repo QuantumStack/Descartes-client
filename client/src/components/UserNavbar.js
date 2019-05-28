@@ -18,20 +18,20 @@ class UserNavbar extends React.Component {
     const { name } = this.props;
     const greeting = (
       <div data-uk-scrollspy='cls: uk-animation-slide-left-small'>
-        <span className='uk-text-middle'>Hello,&nbsp;<strong>{name}</strong></span>
-        <span className='uk-margin-small-left uk-animation-scale-up' data-uk-icon='icon: happy'></span>
+        <span className='uk-text-middle'>Hello, &nbsp;<strong>{name}</strong></span>
+        <span className='uk-margin-small-left uk-animation-scale-up' data-uk-icon='happy'></span>
       </div>
     );
     const links = [
       <li>
-        <a><span className='uk-margin-small-right' data-uk-icon='icon: question'></span> Get Help</a>
+        <a><span className='uk-margin-small-right' data-uk-icon='question'></span> Get Help</a>
       </li>,
-      <NavLink to='/dashboard/account'>
-        <span className='uk-margin-small-right' data-uk-icon='icon: cog'></span> Account Settings
+      <NavLink options={{ to: '/dashboard/account' }}>
+        <span className='uk-margin-small-right' data-uk-icon='cog'></span> Account Settings
       </NavLink>,
       <li className='uk-nav-divider'></li>,
       <li>
-        <a onClick={this.doLogout}><span className='uk-margin-small-right' uk-icon='icon: sign-out'></span> Log out</a>
+        <a onClick={this.doLogout}><span className='uk-margin-small-right' data-uk-icon='sign-out'></span> Log out</a>
       </li>,
     ];
     return (
@@ -43,6 +43,11 @@ class UserNavbar extends React.Component {
             <ul className='uk-nav uk-nav-default'>
               <li className='uk-active'>{greeting}</li>
               <li className='uk-nav-header'>Navigation</li>
+              <li>
+                <Link to='/dashboard'>
+                  <span className='uk-margin-small-right' data-uk-icon='thumbnails'></span> Dashboard
+                </Link>
+              </li>
               {links}
             </ul>
           </div>

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import DataContainer from '../components/DataContainer';
-import DashboardAccount from '../components/DashboardAccount';
 import { ACCOUNT_URL } from '../util/api';
+import AccountSettings from '../components/AccountSettings';
 
 class Account extends React.Component {
   render() {
@@ -13,7 +13,7 @@ class Account extends React.Component {
         </Helmet>
         <div className='uk-container'>
           <DataContainer url={ACCOUNT_URL}>
-            <DashboardAccount />
+            <AccountSettings />
           </DataContainer>
         </div>
       </div>

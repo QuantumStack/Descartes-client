@@ -12,6 +12,7 @@ export const
   ACCOUNT_CHANGE_URL = 'account',
   CREATE_URL = 'create',
   ENROLL_URL = 'enroll',
-  INSTRUCTOR_URL = '',
+  INSTRUCTOR_URL = 'course/instructor',
+  STUDENT_URL = 'course/student',
   authHeader = () => ({ Authorization: `bearer ${getToken()}` }),
   ax = axios.create({ baseURL: BASE_URL });

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import DataContainer from '../components/DataContainer';
-import DashboardCourses from '../components/DashboardCourses';
+import AllCourses from '../components/AllCourses';
 import { OVERVIEW_URL } from '../util/api';
 
 class Dashboard extends React.Component {
@@ -13,7 +13,7 @@ class Dashboard extends React.Component {
         </Helmet>
         <div className='uk-container'>
           <DataContainer url={OVERVIEW_URL}>
-            <DashboardCourses />
+            <AllCourses />
           </DataContainer>
         </div>
       </div>

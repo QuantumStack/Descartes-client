@@ -1,14 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import UserNavbar from '../components/UserNavbar';
-import CourseList from '../components/CourseList';
-import LoadingLarge from './LoadingLarge';
+import UserNavbar from './UserNavbar';
+import CourseList from './CourseList';
 
-class DashboardCourses extends React.Component {
+class AllCourses extends React.Component {
   render() {
     const { instructorCourses, studentCourses, user } = this.props;
     return (
-      <div key='dashboard-courses'>
+      <div>
         <UserNavbar name={user.name} />
         <CourseList id='instructor' title={'I\'m An Instructor'} courses={instructorCourses}>
           <Link to='/create' className='uk-button uk-button-secondary uk-button-small'>
@@ -28,4 +27,4 @@ class DashboardCourses extends React.Component {
   }
 }
 
-export default DashboardCourses;
+export default AllCourses;

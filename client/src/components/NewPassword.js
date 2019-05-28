@@ -2,17 +2,17 @@ import React from 'react';
 
 class NewPassword extends React.Component {
   makePassword(color, verify = false) {
-    const { isChange, password, password2 } = this.props;
+    const { isChange, password, password2, onChange } = this.props;
     return (
       <div className={`uk-inline uk-width-expand ${verify && !isChange ? 'uk-margin-small-top' : ''}`}>
         <span className='uk-form-icon' data-uk-icon={verify ? 'refresh' : 'lock'} />
-        <input className={`uk-input ${color}`} type='password' name={verify ? 'password2' : 'password'} placeholder={isChange ? '' : `${verify ? 'Verify ' : ''}Password`} value={verify ? password2 : password} onChange={this.props.onChange} required={!isChange} />
+        <input className={`uk-input ${color}`} type='password' name={verify ? 'password2' : 'password'} placeholder={isChange ? '' : `${verify ? 'Verify ' : ''}Password`} value={verify ? password2 : password} onChange={onChange} required={!isChange} />
       </div>
     )
   }
 
   render() {
-    const { isChange, password, password2, strength, mismatch, onChange } = this.props;
+    const { isChange, password, strength, mismatch } = this.props;
 
     let strengthClass, strengthMsg;
     if (password) {

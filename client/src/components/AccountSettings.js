@@ -8,8 +8,9 @@ import moment from 'moment';
 import { ax, ACCOUNT_CHANGE_URL } from '../util/api';
 import { date_format, plans } from '../config';
 import { success, error } from '../util/alert';
+import DashboardHeader from './DashboardHeader';
 
-class DashboardAccount extends React.Component {
+class AccountSettings extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -21,6 +22,7 @@ class DashboardAccount extends React.Component {
       strength: 0,
       password2: '',
       mismatch: false,
+      isLoading: false,
     };
     this.toggleChangePassword = this.toggleChangePassword.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -54,8 +56,8 @@ class DashboardAccount extends React.Component {
       ax.post(ACCOUNT_CHANGE_URL, { name, password })
         .then(() => {
           success('Your account has been updated.');
-          this.props.updateData({ user: { name }});
-          this.setState({ isLoading: false });
+          this.props.updateData({ user: { name }}, () =>
+            this.setState({ isLoading: false }));
         })
         .catch(({ response: res = {} }) =>
           error(res.statusText).then(() => this.setState({ isLoading: false })));
@@ -63,18 +65,18 @@ class DashboardAccount extends React.Component {
   }
 
   render() {
-    const { isLoading, user, payments } = this.props;
-    const { name, email, changePassword, old_password, password, password2, mismatch, strength } = this.state;
+    const { user, payments } = this.props;
+    const { isLoading, name, email, changePassword, old_password, password, password2, mismatch, strength } = this.state;
 
-    return isLoading ? (
-      <LoadingLarge />
-    ) : (
-      <div key='dashboard-account'>
+    return (
+      <div>
         <UserNavbar name={user.name} />
         <div className='uk-section uk-section-xsmall'>
           <div className='uk-container uk-container-xsmall'>
             <form className='uk-form-horizontal' onSubmit={this.handleSubmit} data-uk-scrollspy='target: .uk-form-icon; cls: uk-animation-scale-up; delay: 100'>
-              <h4>My Account</h4>
+              <DashboardHeader>
+                <h4>My Account</h4>
+              </DashboardHeader>
               <div className='uk-margin'>
                 <label className='uk-form-label'>Full Name</label>
                 <div className='uk-form-controls'>
@@ -93,9 +95,11 @@ class DashboardAccount extends React.Component {
                   </div>
                 </div>
               </div>
-              <h4>
-                <span>Change Password</span>
-                <a className='uk-icon-link uk-margin-small-left' data-uk-icon={`chevron-${changePassword ? 'up' : 'down'}`} onClick={this.toggleChangePassword} />
+              <h4 className='uk-margin-small'>
+                <a className='uk-text-emphasis' onClick={this.toggleChangePassword}>
+                  <span>Change Password</span>
+                  <span className='uk-margin-small-left' data-uk-icon={`chevron-${changePassword ? 'up' : 'down'}`} />
+                </a>
               </h4>
               {changePassword && (
                 <div data-uk-scrollspy='target: > div; cls: uk-animation-slide-top-small; delay: 100'>
@@ -112,7 +116,7 @@ class DashboardAccount extends React.Component {
                 </div>
               )}
               <div className='uk-flex uk-flex-right'>
-                <button className='uk-button uk-button-primary uk-margin-small-top' type='submit'>
+                <button className='uk-button uk-button-primary' type='submit'>
                   {isLoading ? (
                     <div key='loading' data-uk-spinner='ratio: 0.5'></div>
                   ) : (
@@ -127,7 +131,7 @@ class DashboardAccount extends React.Component {
             <h4 className='uk-margin-small-bottom'>Payment History</h4>
             {payments.length > 0 ? (
               <div className='uk-overflow-auto uk-margin-small-top'>
-                <table className='uk-table uk-table-hover uk-table-divider'>
+                <table className='uk-table uk-table-small uk-table-hover uk-table-divider'>
                   <thead>
                     <tr>
                       <th className='uk-table-expand'>Course Name</th>
@@ -137,8 +141,8 @@ class DashboardAccount extends React.Component {
                   </thead>
                   <tbody>
                     {payments.map(({ name, id, plan, date }) => (
-                      <tr>
-                        <td><Link to={`/instructor/${id}`}>{name}</Link></td>
+                      <tr key={id}>
+                        <td><Link to={`/dashboard/instructor/${id}`}>{name}</Link></td>
                         <td>{plans.find(p => p.id === plan).name}</td>
                         <td><span data-uk-tooltip={`title: ${moment(date).format(date_format)}`}>{moment(date).fromNow()}</span></td>
                       </tr>
@@ -157,4 +161,4 @@ class DashboardAccount extends React.Component {
   }
 }
 
-export default withRouter(DashboardAccount);
+export default withRouter(AccountSettings);

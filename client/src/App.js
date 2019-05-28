@@ -8,6 +8,7 @@ import Account from './pages/Account';
 import Create from './pages/Create';
 import Enroll from './pages/Enroll';
 import Instructor from './pages/Instructor';
+import Student from './pages/Student';
 import Verify from './pages/Verify';
 import LogIn from './pages/LogIn';
 import SignUp from './pages/SignUp';
@@ -25,10 +26,11 @@ class App extends React.Component {
             <Route path='/legal' component={Legal} />
             <PrivateRoute exact path='/dashboard' component={Dashboard} />
             <PrivateRoute path='/dashboard/account' component={Account} />
+            <PrivateRoute path='/dashboard/instructor/:id' component={Instructor} />
+            <PrivateRoute path='/dashboard/student/:id' component={Student} />
             <PrivateRoute path='/create' component={Create} />
             <PrivateRoute exact path='/enroll' component={Enroll} />
             <PrivateRoute path='/enroll/:code' component={Enroll} />
-            <PrivateRoute path='/instructor/:id' component={Instructor} />
             <UnprivateRoute path='/verify/:id' component={Verify} />
             <UnprivateRoute path='/login' component={LogIn} />
             <UnprivateRoute path='/signup' component={SignUp} />
