@@ -1,7 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import LogInForm from './LogInForm';
-import Modal from './Modal';
 import { isAuthenticated } from './../util/auth';
 
 class BasicNavbar extends React.Component {  
@@ -9,9 +7,6 @@ class BasicNavbar extends React.Component {
     const { showLeft, showRight } = this.props;
     return (
       <div>
-        <Modal name='login'>
-          <LogInForm />
-        </Modal>
         <div className='uk-navbar-container uk-navbar-transparent' data-uk-navbar>
           <div className='uk-navbar-center'>
             {showLeft && 
@@ -29,7 +24,7 @@ class BasicNavbar extends React.Component {
                     {isAuthenticated() ? (
                       <Link to='/dashboard'>Dashboard</Link>
                     ) : (
-                      <a data-uk-toggle='target: #login-modal'>Log In</a>
+                      <Link to='/login'>Log In</Link>
                     )}
                   </li>
                 </ul>

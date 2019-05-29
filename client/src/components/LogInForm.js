@@ -1,8 +1,8 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
+import { modal } from 'uikit';
 import { ax, LOG_IN_URL } from '../util/api';
 import { authenticate } from '../util/auth';
-import { modal } from 'uikit';
 
 const DEFAULT_INDICATOR = '🐶';
 
@@ -28,24 +28,24 @@ class LoginModal extends React.Component {
   }
 
   handleInputChange(event) {
-    const target = event.target;
+    const {target} = event;
     const value = target.type === 'checkbox' ? target.checked : target.value;
-    const name = target.name;
+    const {name} = target;
 
     this.setState({
-      [name]: value
+      [name]: value,
     });
   }
 
   handleInputFocus(event) {
-    const name = event.target.name;
+    const {name} = event.target;
     let value;
     switch (name) {
       case 'email':
         value = '😯';
         break;
       case 'password':
-        value = '🙈'
+        value = '🙈';
         break;
     }
     this.setState({ indicator: value });
@@ -56,53 +56,54 @@ class LoginModal extends React.Component {
   }
 
   handleSubmit(event) {
-    event.preventDefault(); 
+    event.preventDefault();
     const { email, password } = this.state;
     if (email && password) {
       this.setState({ isLoading: true, indicator: '✈️' });
       ax.post(LOG_IN_URL, { email, password })
-      .then(res => {
-        this.setState({ isLoading: false, indicator: '✅' });
-        authenticate(res.data.token);
-        if (this.props.location.search === '?type=student') this.goTo('enroll');
-        else if (this.props.location.search === '?type=instructor') this.goTo('create');
-        else this.goTo('dashboard');
-      })
-      .catch(res => this.setState({ isLoading: false, failure: true, indicator: '🚨' }));
+        .then((res) => {
+          this.setState({ isLoading: false, indicator: '✅' });
+          authenticate(res.data.token);
+          if (this.props.location.search === '?type=student') this.goTo('enroll');
+          else if (this.props.location.search === '?type=instructor') this.goTo('create');
+          else this.goTo('dashboard');
+        })
+        .catch(res => this.setState({ isLoading: false, failure: true, indicator: '🚨' }));
     }
   }
 
-  componentWillUnmount() {
-    const logInModal = modal('#login-modal');
-    if (logInModal) logInModal.hide();
-  }
-
   render() {
-    const { email, password, indicator, failure, isLoading } = this.state;
+    const {
+      email, password, indicator, failure, isLoading,
+    } = this.state;
     return (
-      <div className='uk-child-width-expand@s' data-uk-grid>
-        <div className='uk-text-center uk-text-middle'>
+      <div className="uk-child-width-expand@s" data-uk-grid>
+        <div className="uk-text-center uk-text-middle">
           <span style={{ fontSize: 140 }}>{indicator}</span>
         </div>
         <div>
           <form onSubmit={this.handleSubmit}>
-            <h4 className='uk-margin-remove-bottom'>Log into Descartes</h4>
-            <small>Click <a onClick={() => this.goTo('signup', true)}>here</a> to create an account</small>
-            <div className='uk-inline uk-margin-small-top'>
-              <span className='uk-form-icon' data-uk-icon='icon: user'></span>
-              <input className='uk-input uk-form-width-large' type='email' name='email' placeholder='Email' value={email} onChange={this.handleInputChange} onFocus={this.handleInputFocus} onBlur={this.handleInputBlur} required />
+            <h4 className="uk-margin-remove-bottom">Log into Descartes</h4>
+            <small>
+              <span>Click </span>
+              <button type="button" onClick={() => this.goTo('signup', true)}>here</button>
+              <span> to create an account</span>
+            </small>
+            <div className="uk-inline uk-margin-small-top">
+              <span className="uk-form-icon" data-uk-icon="icon: user" />
+              <input className="uk-input uk-form-width-large" type="email" name="email" placeholder="Email" value={email} onChange={this.handleInputChange} onFocus={this.handleInputFocus} onBlur={this.handleInputBlur} required />
             </div>
-            <div className='uk-inline uk-margin-small'>
-              <span className='uk-form-icon' data-uk-icon='icon: lock'></span>
-              <input className='uk-input uk-form-width-large' type='password' name='password' placeholder='Password' value={password} onChange={this.handleInputChange} onFocus={this.handleInputFocus} onBlur={this.handleInputBlur} required />
+            <div className="uk-inline uk-margin-small">
+              <span className="uk-form-icon" data-uk-icon="icon: lock" />
+              <input className="uk-input uk-form-width-large" type="password" name="password" placeholder="Password" value={password} onChange={this.handleInputChange} onFocus={this.handleInputFocus} onBlur={this.handleInputBlur} required />
             </div>
-            <button className={`uk-button uk-button-${failure ? 'danger' : 'default'} uk-width-expand`} type='submit'>
+            <button className={`uk-button uk-button-${failure ? 'danger' : 'default'} uk-width-expand`} type="submit">
               {isLoading ? (
-                <div key='loading' data-uk-spinner='ratio: 0.5'></div>
+                <div key="loading" data-uk-spinner="ratio: 0.5" />
               ) : (
-                <div key='log-in'>
+                <div key="log-in">
                   <span>Log In</span>
-                  <span data-uk-icon='icon: arrow-right'></span>
+                  <span data-uk-icon="icon: arrow-right" />
                 </div>
               )}
             </button>

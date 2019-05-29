@@ -10,7 +10,7 @@ import Enroll from './pages/Enroll';
 import Instructor from './pages/Instructor';
 import Student from './pages/Student';
 import Verify from './pages/Verify';
-import LogIn from './pages/LogIn';
+import LogIn from './containers/LogIn';
 import SignUp from './pages/SignUp';
 import NotFound from './pages/NotFound';
 import ScrollToTop from './components/ScrollToTop';

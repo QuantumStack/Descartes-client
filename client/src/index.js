@@ -2,14 +2,13 @@ import React from 'react';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
-import reducer from './reducers';
 import ReactDOM from 'react-dom';
+import UIkit from 'uikit';
+import Icons from 'uikit/dist/js/uikit-icons';
+import reducer from './reducers';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-
-import UIkit from 'uikit';
-import Icons from 'uikit/dist/js/uikit-icons';
 
 UIkit.use(Icons);
 
@@ -17,7 +16,7 @@ const middleware = applyMiddleware(thunk);
 const store = createStore(reducer, middleware);
 
 ReactDOM.render((
-  <Provider>
+  <Provider store={store}>
     <App />
   </Provider>
 ), document.getElementById('root'));
