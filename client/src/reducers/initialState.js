@@ -3,5 +3,6 @@ export default {
     email: '',
     password: '',
     isLoading: false,
+    indicator: '🐶',
   },
 };

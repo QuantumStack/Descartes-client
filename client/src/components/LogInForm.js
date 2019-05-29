@@ -1,109 +1,62 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
-import { modal } from 'uikit';
-import { ax, LOG_IN_URL } from '../util/api';
-import { authenticate } from '../util/auth';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
-const DEFAULT_INDICATOR = '🐶';
+class LogInForm extends React.Component {
+  static propTypes = {
+    email: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired,
+    isLoading: PropTypes.bool.isRequired,
+    indicator: PropTypes.string.isRequired,
+    handleChange: PropTypes.func.isRequired,
+    handleFocus: PropTypes.func.isRequired,
+    handleBlur: PropTypes.func.isRequired,
+    logIn: PropTypes.func.isRequired,
+  }
 
-class LoginModal extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      email: '',
-      password: '',
-      indicator: DEFAULT_INDICATOR,
-      failure: false,
-      isLoading: false,
-    };
-    this.goTo = this.goTo.bind(this);
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleInputFocus = this.handleInputFocus.bind(this);
-    this.handleInputBlur = this.handleInputBlur.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  goTo(loc, search) {
-    this.props.history.push(`/${loc}${search ? this.props.location.search : ''}`);
-  }
-
-  handleInputChange(event) {
-    const {target} = event;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-    const {name} = target;
-
-    this.setState({
-      [name]: value,
-    });
-  }
-
-  handleInputFocus(event) {
-    const {name} = event.target;
-    let value;
-    switch (name) {
-      case 'email':
-        value = '😯';
-        break;
-      case 'password':
-        value = '🙈';
-        break;
-    }
-    this.setState({ indicator: value });
-  }
-
-  handleInputBlur() {
-    this.setState({ indicator: DEFAULT_INDICATOR });
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    const { email, password } = this.state;
-    if (email && password) {
-      this.setState({ isLoading: true, indicator: '✈️' });
-      ax.post(LOG_IN_URL, { email, password })
-        .then((res) => {
-          this.setState({ isLoading: false, indicator: '✅' });
-          authenticate(res.data.token);
-          if (this.props.location.search === '?type=student') this.goTo('enroll');
-          else if (this.props.location.search === '?type=instructor') this.goTo('create');
-          else this.goTo('dashboard');
-        })
-        .catch(res => this.setState({ isLoading: false, failure: true, indicator: '🚨' }));
-    }
+    const { logIn, email, password } = this.props;
+    logIn(email, password);
   }
 
   render() {
     const {
-      email, password, indicator, failure, isLoading,
-    } = this.state;
+      email, password, /* indicator, failure, */ isLoading, indicator, handleChange, handleFocus, handleBlur,
+    } = this.props;
     return (
       <div className="uk-child-width-expand@s" data-uk-grid>
         <div className="uk-text-center uk-text-middle">
-          <span style={{ fontSize: 140 }}>{indicator}</span>
+          <span className="uk-animation-fade" style={{ fontSize: 140 }}>{indicator}</span>
         </div>
         <div>
-          <form onSubmit={this.handleSubmit}>
+          <form onSubmit={this.handleSubmit} data-uk-scrollspy="target: .uk-form-icon; cls: uk-animation-scale-up; delay: 100">
             <h4 className="uk-margin-remove-bottom">Log into Descartes</h4>
             <small>
               <span>Click </span>
-              <button type="button" onClick={() => this.goTo('signup', true)}>here</button>
+              <Link to="/signup">here</Link>
               <span> to create an account</span>
             </small>
             <div className="uk-inline uk-margin-small-top">
               <span className="uk-form-icon" data-uk-icon="icon: user" />
-              <input className="uk-input uk-form-width-large" type="email" name="email" placeholder="Email" value={email} onChange={this.handleInputChange} onFocus={this.handleInputFocus} onBlur={this.handleInputBlur} required />
+              <input className="uk-input uk-form-width-large" type="email" name="email" placeholder="Email" value={email} onChange={handleChange} onFocus={handleFocus} onBlur={handleBlur} required />
             </div>
             <div className="uk-inline uk-margin-small">
               <span className="uk-form-icon" data-uk-icon="icon: lock" />
-              <input className="uk-input uk-form-width-large" type="password" name="password" placeholder="Password" value={password} onChange={this.handleInputChange} onFocus={this.handleInputFocus} onBlur={this.handleInputBlur} required />
+              <input className="uk-input uk-form-width-large" type="password" name="password" placeholder="Password" value={password} onChange={handleChange} onFocus={handleFocus} onBlur={handleBlur} required />
             </div>
-            <button className={`uk-button uk-button-${failure ? 'danger' : 'default'} uk-width-expand`} type="submit">
+            <button className="uk-button uk-button-default uk-width-expand" type="submit">
               {isLoading ? (
                 <div key="loading" data-uk-spinner="ratio: 0.5" />
               ) : (
                 <div key="log-in">
                   <span>Log In</span>
-                  <span data-uk-icon="icon: arrow-right" />
+                  <span data-uk-scrollspy="cls: uk-animation-slide-left-small; delay: 300" data-uk-icon="icon: arrow-right" />
                 </div>
               )}
             </button>
@@ -114,4 +67,4 @@ class LoginModal extends React.Component {
   }
 }
 
-export default withRouter(LoginModal);
+export default LogInForm;
