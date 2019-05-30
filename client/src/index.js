@@ -1,23 +1,23 @@
 import React from 'react';
-import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import ReactDOM from 'react-dom';
+import { ConnectedRouter } from 'connected-react-router';
 import UIkit from 'uikit';
 import Icons from 'uikit/dist/js/uikit-icons';
-import reducer from './reducers';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import configureStore, { history } from './store/configureStore';
 
 UIkit.use(Icons);
 
-const middleware = applyMiddleware(thunk);
-const store = createStore(reducer, middleware);
+const store = configureStore();
 
 ReactDOM.render((
   <Provider store={store}>
-    <App />
+    <ConnectedRouter history={history}>
+      <App />
+    </ConnectedRouter>
   </Provider>
 ), document.getElementById('root'));
 

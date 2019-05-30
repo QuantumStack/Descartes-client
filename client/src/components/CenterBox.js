@@ -6,10 +6,7 @@ import desk from '../assets/desk.jpg';
 class CenterBox extends React.PureComponent {
   static propTypes = {
     children: PropTypes.node.isRequired,
-    navOptions: PropTypes.shape({
-      showLeft: PropTypes.bool,
-      showRight: PropTypes.bool,
-    }),
+    navOptions: PropTypes.shape(BasicNavbar.propTypes),
     width: PropTypes.string.isRequired,
   }
 

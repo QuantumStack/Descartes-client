@@ -2,7 +2,7 @@ import axios from 'axios';
 import { getToken } from './auth';
 
 export const BASE_URL = 'https://private-3999af-descartesqs.apiary-mock.com/';
-export const LOG_IN_URL = '';
+export const LOG_IN_URL = 'auth/login';
 export const SIGN_UP_URL = 'auth/signup';
 export const RESEND_URL = 'auth/resend';
 export const VERIFY_URL = 'auth/verify';
