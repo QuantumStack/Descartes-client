@@ -13,5 +13,6 @@ export const CREATE_URL = 'create';
 export const ENROLL_URL = 'enroll';
 export const INSTRUCTOR_URL = 'course/instructor';
 export const STUDENT_URL = 'course/student';
+
 export const authHeader = () => ({ Authorization: `bearer ${getToken()}` });
 export const ax = axios.create({ baseURL: BASE_URL });

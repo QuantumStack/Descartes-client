@@ -1,25 +1,29 @@
 import {
-  USER_DEHYDRATE, USER_REQUEST, USER_RESPONSE, USER_INPUT_CHANGE, USER_CHANGE_RESPONSE,
+  USER_REQUEST, USER_RESPONSE, USER_INPUT_CHANGE, USER_CHANGE_RESPONSE, LOG_OUT,
 } from '../actions';
 import passwordChange from '../util/passwordChange';
 import { error } from '../util/alert';
 
-export default (state = {
+const defaultState = {
   name: '',
   email: '',
   oldPassword: '',
   password: '',
   password2: '',
   mismatch: false,
-  stength: 0,
+  strength: 0,
   isLoading: false,
   isHydrated: false,
-}, { type, payload, error: err }) => {
+};
+
+export default (state = defaultState, { type, payload, error: err }) => {
   switch (type) {
+    case LOG_OUT:
+      return defaultState;
     case USER_INPUT_CHANGE: {
       let obj = {};
       if (payload.name.includes('password')) {
-        obj = passwordChange(payload.name, payload.value, payload.password, payload.password2);
+        obj = passwordChange(payload.name, payload.value, state.password, state.password2);
       }
       return {
         ...state,
@@ -28,15 +32,11 @@ export default (state = {
       };
     }
     case USER_CHANGE_RESPONSE:
+      if (err) error(payload.response ? payload.response.statusText : '');
       return {
         ...state,
         isLoading: false,
         isHydrated: !err,
-      };
-    case USER_DEHYDRATE:
-      return {
-        ...state,
-        isHydrated: false,
       };
     case USER_REQUEST:
       return {
@@ -52,6 +52,7 @@ export default (state = {
         };
       }
       return {
+        ...state,
         name: payload.name,
         email: payload.email,
         isLoading: false,

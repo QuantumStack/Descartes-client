@@ -1,10 +1,14 @@
-import { PAYMENTS_DEHYDRATE, PAYMENTS_RECEIVE } from '../actions';
+import { PAYMENTS_DEHYDRATE, PAYMENTS_RECEIVE, LOG_OUT } from '../actions';
 
-export default (state = {
+const defaultState = {
   isHydrated: false,
   items: [],
-}, { type, payload }) => {
+};
+
+export default (state = defaultState, { type, payload }) => {
   switch (type) {
+    case LOG_OUT:
+      return defaultState;
     case PAYMENTS_DEHYDRATE:
       return {
         ...state,
@@ -13,6 +17,7 @@ export default (state = {
     case PAYMENTS_RECEIVE:
       return {
         ...state,
+        isHydrated: true,
         items: payload,
       };
     default:

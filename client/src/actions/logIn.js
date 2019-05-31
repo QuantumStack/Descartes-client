@@ -7,18 +7,21 @@ export const LOG_IN_RESPONSE = 'LOG_IN_RESPONSE';
 
 export const { logInRequest, logInResponse } = createActions(LOG_IN_REQUEST, LOG_IN_RESPONSE);
 
-export const logIn = (email, password, redirect) => (dispatch) => {
+export const logIn = (email, password) => (dispatch, getState) => {
   dispatch(logInRequest());
-  ax.post(LOG_IN_URL, { email, password, redirect })
+  ax.post(LOG_IN_URL, { email, password })
     .then(({ data }) => {
       dispatch(logInResponse(data));
+      const redirect = getState().router.location.search;
       switch (redirect) {
         case '?type=instructor':
-          return dispatch(push('/create'));
+          dispatch(push('/create'));
+          break;
         case '?type=student':
-          return dispatch(push('/enroll'));
+          dispatch(push('/enroll'));
+          break;
         default:
-          return dispatch(push('/dashboard'));
+          dispatch(push('/dashboard'));
       }
     })
     .catch(err => dispatch(logInResponse(err)));

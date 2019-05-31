@@ -1,5 +1,6 @@
 import { createActions } from 'redux-actions';
 import { ax, ACCOUNT_URL, authHeader } from '../util/api';
+import deauthenticateIfNeeded from './deauthenticateIfNeeded';
 import { paymentsReceive } from './paymentsReceive';
 
 export const USER_REQUEST = 'USER_REQUEST';
@@ -14,10 +15,11 @@ const userFetch = () => (dispatch) => {
       dispatch(userResponse(data.user));
       dispatch(paymentsReceive(data.payments));
     })
-    .catch(err => dispatch(userResponse(err)));
+    .catch((err) => {
+      if (!deauthenticateIfNeeded(err.response, dispatch)) dispatch(userResponse(err));
+    });
 };
 
-// TODO: deauth user if 401
 export const userFetchIfNeeded = () => (dispatch, getState) => {
   const { user, payments } = getState();
   if (!user.isHydrated || !payments.isHydrated) {

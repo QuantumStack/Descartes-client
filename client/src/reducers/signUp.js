@@ -5,11 +5,12 @@ import {
   SIGN_UP_RESPONSE,
   SIGN_UP_RESEND_REQUEST,
   SIGN_UP_RESEND_RESPONSE,
+  LOG_OUT,
 } from '../actions';
 import { error } from '../util/alert';
 import passwordChange from '../util/passwordChange';
 
-export default (state = {
+const defaultState = {
   name: '',
   email: '',
   password: '',
@@ -20,12 +21,16 @@ export default (state = {
   recaptcha: '',
   isLoading: false,
   isSuccess: false,
-}, { type, payload, error: err }) => {
+};
+
+export default (state = defaultState, { type, payload, error: err }) => {
   switch (type) {
+    case LOG_OUT:
+      return defaultState;
     case SIGN_UP_INPUT_CHANGE: {
       let obj = {};
       if (payload.name.includes('password')) {
-        obj = passwordChange(payload.name, payload.value, payload.password, payload.password2);
+        obj = passwordChange(payload.name, payload.value, state.password, state.password2);
       }
       return {
         ...state,

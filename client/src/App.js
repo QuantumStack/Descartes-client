@@ -1,6 +1,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import { PrivateRoute, UnprivateRoute } from './util/auth';
+import PrivateRoute from './router/PrivateRoute';
+import UnprivateRoute from './router/UnprivateRoute';
 import Home from './pages/Home';
 import Legal from './pages/Legal';
 import Dashboard from './pages/Dashboard';

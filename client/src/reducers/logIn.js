@@ -1,16 +1,20 @@
 import {
-  LOG_IN_INPUT_CHANGE, LOG_IN_INPUT_FOCUS, LOG_IN_INPUT_BLUR, LOG_IN_REQUEST, LOG_IN_RESPONSE,
+  LOG_IN_INPUT_CHANGE, LOG_IN_INPUT_FOCUS, LOG_IN_INPUT_BLUR, LOG_IN_REQUEST, LOG_IN_RESPONSE, LOG_OUT,
 } from '../actions';
 import { error } from '../util/alert';
 import { authenticate } from '../util/auth';
 
-export default (state = {
+const defaultState = {
   email: '',
   password: '',
   isLoading: false,
   indicator: '🐩',
-}, { type, payload, error: err }) => {
+};
+
+export default (state = defaultState, { type, payload, error: err }) => {
   switch (type) {
+    case LOG_OUT:
+      return defaultState;
     case LOG_IN_INPUT_CHANGE:
       return {
         ...state,
@@ -43,6 +47,7 @@ export default (state = {
       }
       authenticate(payload.token);
       return {
+        ...state,
         indicator: '🐩',
         isLoading: false,
       };

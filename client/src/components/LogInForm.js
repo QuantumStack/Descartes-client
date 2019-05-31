@@ -8,7 +8,6 @@ class LogInForm extends React.Component {
     password: PropTypes.string.isRequired,
     isLoading: PropTypes.bool.isRequired,
     indicator: PropTypes.string.isRequired,
-    redirect: PropTypes.string.isRequired,
     handleChange: PropTypes.func.isRequired,
     handleFocus: PropTypes.func.isRequired,
     handleBlur: PropTypes.func.isRequired,
@@ -22,10 +21,8 @@ class LogInForm extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const {
-      logIn, email, password, redirect,
-    } = this.props;
-    logIn(email, password, redirect);
+    const { logIn, email, password } = this.props;
+    logIn(email, password);
   }
 
   render() {

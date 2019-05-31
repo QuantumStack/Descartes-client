@@ -23,10 +23,7 @@ class LogIn extends React.PureComponent {
   }
 }
 
-const mapStateToProps = ({ logIn: logInForm, router }) => ({
-  ...logInForm,
-  redirect: router.location.search,
-});
+const mapStateToProps = ({ logIn: logInForm }) => logInForm;
 const mapDispatchToProps = dispatch => bindActionCreators({
   logIn,
   handleChange: logInInputChange,

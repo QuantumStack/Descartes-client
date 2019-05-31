@@ -1,77 +1,85 @@
 import React from 'react';
-import { withRouter, Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import NavLink from './NavLink';
-import { deauthenticate } from '../util/auth';
 
-class UserNavbar extends React.Component {
-  constructor(props) {
-    super(props);
-    this.doLogout = this.doLogout.bind(this);
-  }
-
-  doLogout() {
-    deauthenticate();
-    this.props.history.push('/');
-  }
+class UserNavbar extends React.PureComponent {
+  static propTypes = {
+    name: PropTypes.string.isRequired,
+    doLogOut: PropTypes.func.isRequired,
+  };
 
   render() {
-    const { name } = this.props;
+    const { name, doLogOut } = this.props;
     const greeting = (
-      <div data-uk-scrollspy='cls: uk-animation-slide-left-small'>
-        <span className='uk-text-middle'>Hello, &nbsp;<strong>{name}</strong></span>
-        <span className='uk-margin-small-left uk-animation-scale-up' data-uk-icon='happy'></span>
+      <div data-uk-scrollspy="cls: uk-animation-slide-left-small">
+        <span className="uk-text-middle">
+          <span>Hello, &nbsp;</span>
+          <strong>{name}</strong>
+        </span>
+        <span className="uk-margin-small-left uk-animation-scale-up" data-uk-icon="happy" />
       </div>
     );
     const links = [
       <li>
-        <a><span className='uk-margin-small-right' data-uk-icon='question'></span> Get Help</a>
+        <a>
+          <span className="uk-margin-small-right" data-uk-icon="question" />
+          <span> Get Help</span>
+        </a>
       </li>,
       <NavLink options={{ to: '/dashboard/account' }}>
-        <span className='uk-margin-small-right' data-uk-icon='cog'></span> Account Settings
+        <span className="uk-margin-small-right" data-uk-icon="cog" />
+        <span> Account Settings</span>
       </NavLink>,
-      <li className='uk-nav-divider'></li>,
+      <li className="uk-nav-divider" />,
       <li>
-        <a onClick={this.doLogout}><span className='uk-margin-small-right' data-uk-icon='sign-out'></span> Log out</a>
+        <a onClick={doLogOut}>
+          <span className="uk-margin-small-right" data-uk-icon="sign-out" />
+          <span> Log out</span>
+        </a>
       </li>,
     ];
     return (
       <div>
-        <div id='user-navbar-offcanvas' data-uk-offcanvas='flip: true; overlay: true; mode: push'>
-          <div className='uk-offcanvas-bar'>
-            <button className='uk-offcanvas-close' type='button' data-uk-close></button>
+        <div id="user-navbar-offcanvas" data-uk-offcanvas="flip: true; overlay: true; mode: push">
+          <div className="uk-offcanvas-bar">
+            <button className="uk-offcanvas-close" type="button" data-uk-close />
             <h3>Descartes</h3>
-            <ul className='uk-nav uk-nav-default'>
-              <li className='uk-active'>{greeting}</li>
-              <li className='uk-nav-header'>Navigation</li>
+            <ul className="uk-nav uk-nav-default">
+              {name && <li className="uk-active">{greeting}</li>}
+              <li className="uk-nav-header">Navigation</li>
               <li>
-                <Link to='/dashboard'>
-                  <span className='uk-margin-small-right' data-uk-icon='thumbnails'></span> Dashboard
+                <Link to="/dashboard">
+                  <span className="uk-margin-small-right" data-uk-icon="thumbnails" />
+                  <span> Dashboard</span>
                 </Link>
               </li>
               {links}
             </ul>
           </div>
         </div>
-        <div className='uk-navbar-container uk-navbar-transparent' data-uk-navbar>
-          <div className='uk-navbar-left'>
-            <Link className='uk-navbar-item uk-logo' to='/dashboard'>Descartes</Link>
-            <div className='uk-navbar-item uk-text-uppercase uk-text-muted uk-visible@m'>
-              {greeting}
-            </div>
+        <div className="uk-navbar-container uk-navbar-transparent" data-uk-navbar>
+          <div className="uk-navbar-left">
+            <Link className="uk-navbar-item uk-logo" to="/dashboard">Descartes</Link>
+            {name && (
+              <div className="uk-navbar-item uk-text-uppercase uk-text-muted uk-visible@m">
+                {greeting}
+              </div>
+            )}
           </div>
-          <div className='uk-navbar-right'>
-            <a className='uk-navbar-toggle uk-hidden@m' data-uk-toggle='target: #user-navbar-offcanvas'>
-              <span className='uk-margin-small-right'>Menu</span>
+          <div className="uk-navbar-right">
+            <a className="uk-navbar-toggle uk-hidden@m" data-uk-toggle="target: #user-navbar-offcanvas">
+              <span className="uk-margin-small-right">Menu</span>
               <span data-uk-navbar-toggle-icon />
             </a>
-            <ul className='uk-navbar-nav uk-visible@m'>
+            <ul className="uk-navbar-nav uk-visible@m">
               {links}
             </ul>
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 
-export default withRouter(UserNavbar);
+export default UserNavbar;
