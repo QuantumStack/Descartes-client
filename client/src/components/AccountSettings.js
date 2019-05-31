@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import UserNavbar from './UserNavbar';
 import NewPassword from './NewPassword';
 import { password_strength_threshold } from '../config';
 import DashboardHeader from './DashboardHeader';
 
 class AccountSettings extends React.Component {
   static propTypes = {
+    navbar: PropTypes.node.isRequired,
     isLoading: PropTypes.bool.isRequired,
     name: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
@@ -48,6 +48,7 @@ class AccountSettings extends React.Component {
 
   render() {
     const {
+      navbar,
       isLoading,
       name,
       email,
@@ -63,6 +64,7 @@ class AccountSettings extends React.Component {
 
     return (
       <div>
+        {navbar}
         <div className="uk-section uk-section-xsmall">
           <div className="uk-container uk-container-xsmall">
             <form className="uk-form-horizontal" onSubmit={this.handleSubmit} data-uk-scrollspy="target: .uk-form-icon; cls: uk-animation-scale-up; delay: 100">

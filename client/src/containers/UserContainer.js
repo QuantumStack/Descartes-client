@@ -11,13 +11,9 @@ class UserContainer extends React.PureComponent {
   };
 
   render() {
+    const navbar = <UserNavbar {...this.props} />;
     const { children } = this.props;
-    return (
-      <div className="uk-container">
-        <UserNavbar {...this.props} />
-        {children}
-      </div>
-    );
+    return React.Children.map(children, child => React.cloneElement(child, { navbar }));
   }
 }
 

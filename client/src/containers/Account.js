@@ -7,6 +7,7 @@ import LoadingLarge from '../components/LoadingLarge';
 import AccountSettings from '../components/AccountSettings';
 import { userFetchIfNeeded, userChange, userInputChange } from '../actions';
 import { formatPayments } from '../selectors';
+import UserContainer from './UserContainer';
 
 class Account extends React.PureComponent {
   static propTypes = {
@@ -33,7 +34,9 @@ class Account extends React.PureComponent {
         </Helmet>
         <LoadingLarge isLoading={!isHydrated}>
           <div className="uk-container">
-            <AccountSettings {...this.props} />
+            <UserContainer>
+              <AccountSettings {...this.props} />
+            </UserContainer>
           </div>
         </LoadingLarge>
       </div>
