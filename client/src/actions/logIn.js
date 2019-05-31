@@ -10,8 +10,8 @@ export const { logInRequest, logInResponse } = createActions(LOG_IN_REQUEST, LOG
 export const logIn = (email, password, redirect) => (dispatch) => {
   dispatch(logInRequest());
   ax.post(LOG_IN_URL, { email, password, redirect })
-    .then((res) => {
-      dispatch(logInResponse(res));
+    .then(({ data }) => {
+      dispatch(logInResponse(data));
       switch (redirect) {
         case '?type=instructor':
           return dispatch(push('/create'));

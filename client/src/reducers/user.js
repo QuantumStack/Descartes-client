@@ -1,28 +1,22 @@
 import {
-  SIGN_UP_INPUT_CHANGE,
-  SIGN_UP_CAPTCHA,
-  SIGN_UP_REQUEST,
-  SIGN_UP_RESPONSE,
-  SIGN_UP_RESEND_REQUEST,
-  SIGN_UP_RESEND_RESPONSE,
+  USER_DEHYDRATE, USER_REQUEST, USER_RESPONSE, USER_INPUT_CHANGE, USER_CHANGE_RESPONSE,
 } from '../actions';
-import { error } from '../util/alert';
 import passwordChange from '../util/passwordChange';
+import { error } from '../util/alert';
 
 export default (state = {
   name: '',
   email: '',
+  oldPassword: '',
   password: '',
-  strength: 0,
   password2: '',
   mismatch: false,
-  agreement: false,
-  recaptcha: '',
+  stength: 0,
   isLoading: false,
-  isSuccess: false,
+  isHydrated: false,
 }, { type, payload, error: err }) => {
   switch (type) {
-    case SIGN_UP_INPUT_CHANGE: {
+    case USER_INPUT_CHANGE: {
       let obj = {};
       if (payload.name.includes('password')) {
         obj = passwordChange(payload.name, payload.value, payload.password, payload.password2);
@@ -33,19 +27,23 @@ export default (state = {
         ...obj,
       };
     }
-    case SIGN_UP_CAPTCHA:
+    case USER_CHANGE_RESPONSE:
       return {
         ...state,
-        recaptcha: payload,
+        isLoading: false,
+        isHydrated: !err,
       };
-    case SIGN_UP_REQUEST:
-    case SIGN_UP_RESEND_REQUEST:
+    case USER_DEHYDRATE:
+      return {
+        ...state,
+        isHydrated: false,
+      };
+    case USER_REQUEST:
       return {
         ...state,
         isLoading: true,
       };
-    case SIGN_UP_RESPONSE:
-    case SIGN_UP_RESEND_RESPONSE:
+    case USER_RESPONSE:
       if (err) {
         error(payload.response ? payload.response.statusText : '');
         return {
@@ -54,9 +52,10 @@ export default (state = {
         };
       }
       return {
-        ...state,
+        name: payload.name,
+        email: payload.email,
         isLoading: false,
-        isSuccess: true,
+        isHydrated: true,
       };
     default:
       return state;

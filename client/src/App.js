@@ -4,7 +4,7 @@ import { PrivateRoute, UnprivateRoute } from './util/auth';
 import Home from './pages/Home';
 import Legal from './pages/Legal';
 import Dashboard from './pages/Dashboard';
-import Account from './pages/Account';
+import Account from './containers/Account';
 import Create from './pages/Create';
 import Enroll from './pages/Enroll';
 import Instructor from './pages/Instructor';

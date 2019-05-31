@@ -41,7 +41,7 @@ export default (state = {
           isLoading: false,
         };
       }
-      authenticate(payload.data.token);
+      authenticate(payload.token);
       return {
         indicator: '🐩',
         isLoading: false,

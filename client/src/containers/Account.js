@@ -1,10 +1,8 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import DataContainer from '../components/DataContainer';
-import { ACCOUNT_URL } from '../util/api';
 import AccountSettings from '../components/AccountSettings';
 
-class Account extends React.Component {
+class Account extends React.PureComponent {
   render() {
     return (
       <div>
@@ -12,13 +10,13 @@ class Account extends React.Component {
           <title>Account | Descartes </title>
         </Helmet>
         <div className='uk-container'>
-          <DataContainer url={ACCOUNT_URL}>
-            <AccountSettings />
-          </DataContainer>
+          <AccountSettings />
         </div>
       </div>
     );
   }
 }
+
+const mapStateToProps = ({ })
 
 export default Account;
