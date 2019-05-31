@@ -1,25 +1,8 @@
 {
-  "development": {
-    "username": null,
-    "password": null,
-    "database": "descartes_development",
-    "host": "127.0.0.1",
-    "dialect": "postgres",
-    "logging": false
-  },
-  "test": {
-    "username": null,
-    "password": null,
-    "database": "descartes_test",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
-  },
-  "production": {
-    "username": null,
-    "password": null,
-    "database": "descartes_production",
-    "host": "127.0.0.1",
-    "dialect": "postgres",
-    "logging": false
-  }
+  "GO_ENV": "dev || production",
+  "DB_USERNAME": "username",
+  "DB_PASSWORD": "password",
+  "DB_PORT": "5432",
+  "DB_HOST": "localhost",
+  "DB_NAME": "descartes"
 }
