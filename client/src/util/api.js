@@ -10,7 +10,7 @@ export const OVERVIEW_URL = 'overview';
 export const ACCOUNT_URL = 'account';
 export const ACCOUNT_CHANGE_URL = 'account';
 export const CREATE_URL = 'create';
-export const ENROLL_URL = 'enroll';
+export const JOIN_URL = 'enroll';
 export const INSTRUCTOR_URL = 'course/instructor';
 export const STUDENT_URL = 'course/student';
 
