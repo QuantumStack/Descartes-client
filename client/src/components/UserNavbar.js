@@ -21,18 +21,18 @@ class UserNavbar extends React.PureComponent {
       </div>
     );
     const links = [
-      <li>
+      <li key="get-help">
         <a>
           <span className="uk-margin-small-right" data-uk-icon="question" />
           <span> Get Help</span>
         </a>
       </li>,
-      <NavLink options={{ to: '/dashboard/account' }}>
+      <NavLink options={{ to: '/dashboard/account' }} key="account-settings">
         <span className="uk-margin-small-right" data-uk-icon="cog" />
         <span> Account Settings</span>
       </NavLink>,
-      <li className="uk-nav-divider" />,
-      <li>
+      <li className="uk-nav-divider" key="divider" />,
+      <li key="log-out">
         <a onClick={doLogOut}>
           <span className="uk-margin-small-right" data-uk-icon="sign-out" />
           <span> Log out</span>

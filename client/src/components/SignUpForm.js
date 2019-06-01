@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import ReCaptcha from 'react-recaptcha';
 import NewPassword from './NewPassword';
-import { recaptcha_site_key, password_strength_threshold } from '../config';
+import { recaptchaSiteKey, passwordStrengthThreshold } from '../config';
 
 class SignUp extends React.Component {
   static propTypes = {
@@ -35,7 +35,7 @@ class SignUp extends React.Component {
     const {
       name, email, password, mismatch, strength, agreement, recaptcha, signUp,
     } = this.props;
-    if (name && email && password && !mismatch && strength >= password_strength_threshold
+    if (name && email && password && !mismatch && strength >= passwordStrengthThreshold
       && agreement && recaptcha) {
       signUp(name, email, password, recaptcha);
     }
@@ -112,7 +112,7 @@ class SignUp extends React.Component {
           </label>
         </div>
         <div style={{ height: '74px' }}>
-          <ReCaptcha sitekey={recaptcha_site_key} render="explicit" onloadCallback={() => { }} verifyCallback={verifyCallback} />
+          <ReCaptcha sitekey={recaptchaSiteKey} render="explicit" onloadCallback={() => { }} verifyCallback={verifyCallback} />
         </div>
         <button className="uk-button uk-button-default uk-width-expand uk-margin-small-top" type="submit">
           {isLoading ? (

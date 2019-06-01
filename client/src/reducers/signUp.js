@@ -52,15 +52,14 @@ export default (state = defaultState, { type, payload, error: err }) => {
     case SIGN_UP_RESPONSE:
     case SIGN_UP_RESEND_RESPONSE:
       if (err) {
-        error(payload.response ? payload.response.statusText : '');
+        error(null, payload.response);
         return {
           ...state,
           isLoading: false,
         };
       }
       return {
-        ...state,
-        isLoading: false,
+        ...defaultState,
         isSuccess: true,
       };
     default:

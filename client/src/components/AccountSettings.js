@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import NewPassword from './NewPassword';
-import { password_strength_threshold } from '../config';
+import { passwordStrengthThreshold } from '../config';
 import DashboardHeader from './DashboardHeader';
 
 class AccountSettings extends React.Component {
@@ -42,7 +42,7 @@ class AccountSettings extends React.Component {
       editUser, name, oldPassword, password, mismatch, strength,
     } = this.props;
     const newPassword = oldPassword && password && !mismatch
-      && strength > password_strength_threshold ? password : null;
+      && strength > passwordStrengthThreshold ? password : null;
     editUser(name, newPassword);
   }
 

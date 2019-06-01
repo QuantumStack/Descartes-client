@@ -1,6 +1,6 @@
 import React from 'react';
 import chartjs from 'chart.js';
-import { font_family } from '../config';
+import { fontFamily } from '../config';
 
 class Chart extends React.Component {
   chartRef = React.createRef();
@@ -20,13 +20,13 @@ class Chart extends React.Component {
         legend: {
           position: 'bottom',
           labels: {
-            fontFamily: font_family,
+            fontFamily,
           }
         },
         tooltips: {
-          titleFontFamily: font_family,
-          bodyFontFamily: font_family,
-          footerFontFamily: font_family,
+          titleFontFamily: fontFamily,
+          bodyFontFamily: fontFamily,
+          footerFontFamily: fontFamily,
         },
         ...options,
       },

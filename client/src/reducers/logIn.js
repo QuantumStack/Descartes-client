@@ -1,5 +1,10 @@
 import {
-  LOG_IN_INPUT_CHANGE, LOG_IN_INPUT_FOCUS, LOG_IN_INPUT_BLUR, LOG_IN_REQUEST, LOG_IN_RESPONSE, LOG_OUT,
+  LOG_IN_INPUT_CHANGE,
+  LOG_IN_INPUT_FOCUS,
+  LOG_IN_INPUT_BLUR,
+  LOG_IN_REQUEST,
+  LOG_IN_RESPONSE,
+  LOG_OUT,
 } from '../actions';
 import { error } from '../util/alert';
 import { authenticate } from '../util/auth';
@@ -38,7 +43,7 @@ export default (state = defaultState, { type, payload, error: err }) => {
       };
     case LOG_IN_RESPONSE:
       if (err) {
-        error(payload.response ? payload.response.statusText : '');
+        error(null, payload.response);
         return {
           ...state,
           indicator: '🚨',
@@ -46,11 +51,7 @@ export default (state = defaultState, { type, payload, error: err }) => {
         };
       }
       authenticate(payload.token);
-      return {
-        ...state,
-        indicator: '🐩',
-        isLoading: false,
-      };
+      return defaultState;
     default:
       return state;
   }

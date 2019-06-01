@@ -45,7 +45,7 @@ export default (state = defaultState, { type, payload, error: err }) => {
       };
     case USER_RESPONSE:
       if (err) {
-        error(payload.response ? payload.response.statusText : '');
+        error(null, payload.response);
         return {
           ...state,
           isLoading: false,

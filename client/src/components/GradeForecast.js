@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter, Route } from 'react-router-dom';
 import NavLink from './NavLink';
 import Chart from './Chart';
-import { primary_translucent, primary_color } from '../config';
+import { primaryTranslucent, primaryColor } from '../config';
 import Gradebook from '../util/gradebook';
 import palette from 'google-palette';
 
@@ -35,8 +35,8 @@ class GradeForecast extends React.Component {
         labels,
         datasets: [{
           label: 'Overall grade',
-          backgroundColor: primary_translucent,
-          borderColor: primary_color,
+          backgroundColor: primaryTranslucent,
+          borderColor: primaryColor,
           borderWidth: 1,
           data,
         }]
@@ -79,10 +79,10 @@ class GradeForecast extends React.Component {
         labels,
         datasets: [{
           label: 'Assignment score',
-          backgroundColor: primary_translucent,
-          borderColor: primary_color,
+          backgroundColor: primaryTranslucent,
+          borderColor: primaryColor,
           borderWidth: 1,
-          hoverBackgroundColor: primary_color,
+          hoverBackgroundColor: primaryColor,
           data,
         }],
       }} options={{ 
@@ -119,7 +119,7 @@ class GradeForecast extends React.Component {
         datasets: [{
           label: 'Assignment score',
           backgroundColor: palette('sequential', data.length).map(color => `#${color}`),
-          borderColor: primary_color,
+          borderColor: primaryColor,
           borderWidth: 1,
           data,
         }],

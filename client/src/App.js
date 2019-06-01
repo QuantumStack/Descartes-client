@@ -6,11 +6,11 @@ import Home from './pages/Home';
 import Legal from './pages/Legal';
 import Dashboard from './pages/Dashboard';
 import Account from './containers/Account';
-import Create from './pages/Create';
-import Enroll from './pages/Enroll';
+import Create from './containers/Create';
+import Join from './containers/Join';
 import Instructor from './pages/Instructor';
 import Student from './pages/Student';
-import Verify from './pages/Verify';
+import Verify from './containers/Verify';
 import LogIn from './containers/LogIn';
 import SignUp from './containers/SignUp';
 import NotFound from './pages/NotFound';
@@ -28,11 +28,11 @@ function App() {
         <PrivateRoute path="/dashboard/instructor/:id" component={Instructor} />
         <PrivateRoute path="/dashboard/student/:id" component={Student} />
         <PrivateRoute path="/create" component={Create} />
-        <PrivateRoute exact path="/enroll" component={Enroll} />
-        <PrivateRoute path="/enroll/:code" component={Enroll} />
-        <UnprivateRoute path="/verify/:id" component={Verify} />
-        <UnprivateRoute path="/login" component={LogIn} />
-        <UnprivateRoute path="/signup" component={SignUp} />
+        <PrivateRoute exact path="/join" component={Join} />
+        <PrivateRoute path="/join/:code" component={Join} />
+        <UnprivateRoute exact path="/verify" component={Verify} />
+        <UnprivateRoute exact path="/login" component={LogIn} />
+        <UnprivateRoute exact path="/signup" component={SignUp} />
         <Route path="*" component={NotFound} />
       </Switch>
 

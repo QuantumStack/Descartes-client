@@ -16,9 +16,9 @@ class AllCourses extends React.Component {
           </Link>
         </CourseList>
         <CourseList id='student' title={'Courses I\'m Taking'} courses={studentCourses}>
-          <Link to='/enroll' className='uk-button uk-button-secondary uk-button-small'>
+          <Link to='/join' className='uk-button uk-button-secondary uk-button-small'>
             <span data-uk-icon='icon: plus; ratio: 0.7' className='uk-margin-small-right' />
-            <span>Enroll</span>
+            <span>Join</span>
           </Link>
         </CourseList>
         <br />

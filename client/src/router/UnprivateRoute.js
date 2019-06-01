@@ -14,7 +14,7 @@ class UnprivateRoute extends React.PureComponent {
       <Route
         {...rest}
         render={props => (isAuthenticated() ? (
-          <Redirect to={{ pathname: '/', state: { from: props.location } }} />
+          <Redirect to={{ pathname: '/dashboard', state: { from: props.location } }} />
         ) : (
           <Component {...props} />
         ))}
