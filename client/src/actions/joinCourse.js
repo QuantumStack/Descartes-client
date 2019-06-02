@@ -1,6 +1,7 @@
 import { createActions } from 'redux-actions';
 import { push } from 'connected-react-router';
 import { ax, JOIN_URL, authHeader } from '../util/api';
+import deauthenticateIfNeeded from './deauthenticateIfNeeded';
 
 export const JOIN_REQUEST = 'JOIN_REQUEST';
 export const JOIN_RESPONSE = 'JOIN_RESPONSE';
@@ -14,5 +15,7 @@ export const joinCourse = code => (dispatch) => {
       dispatch(joinResponse());
       dispatch(push(`/dashboard/student/${data.id}`));
     })
-    .catch(err => dispatch(joinResponse(err)));
+    .catch((err) => {
+      if (!deauthenticateIfNeeded(err.response, dispatch)) dispatch(joinResponse(err));
+    });
 };

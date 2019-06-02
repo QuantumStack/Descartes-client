@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Helmet } from 'react-helmet';
-import { createInputChange, createCourse } from '../actions';
+import { createCoursePhaseChange, createCourseInputChange, createCourse } from '../actions';
 import CenterBox from '../components/CenterBox';
 import PaymentContainer from '../components/PaymentContainer';
 import CreateForm from '../components/CreateForm';
@@ -26,7 +26,8 @@ class Create extends React.PureComponent {
 
 const mapStateToProps = ({ create: createForm }) => createForm;
 const mapDispatchToProps = dispatch => bindActionCreators({
-  handleChange: createInputChange,
+  updatePhase: createCoursePhaseChange,
+  handleChange: createCourseInputChange,
   doCreate: createCourse,
 }, dispatch);
 

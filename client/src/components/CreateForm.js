@@ -3,36 +3,54 @@ import PropTypes from 'prop-types';
 import { injectStripe } from 'react-stripe-elements';
 import MarkdownEditor from './MarkdownEditor';
 import PricingPlan from './PricingPlan';
-import { ax, authHeader, CREATE_URL } from '../util/api';
 import { plans } from '../config';
-import { error } from '../util/alert';
 
 class CreateForm extends React.PureComponent {
   static propTypes = {
+    phase: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     plan: PropTypes.string.isRequired,
     isLoading: PropTypes.bool.isRequired,
+    updatePhase: PropTypes.func.isRequired,
     handleChange: PropTypes.func.isRequired,
     doCreate: PropTypes.func.isRequired,
+    // eslint-disable-next-line react/forbid-prop-types
+    stripe: PropTypes.any.isRequired,
   }
 
   constructor(props) {
     super(props);
+    this.prevPhase = this.prevPhase.bind(this);
+    this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  prevPhase() {
+    const { updatePhase } = this.props;
+    updatePhase(-1);
+  }
+
+  handleDescriptionChange(value) {
+    const { handleChange } = this.props;
+    handleChange({ target: { name: 'description', value } });
   }
 
   handleSubmit(event) {
     event.preventDefault();
     const {
-      name, description, plan, doCreate,
+      phase, name, description, plan, updatePhase, doCreate, stripe,
     } = this.props;
 
-    if (name) doCreate(name, description, plan);
+    if (phase === 1) {
+      if (name) doCreate(name, description, plan, stripe);
+    } else updatePhase();
   }
 
   render() {
-    const { name, description, plan, isLoading, handleChange } = this.props;
+    const {
+      phase, name, description, plan, isLoading, handleChange,
+    } = this.props;
 
     const phases = [
       [
@@ -45,12 +63,12 @@ class CreateForm extends React.PureComponent {
           </p>
           <div className="uk-inline uk-margin-small-top uk-width-expand">
             <span className="uk-form-icon" data-uk-icon="icon: bookmark" />
-            <input className="uk-input" type="text" name="name" placeholder="Name" value={name} onChange={this.handleInputChange} required />
+            <input className="uk-input" type="text" name="name" placeholder="Name" value={name} onChange={handleChange} required />
           </div>
           <div className="uk-margin-small">
             <label className="uk-form-label" htmlFor="form-stacked-text">Description</label>
             <div className="uk-form-controls uk-width-expand">
-              <MarkdownEditor textAreaProps={{ placeholder: 'Information about the course for students' }} value={description} onChange={this.handleInputChange} />
+              <MarkdownEditor value={description} onChange={this.handleDescriptionChange} options={{ status: false, spellChecker: false }} />
             </div>
           </div>
         </div>,
@@ -75,7 +93,7 @@ class CreateForm extends React.PureComponent {
                   <div>
                     <label>
                       <div className="uk-flex uk-flex-middle uk-flex-center">
-                        <div><input className="uk-radio" type="radio" name="plan" value={p.id} checked={plan === p.id} onChange={this.handleInputChange} /></div>
+                        <div><input className="uk-radio" type="radio" name="plan" value={p.id} checked={plan === p.id} onChange={handleChange} /></div>
                         <div className="uk-button uk-button-text uk-margin-small-left">Select this plan</div>
                       </div>
                     </label>

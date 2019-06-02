@@ -22,8 +22,5 @@ const userFetch = () => (dispatch) => {
 
 export const userFetchIfNeeded = () => (dispatch, getState) => {
   const { user, payments } = getState();
-  if (!user.isHydrated || !payments.isHydrated) {
-    return dispatch(userFetch());
-  }
-  return null;
+  if (!user.isHydrated || !payments.isHydrated) dispatch(userFetch());
 };
