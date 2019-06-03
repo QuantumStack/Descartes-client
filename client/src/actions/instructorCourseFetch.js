@@ -10,7 +10,7 @@ export const {
   instructorCourseRequest, instructorCourseResponse,
 } = createActions(INSTRUCTOR_COURSE_REQUEST, INSTRUCTOR_COURSE_RESPONSE);
 
-export const fetchinstructorCourse = id => (dispatch) => {
+export const fetchInstructorCourse = id => (dispatch) => {
   dispatch(instructorCourseRequest());
   ax.get(INSTRUCTOR_URL, { params: { id }, headers: authHeader() })
     .then(({ data }) => {
@@ -22,7 +22,7 @@ export const fetchinstructorCourse = id => (dispatch) => {
     });
 };
 
-export const fetchinstructorCourseIfNeeded = id => (dispatch, getState) => {
+export const fetchInstructorCourseIfNeeded = id => (dispatch, getState) => {
   const { instructorCourses: { items: { [id]: course } } } = getState();
-  if (!course.isHydrated) dispatch(fetchinstructorCourse());
+  if (!course.isHydrated) dispatch(fetchInstructorCourse());
 };

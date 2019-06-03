@@ -27,13 +27,11 @@ class Dashboard extends React.PureComponent {
         <Helmet>
           <title>Dashboard | Descartes</title>
         </Helmet>
-        <div className="uk-container">
-          <LoadingLarge isLoading={isLoading}>
-            <UserContainer>
-              <AllCourses {...this.props} />
-            </UserContainer>
-          </LoadingLarge>
-        </div>
+        <LoadingLarge isLoading={isLoading}>
+          <UserContainer>
+            <AllCourses {...this.props} />
+          </UserContainer>
+        </LoadingLarge>
       </div>
     );
   }

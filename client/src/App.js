@@ -10,7 +10,7 @@ import Create from './containers/Create';
 import Purchased from './pages/Purchased';
 import Join from './containers/Join';
 import Instructor from './pages/Instructor';
-import Student from './pages/Student';
+import Student from './containers/Student';
 import Verify from './containers/Verify';
 import LogIn from './containers/LogIn';
 import SignUp from './containers/SignUp';

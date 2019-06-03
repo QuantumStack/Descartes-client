@@ -2,11 +2,13 @@ import { normalize, schema } from 'normalizr';
 import { LOG_OUT } from '../actions';
 import { error } from '../util/alert';
 
-export const updateCourse = (state, id, update) => {
-  const courseItem = state.items[id];
-  if (courseItem) return Object.assign({}, courseItem, update);
-  return state;
-};
+export const updateCourse = (state, id, update) => ({
+  ...state,
+  items: {
+    ...state.items,
+    [id]: Object.assign({}, state.items[id], update),
+  },
+});
 
 export const coursesReducer = (
   DEHYDRATE, RECEIVE, COURSE_DEHYDRATE, COURSE_REQUEST, COURSE_RESPONSE,
@@ -31,7 +33,7 @@ export const coursesReducer = (
         return {
           ...state,
           isHydrated: true,
-          items: Object.assign({}, state.items, courses),
+          items: Object.assign({}, courses, state.items),
         };
       }
       case COURSE_DEHYDRATE:
@@ -46,7 +48,7 @@ export const coursesReducer = (
         return updateCourse(state, payload.id, {
           isLoading: false,
           isHydrated: true,
-          data: payload.data,
+          ...payload.data,
         });
       default:
         return state;
