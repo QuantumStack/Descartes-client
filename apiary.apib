@@ -449,96 +449,98 @@ Get all details about a course from a student's perspective. Notes:
                 "name": "Aditya Pillai",
                 "email": "aditya@example.com"
             },
-            "name": "15-122: Fall 2019",
-            "description": "### Hello\n**Welcome** to this course!",
-            "head": "Albert Einstein",
-            "contact": "teacher@example.com",
-            "instructors": [
-                {
-                    "name": "Albert Einstein",
-                    "role": "admin"
-                },
-                {
-                    "name": "Ashwin Srinivasan",
-                    "role": "instructor"
-                }
-            ],
-            "oh": true,
-            "expired": false,
-            "section": "A",
-            "override": 60,
-            "activities": 5,
-            "polls": 10,
-            "assignments": [
-                {
-                    "name":  "Midterm 1",
-                    "description": "This one was **hard**",
-                    "type": "custom",
-                    "score": 95,
-                    "out_of": 100,
-                    "override": 97,
-                    "category":  "Exams",
-                    "date": 1558885206658
-                },
-                {
-                    "name": "Homework 1",
-                    "type": "custom",
-                    "score": 25,
-                    "out_of": 25,
-                    "category": "Homeworks",
-                    "date": 1558885258178
-                },
-                {
-                    "name": "Homework 2",
-                    "description": "Unnecessary text",
-                    "type": "custom",
-                    "out_of": 25,
-                    "category": "Homeworks",
-                    "date": 1558885258178
-                },
-                {
-                    "name": "Lab 1",
-                    "type": "activity",
-                    "activity": "id of activity",
-                    "flags": [
-                        {
-                            "type": "section"
-                        }
-                    ],
-                    "score": 3,
-                    "out_of": 3,
-                    "category": "Labs",
-                    "date": 1558886442796
-                },
-                {
-                    "name": "Poll 1",
-                    "description": "Really *simple, easy* to start class",
-                    "type": "poll",
-                    "poll": "id of poll",
-                    "score": 5,
-                    "out_of": 5,
-                    "category": "Polls",
-                    "date": 1558886493794
-                }
-            ],
-            "categories":  {
-                "Exams": {
-                    "description": "*You'll  do great*",
-                    "weight": 0
-                },
-                "Homeworks": {
-                    "description": "*Lots of fun*",
-                    "weight": 50
-                },
-                "Labs": {
-                    "description": "Labs  are  *easy*",
-                    "activities": true,
-                    "weight": 25
-                },
-                "Polls": {
-                    "description": "Check your **attendance**",
-                    "polls": true,
-                    "weight": 25
+            "course": {
+                "name": "15-122: Fall 2019",
+                "description": "### Hello\n**Welcome** to this course!",
+                "head": "Albert Einstein",
+                "contact": "teacher@example.com",
+                "instructors": [
+                    {
+                        "name": "Albert Einstein",
+                        "role": "admin"
+                    },
+                    {
+                        "name": "Ashwin Srinivasan",
+                        "role": "instructor"
+                    }
+                ],
+                "oh": true,
+                "expired": false,
+                "section": "A",
+                "override": 60,
+                "activities": 5,
+                "polls": 10,
+                "assignments": [
+                    {
+                        "name":  "Midterm 1",
+                        "description": "This one was **hard**",
+                        "type": "custom",
+                        "score": 95,
+                        "out_of": 100,
+                        "override": 97,
+                        "category":  "Exams",
+                        "date": 1558885206658
+                    },
+                    {
+                        "name": "Homework 1",
+                        "type": "custom",
+                        "score": 25,
+                        "out_of": 25,
+                        "category": "Homeworks",
+                        "date": 1558885258178
+                    },
+                    {
+                        "name": "Homework 2",
+                        "description": "Unnecessary text",
+                        "type": "custom",
+                        "out_of": 25,
+                        "category": "Homeworks",
+                        "date": 1558885258178
+                    },
+                    {
+                        "name": "Lab 1",
+                        "type": "activity",
+                        "activity": "id of activity",
+                        "flags": [
+                            {
+                                "type": "section"
+                            }
+                        ],
+                        "score": 3,
+                        "out_of": 3,
+                        "category": "Labs",
+                        "date": 1558886442796
+                    },
+                    {
+                        "name": "Poll 1",
+                        "description": "Really *simple, easy* to start class",
+                        "type": "poll",
+                        "poll": "id of poll",
+                        "score": 5,
+                        "out_of": 5,
+                        "category": "Polls",
+                        "date": 1558886493794
+                    }
+                ],
+                "categories":  {
+                    "Exams": {
+                        "description": "*You'll  do great*",
+                        "weight": 0
+                    },
+                    "Homeworks": {
+                        "description": "*Lots of fun*",
+                        "weight": 50
+                    },
+                    "Labs": {
+                        "description": "Labs  are  *easy*",
+                        "activities": true,
+                        "weight": 25
+                    },
+                    "Polls": {
+                        "description": "Check your **attendance**",
+                        "polls": true,
+                        "weight": 25
+                    }
                 }
             }
         }
