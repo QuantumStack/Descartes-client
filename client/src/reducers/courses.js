@@ -1,17 +1,26 @@
 import { normalize, schema } from 'normalizr';
 import { LOG_OUT } from '../actions';
+import { error } from '../util/alert';
 
-export default (HYDRATE, RECEIVE) => {
+export const updateCourse = (state, id, update) => {
+  const courseItem = state.items[id];
+  if (courseItem) return Object.assign({}, courseItem, update);
+  return state;
+};
+
+export const coursesReducer = (
+  DEHYDRATE, RECEIVE, COURSE_DEHYDRATE, COURSE_REQUEST, COURSE_RESPONSE,
+) => {
   const defaultState = {
     isHydrated: false,
     items: {},
   };
 
-  return (state = defaultState, { type, payload }) => {
+  return (state = defaultState, { type, payload, error: err }) => {
     switch (type) {
       case LOG_OUT:
         return defaultState;
-      case HYDRATE:
+      case DEHYDRATE:
         return {
           ...state,
           isHydrated: false,
@@ -25,6 +34,20 @@ export default (HYDRATE, RECEIVE) => {
           items: Object.assign({}, state.items, courses),
         };
       }
+      case COURSE_DEHYDRATE:
+        return updateCourse(state, payload, { isHydrated: false });
+      case COURSE_REQUEST:
+        return updateCourse(state, payload, { isLoading: true });
+      case COURSE_RESPONSE:
+        if (err) {
+          error(null, payload.response);
+          return updateCourse(state, payload.id, { isLoading: false });
+        }
+        return updateCourse(state, payload.id, {
+          isLoading: false,
+          isHydrated: true,
+          data: payload.data,
+        });
       default:
         return state;
     }

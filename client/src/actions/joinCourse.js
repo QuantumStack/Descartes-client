@@ -2,7 +2,7 @@ import { createActions } from 'redux-actions';
 import { push } from 'connected-react-router';
 import { ax, JOIN_URL, authHeader } from '../util/api';
 import deauthenticateIfNeeded from './deauthenticateIfNeeded';
-import { studentCoursesDehydrate } from './studentCoursesDehydrate';
+import { studentCoursesDehydrate } from './identities';
 
 export const JOIN_REQUEST = 'JOIN_REQUEST';
 export const JOIN_RESPONSE = 'JOIN_RESPONSE';

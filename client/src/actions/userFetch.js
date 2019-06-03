@@ -1,7 +1,7 @@
 import { createActions } from 'redux-actions';
 import { ax, ACCOUNT_URL, authHeader } from '../util/api';
 import deauthenticateIfNeeded from './deauthenticateIfNeeded';
-import { paymentsReceive } from './paymentsReceive';
+import { paymentsReceive } from './identities';
 
 export const USER_REQUEST = 'USER_REQUEST';
 export const USER_RESPONSE = 'USER_RESPONSE';

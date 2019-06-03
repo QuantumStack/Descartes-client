@@ -2,8 +2,7 @@ import { createActions } from 'redux-actions';
 import { ax, OVERVIEW_URL, authHeader } from '../util/api';
 import deauthenticateIfNeeded from './deauthenticateIfNeeded';
 import { userResponse } from './userFetch';
-import { instructorCoursesReceive } from './instructorCoursesReceive';
-import { studentCoursesReceive } from './studentCoursesReceive';
+import { instructorCoursesReceive, studentCoursesReceive } from './identities';
 
 export const DASHBOARD_REQUEST = 'DASHBOARD_REQUEST';
 export const DASHBOARD_RESPONSE = 'DASHBOARD_RESPONSE';

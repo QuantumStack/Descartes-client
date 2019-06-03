@@ -2,8 +2,7 @@ import { createActions } from 'redux-actions';
 import { ax, CREATE_URL, authHeader } from '../util/api';
 import findPlan from '../util/plan';
 import deauthenticateIfNeeded from './deauthenticateIfNeeded';
-import { paymentsDehydrate } from './paymentsDehydrate';
-import { instructorCoursesDehydrate } from './instructorCoursesDehydrate';
+import { paymentsDehydrate, instructorCoursesDehydrate } from './identities';
 
 export const CREATE_COURSE_REQUEST = 'CREATE_COURSE_REQUEST';
 export const CREATE_COURSE_RESPONSE = 'CREATE_COURSE_RESPONSE';
