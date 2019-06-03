@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Helmet } from 'react-helmet';
-import LoadingLarge from '../components/LoadingLarge';
-import AccountSettings from '../components/AccountSettings';
 import { userFetchIfNeeded, userChange, userInputChange } from '../actions';
 import { formatPayments } from '../selectors';
+import LoadingLarge from '../components/LoadingLarge';
 import UserContainer from './UserContainer';
+import AccountSettings from '../components/AccountSettings';
 
 class Account extends React.PureComponent {
   static propTypes = {

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Typist from 'react-typist';
+// TODO: fix typist css not working
 import 'react-typist/dist/Typist.css';
 import BasicNavbar from './BasicNavbar';
 import blackboard from '../assets/blackboard.jpg';

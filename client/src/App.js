@@ -4,9 +4,10 @@ import PrivateRoute from './router/PrivateRoute';
 import UnprivateRoute from './router/UnprivateRoute';
 import Home from './pages/Home';
 import Legal from './pages/Legal';
-import Dashboard from './pages/Dashboard';
+import Dashboard from './containers/Dashboard';
 import Account from './containers/Account';
 import Create from './containers/Create';
+import Purchased from './pages/Purchased';
 import Join from './containers/Join';
 import Instructor from './pages/Instructor';
 import Student from './pages/Student';
@@ -27,7 +28,8 @@ function App() {
         <PrivateRoute path="/dashboard/account" component={Account} />
         <PrivateRoute path="/dashboard/instructor/:id" component={Instructor} />
         <PrivateRoute path="/dashboard/student/:id" component={Student} />
-        <PrivateRoute path="/create" component={Create} />
+        <PrivateRoute exact path="/create" component={Create} />
+        <PrivateRoute path="/create/success" component={Purchased} />
         <PrivateRoute exact path="/join" component={Join} />
         <PrivateRoute path="/join/:code" component={Join} />
         <UnprivateRoute exact path="/verify" component={Verify} />

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import CenterBox from '../components/CenterBox';
 
-function LogIn() {
+function NotFound() {
   return (
     <div>
       <Helmet>
@@ -26,4 +26,4 @@ function LogIn() {
   );
 }
 
-export default LogIn;
+export default NotFound;
