@@ -1,40 +1,12 @@
 import React from 'react';
-import ReactMde from 'react-mde';
-import { Converter } from 'showdown';
-import xssFilter from 'showdown-xss-filter';
-import 'react-mde/lib/styles/css/react-mde-all.css';
+import SimpleMDE from 'react-simplemde-editor';
+import 'easymde/dist/easymde.min.css';
+import converter from '../util/markdown';
 
-class MarkdownEditor extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      tab: this.props.tab || 'write',
-    };
-    this.converter = new Converter({
-      tables: true,
-      noHeaderId: true,
-      simplifiedAutoLink: true,
-      strikethrough: true,
-      tasklists: true,
-      extensions: [ xssFilter ],
-    });
-    this.handleTabChange = this.handleTabChange.bind(this);
-    this.generatePreview = this.generatePreview.bind(this);
-  }
-
-  handleTabChange(tab) {
-    this.setState({ tab });
-  }
-
-  generatePreview(md) {
-    console.log(md);
-    console.log(this.converter.makeHtml(md));
-    return Promise.resolve(this.converter.makeHtml(md));
-  }
-
+class MarkdownEditor extends React.PureComponent {
   render() {
     return (
-      <ReactMde {...this.props} selectedTab={this.state.tab} onTabChange={this.handleTabChange} generateMarkdownPreview={this.generatePreview} />
+      <SimpleMDE {...this.props} previewRender={converter.makeHtml} />
     );
   }
 }

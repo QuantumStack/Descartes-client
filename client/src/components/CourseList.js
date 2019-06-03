@@ -37,11 +37,7 @@ class CourseList extends React.Component {
     return this.props.courses.filter(course => 
       course.name.toLowerCase().includes(search.toLowerCase())
       && (expired || !course.expired)
-    ).sort((a, b) => {
-      if (a.name > b.name) return sort;
-      if (a.name < b.name) return -sort;
-      return 0;
-    });
+    ).sort((a, b) => a.localeCompare(b) * sort);
   }
 
   render() {

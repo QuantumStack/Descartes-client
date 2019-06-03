@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { ax, authHeader } from '../util/api';
 import { deauthenticate } from '../util/auth';
 import { error } from '../util/alert';
+import merge from 'deepmerge';
 import LoadingLarge from './LoadingLarge';
 
 class DataContainer extends React.Component {
@@ -26,8 +27,8 @@ class DataContainer extends React.Component {
     });
   }
 
-  updateData(data) {
-    this.setState({ data });
+  updateData(newData, callback) {
+    this.setState(({ data }) => ({ data: merge(data, newData) }), callback);
   }
 
   render() {

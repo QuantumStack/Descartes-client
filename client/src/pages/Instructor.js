@@ -3,7 +3,7 @@ import DataContainer from '../components/DataContainer';
 import LoadingLarge from '../components/LoadingLarge';
 import { INSTRUCTOR_URL } from '../util/api';
 
-class Dashboard extends React.Component {
+class Instructor extends React.Component {
   render() {
     return (
       <div>
@@ -19,4 +19,4 @@ class Dashboard extends React.Component {
   }
 }
 
-export default Dashboard;
+export default Instructor;
