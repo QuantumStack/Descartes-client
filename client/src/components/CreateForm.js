@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { injectStripe } from 'react-stripe-elements';
-import MarkdownEditor from './MarkdownEditor';
+import SimpleMDE from 'react-simplemde-editor';
+import 'easymde/dist/easymde.min.css';
+// import converter from '../util/markdown';
+// TODO: decide whether to use showdown globally
 import PricingPlan from './PricingPlan';
 import { plans } from '../config';
 
@@ -68,7 +71,7 @@ class CreateForm extends React.PureComponent {
           <div className="uk-margin-small">
             <label className="uk-form-label" htmlFor="form-stacked-text">Description</label>
             <div className="uk-form-controls uk-width-expand">
-              <MarkdownEditor value={description} onChange={this.handleDescriptionChange} options={{ status: false, spellChecker: false }} />
+              <SimpleMDE value={description} onChange={this.handleDescriptionChange} options={{ status: false, spellChecker: false }} />
             </div>
           </div>
         </div>,

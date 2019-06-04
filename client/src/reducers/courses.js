@@ -1,6 +1,21 @@
 import { normalize, schema } from 'normalizr';
 import { LOG_OUT } from '../actions';
-import { error } from '../util/alert';
+
+const instructorSchema = new schema.Entity('instructors', {}, { idAttribute: 'email' });
+const assignmentSchema = new schema.Entity('assignments');
+const categorySchema = new schema.Entity('categories');
+const courseSchema = new schema.Entity('courses', {
+  instructors: [instructorSchema],
+  assignments: [assignmentSchema],
+  categories: [categorySchema],
+}, {
+  processStrategy: value => ({
+    isLoading: false,
+    isHydrated: true,
+    ...value,
+  }),
+});
+export const courseTemplate = courseSchema;
 
 export const updateCourse = (state, id, update) => ({
   ...state,
@@ -11,14 +26,18 @@ export const updateCourse = (state, id, update) => ({
 });
 
 export const coursesReducer = (
-  DEHYDRATE, RECEIVE, COURSE_DEHYDRATE, COURSE_REQUEST, COURSE_RESPONSE,
+  DEHYDRATE, RECEIVE, COURSE_DEHYDRATE, COURSE_REQUEST, callback,
 ) => {
   const defaultState = {
     isHydrated: false,
     items: {},
+    instructors: {},
+    assignments: {},
+    categories: {},
   };
 
-  return (state = defaultState, { type, payload, error: err }) => {
+  return (state = defaultState, action) => {
+    const { type, payload } = action;
     switch (type) {
       case LOG_OUT:
         return defaultState;
@@ -40,18 +59,8 @@ export const coursesReducer = (
         return updateCourse(state, payload, { isHydrated: false });
       case COURSE_REQUEST:
         return updateCourse(state, payload, { isLoading: true });
-      case COURSE_RESPONSE:
-        if (err) {
-          error(null, payload.response);
-          return updateCourse(state, payload.id, { isLoading: false });
-        }
-        return updateCourse(state, payload.id, {
-          isLoading: false,
-          isHydrated: true,
-          ...payload.data,
-        });
       default:
-        return state;
+        return callback(state, action);
     }
   };
 };

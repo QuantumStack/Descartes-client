@@ -12,5 +12,8 @@ export default coursesReducer(
   INSTRUCTOR_COURSES_RECEIVE,
   INSTRUCTOR_COURSE_DEHYDRATE,
   INSTRUCTOR_COURSE_REQUEST,
-  INSTRUCTOR_COURSE_RESPONSE,
+  (state, action) => {
+    // TODO: custom reducers for instructorCourses
+    return state;
+  },
 );

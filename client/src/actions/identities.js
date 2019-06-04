@@ -10,6 +10,7 @@ export const INSTRUCTOR_COURSE_DEHYDRATE = 'INSTRUCTOR_CUORSE_DEHYDRATE';
 export const STUDENT_COURSES_DEHYDRATE = 'STUDENT_COURSES_DEHYDRATE';
 export const STUDENT_COURSES_RECEIVE = 'STUDENT_COURSES_RECEIVE';
 export const STUDENT_COURSE_DEHYDRATE = 'STUDENT_COURSE_DEHYDRATE';
+export const STUDENT_COURSE_SCORE_RESET = 'STUDENT_COURSE_SCORE_RESET';
 
 export const {
   logInInputBlur,
@@ -22,6 +23,7 @@ export const {
   studentCoursesDehydrate,
   studentCoursesReceive,
   studentCourseDehydrate,
+  studentCourseScoreReset,
 } = createActions(
   LOG_IN_INPUT_BLUR,
   SIGN_UP_CAPTCHA,
@@ -33,4 +35,5 @@ export const {
   STUDENT_COURSES_DEHYDRATE,
   STUDENT_COURSES_RECEIVE,
   STUDENT_COURSE_DEHYDRATE,
+  STUDENT_COURSE_SCORE_RESET,
 );
