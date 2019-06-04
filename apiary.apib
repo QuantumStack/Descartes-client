@@ -417,7 +417,11 @@ Get details about a user's courses.
                     "id": "761",
                     "role": "student",
                     "name": "15-122: Summer 2019",
-                    "head": "Mr. Head Instructor",
+                    "head": {
+                        "email": "albert@smart.com",
+                        "name": "Albert Einstein",
+                        "role": "admin",
+                    },
                     "grade": 100,
                     "activities": 5,
                     "polls": 10,
@@ -453,14 +457,16 @@ Get all details about a course from a student's perspective. Notes:
                 "id": "761",
                 "name": "15-122: Fall 2019",
                 "description": "### Hello\n**Welcome** to this course!",
-                "head": "Albert Einstein",
-                "contact": "teacher@example.com",
+                "head": "albert@smart.com",
+                "contact": "teacher@course.com",
                 "instructors": [
                     {
+                        "email": "albert@smart.com",
                         "name": "Albert Einstein",
                         "role": "admin"
                     },
                     {
+                        "email": "ashwin@fishdev.xyz",
                         "name": "Ashwin Srinivasan",
                         "role": "instructor"
                     }
@@ -473,6 +479,7 @@ Get all details about a course from a student's perspective. Notes:
                 "polls": 10,
                 "assignments": [
                     {
+                        "id": "1",
                         "name":  "Midterm 1",
                         "description": "This one was **hard**",
                         "type": "custom",
@@ -483,6 +490,7 @@ Get all details about a course from a student's perspective. Notes:
                         "date": 1558885206658
                     },
                     {
+                        "id": "2",
                         "name": "Homework 1",
                         "type": "custom",
                         "score": 25,
@@ -491,6 +499,7 @@ Get all details about a course from a student's perspective. Notes:
                         "date": 1558885258178
                     },
                     {
+                        "id": "3",
                         "name": "Homework 2",
                         "description": "Unnecessary text",
                         "type": "custom",
@@ -499,6 +508,7 @@ Get all details about a course from a student's perspective. Notes:
                         "date": 1558885258178
                     },
                     {
+                        "id": "42",
                         "name": "Lab 1",
                         "type": "activity",
                         "activity": "id of activity",
@@ -513,6 +523,7 @@ Get all details about a course from a student's perspective. Notes:
                         "date": 1558886442796
                     },
                     {
+                        "id": "67",
                         "name": "Poll 1",
                         "description": "Really *simple, easy* to start class",
                         "type": "poll",
@@ -525,19 +536,23 @@ Get all details about a course from a student's perspective. Notes:
                 ],
                 "categories":  {
                     "Exams": {
+                        "id": "1",
                         "description": "*You'll  do great*",
                         "weight": 0
                     },
                     "Homeworks": {
+                        "id": "3",
                         "description": "*Lots of fun*",
                         "weight": 50
                     },
                     "Labs": {
+                        "id": "hola",
                         "description": "Labs  are  *easy*",
                         "activities": true,
                         "weight": 25
                     },
                     "Polls": {
+                        "id": "p2",
                         "description": "Check your **attendance**",
                         "polls": true,
                         "weight": 25
