@@ -1,8 +1,21 @@
 import React from 'react';
-import chartjs from 'chart.js';
+import PropTypes from 'prop-types';
+import ChartJS from 'chart.js';
 import { fontFamily } from '../config';
 
-class Chart extends React.Component {
+class Chart extends React.PureComponent {
+  static propTypes = {
+    id: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    // eslint-disable-next-line react/forbid-prop-types
+    data: PropTypes.object.isRequired,
+    options: PropTypes.objectOf(PropTypes.object),
+  }
+
+  static defaultProps = {
+    options: {},
+  }
+
   chartRef = React.createRef();
 
   constructor(props) {
@@ -10,10 +23,18 @@ class Chart extends React.Component {
     this.makeChart = this.makeChart.bind(this);
   }
 
+  componentDidMount() {
+    this.makeChart();
+  }
+
+  componentDidUpdate() {
+    this.makeChart();
+  }
+
   makeChart() {
     const canvasRef = this.chartRef.current.getContext('2d');
-    const { type, data, options = {} } = this.props;
-    new chartjs(canvasRef, {
+    const { type, data, options } = this.props;
+    return new ChartJS(canvasRef, {
       type,
       data,
       options: {
@@ -33,17 +54,10 @@ class Chart extends React.Component {
     });
   }
 
-  componentDidMount() {
-    this.makeChart();
-  }
-  
-  componentDidUpdate() {
-    this.makeChart();
-  }
-
   render() {
+    const { id, data } = this.props;
     return (
-      <canvas id={this.props.id} ref={this.chartRef} />
+      <canvas key={`${id}-${JSON.stringify(data)}`} id={id} ref={this.chartRef} />
     );
   }
 }

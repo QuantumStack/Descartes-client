@@ -1,5 +1,7 @@
 import { createSelector } from 'reselect';
+import moment from 'moment';
 import scoreAssignmentsCategories from './scoreAssignmentsCategories';
+import { dateFormat } from '../config';
 
 export const getStudentCourses = state => state.studentCourses.items;
 
@@ -21,13 +23,22 @@ export const studentCourseCompact = courseId => createSelector(
   (courses, allInstructors, allAssignments, allCategories) => {
     const courseItem = courses[courseId];
     if (courseItem && !courseItem.isLoading && courseItem.isHydrated) {
-      const assignments = courseItem.assignments.map(id => allAssignments[id]);
+      const assignments = courseItem.assignments.map((id) => {
+        const assign = allAssignments[id];
+        const momentDate = moment(assign.date);
+        return {
+          ...assign,
+          exactDate: momentDate.format(dateFormat),
+          relativeDate: momentDate.fromNow(),
+        };
+      });
       const categories = courseItem.categories.map(id => allCategories[id]);
       const scoredObj = scoreAssignmentsCategories(assignments, categories);
       return {
         ...courseItem,
         instructors: courseItem.instructors.map(email => allInstructors[email]),
         ...scoredObj,
+
       };
     }
     return {};

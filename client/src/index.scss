@@ -13,6 +13,10 @@ $global-danger-background: #f62336;
   color: $global-link-color !important;
 }
 
+.uk-margin-xsmall-right {
+  margin-right: 5px !important;
+}
+
 // 2. Import default variables and available mixins
 @import "uikit/src/scss/variables-theme.scss";
 @import "uikit/src/scss/mixins-theme.scss";

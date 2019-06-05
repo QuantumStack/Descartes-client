@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import Markdown from 'react-markdown';
 import pluralize from 'pluralize';
 import DashboardHeader from './DashboardHeader';
 import Modal from './Modal';
 import GradeForecast from './GradeForecast';
-import converter from '../util/markdown';
+import { gradeRound } from '../util/grades';
 
 class StudentCourse extends React.PureComponent {
   static propTypes = {
@@ -51,6 +52,11 @@ class StudentCourse extends React.PureComponent {
     return (
       <div>
         {navbar}
+        {description && (
+          <Modal name={`student-${id}-description`}>
+            <Markdown source={description} />
+          </Modal>
+        )}
         <div className="uk-section uk-section-xsmall">
           <div className="uk-container uk-container-small">
             <DashboardHeader small>
@@ -62,7 +68,7 @@ class StudentCourse extends React.PureComponent {
               </div>
               <div data-uk-scrollspy="target: .uk-icon-button; cls: uk-animation-scale-up; delay: 100">
                 <a className="uk-icon-button" data-uk-icon="users" data-uk-tooltip="All instructors" />
-                <div data-uk-drop="mode: click; pos: bottom-center">
+                <div data-uk-drop="mode: click; pos: bottom-center; animation: uk-animation-slide-top-small uk-animation-fast">
                   <div className="uk-card uk-card-body uk-card-default uk-card-small">
                     <h5 className="uk-margin-small-bottom">Instructors</h5>
                     <ul className="uk-list">
@@ -81,15 +87,10 @@ class StudentCourse extends React.PureComponent {
             </DashboardHeader>
             <div className="uk-grid-small uk-margin-remove-top uk-margin-bottom" data-uk-grid data-uk-scrollspy="target: .uk-icon; cls: uk-animation-scale-up; delay: 100">
               {description && (
-                <div>
-                  <a data-uk-toggle={`target: #student-${id}-description-modal`}>
-                    <span className="uk-icon uk-margin-small-right" data-uk-icon="file-text" />
-                    <span>Course description</span>
-                  </a>
-                  <Modal name={`student-${id}-description`}>
-                    <div dangerouslySetInnerHTML={{ __html: converter.makeHtml(description) }} />
-                  </Modal>
-                </div>
+                <a data-uk-toggle={`target: #student-${id}-description-modal`}>
+                  <span className="uk-icon uk-margin-small-right" data-uk-icon="file-text" />
+                  <span>Course description</span>
+                </a>
               )}
               {oh && (
                 <div>
@@ -116,12 +117,12 @@ class StudentCourse extends React.PureComponent {
                   {grade && (
                     <strong data-uk-scrollspy="cls: uk-animation-fade; delay: 500">
                       {hasFake && <span className="uk-text-link">*</span>}
-                      {grade}
+                      {gradeRound(grade)}
                       <span>%</span>
                     </strong>
                   )}
                 </a>
-                <div data-uk-drop="mode: click; pos: bottom-center">
+                <div data-uk-drop="mode: click; pos: bottom-center; animation: uk-animation-slide-top-small uk-animation-fast">
                   <div className="uk-card uk-card-body uk-card-default uk-card-small uk-text-justify">
                     <h5 className="uk-margin-small-bottom">
                       <span className="uk-margin-small-right" data-uk-icon="info" />

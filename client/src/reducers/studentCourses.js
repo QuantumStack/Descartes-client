@@ -53,8 +53,8 @@ export default coursesReducer(
           ...state,
           assignments: {
             ...state.assignments,
-            [payload.id]: {
-              ...state.assignments[payload.id],
+            [payload]: {
+              ...state.assignments[payload],
               fakeScore: null,
             },
           },

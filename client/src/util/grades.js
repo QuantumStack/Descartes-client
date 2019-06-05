@@ -1,8 +1,9 @@
 export const getTrueScore = ({
   fakeScore, score, override, outOf,
 }) => {
-  let master = fakeScore || score;
-  if (override) master = override * outOf / 100;
+  let master = score;
+  if (override != null) master = override * outOf / 100;
+  if (fakeScore != null) master = fakeScore;
   return master;
 };
 

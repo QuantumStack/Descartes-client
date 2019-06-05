@@ -4,6 +4,7 @@ import Mousetrap from 'mousetrap';
 import { modal } from 'uikit';
 import Modal from './Modal';
 
+// TODO: fix overlapping shortcuts modals between routes
 class KeyShortcuts extends React.PureComponent {
   static propTypes = {
     shortcuts: PropTypes.arrayOf(PropTypes.shape({
@@ -42,10 +43,10 @@ class KeyShortcuts extends React.PureComponent {
         <table className="uk-table uk-table-small uk-table-hover">
           <tbody>
             {shortcuts.map(({ combos, description }) => (
-              <tr>
+              <tr key={combos}>
                 <td>
                   {(Array.isArray(combos) ? combos : [combos]).map(combo => (
-                    <span className="uk-label uk-label-success uk-margin-small-right" style={{ textTransform: 'none' }}>{combo}</span>
+                    <span key={combo} className="uk-label uk-label-success uk-margin-small-right" style={{ textTransform: 'none' }}>{combo}</span>
                   ))}
                 </td>
                 <td>
