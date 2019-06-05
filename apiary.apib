@@ -486,7 +486,7 @@ Get all details about a course from a student's perspective. Notes:
                         "score": 95,
                         "out_of": 100,
                         "override": 97,
-                        "category":  "Exams",
+                        "category":  "1",
                         "date": 1558885206658
                     },
                     {
@@ -504,7 +504,7 @@ Get all details about a course from a student's perspective. Notes:
                         "description": "Unnecessary text",
                         "type": "custom",
                         "out_of": 25,
-                        "category": "Homeworks",
+                        "category": "3",
                         "date": 1558885258178
                     },
                     {
@@ -519,7 +519,7 @@ Get all details about a course from a student's perspective. Notes:
                         ],
                         "score": 3,
                         "out_of": 3,
-                        "category": "Labs",
+                        "category": "hola",
                         "date": 1558886442796
                     },
                     {
@@ -530,34 +530,38 @@ Get all details about a course from a student's perspective. Notes:
                         "poll": "id of poll",
                         "score": 5,
                         "out_of": 5,
-                        "category": "Polls",
+                        "category": "p2",
                         "date": 1558886493794
                     }
                 ],
-                "categories":  {
-                    "Exams": {
+                "categories":  [
+                    {
+                        "name": "Exams",
                         "id": "1",
                         "description": "*You'll  do great*",
                         "weight": 0
                     },
-                    "Homeworks": {
+                    {
+                        "name": "Homeworks",
                         "id": "3",
                         "description": "*Lots of fun*",
                         "weight": 50
                     },
-                    "Labs": {
+                    {
+                        "name": "Labs",
                         "id": "hola",
                         "description": "Labs  are  *easy*",
                         "activities": true,
                         "weight": 25
                     },
-                    "Polls": {
+                    {
+                        "name": "Polls",
                         "id": "p2",
                         "description": "Check your **attendance**",
                         "polls": true,
                         "weight": 25
                     }
-                }
+                ]
             }
         }
 
