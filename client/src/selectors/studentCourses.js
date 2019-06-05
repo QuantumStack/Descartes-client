@@ -1,4 +1,6 @@
 import { createSelector } from 'reselect';
+import Gradebook from '../util/gradebook';
+import scoreAssignmentsCategories from './scoreAssignmentsCategories';
 
 export const getStudentCourses = state => state.studentCourses.items;
 
@@ -17,13 +19,19 @@ export const studentCourseCompact = courseId => createSelector(
     getStudentCoursesAssignments,
     getStudentCoursesCategories,
   ],
-  (courses, instructors, assignments, categories) => {
+  (courses, allInstructors, allAssignments, allCategories) => {
     const courseItem = courses[courseId];
-    return courseItem && !courseItem.isLoading && courseItem.isHydrated ? {
-      ...courseItem,
-      instructors: courseItem.instructors.map(email => instructors[email]),
-      assignments: courseItem.assignments.map(id => assignments[id]),
-      categories: courseItem.categories.reduce((obj, id) => ({ ...obj, [id]: categories[id] }), {}),
-    } : {};
+    if (courseItem && !courseItem.isLoading && courseItem.isHydrated) {
+      const assignments = courseItem.assignments.map(id => allAssignments[id]);
+      const categories = courseItem.categories.map(id => allCategories[id]);
+      const scoredObj = scoreAssignmentsCategories(assignments, categories);
+      console.log(scoredObj);
+      return {
+        ...courseItem,
+        instructors: courseItem.instructors.map(email => allInstructors[email]),
+        ...scoredObj,
+      };
+    }
+    return {};
   },
 );
