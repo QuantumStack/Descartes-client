@@ -7,6 +7,7 @@ import RouterPropTypes from 'react-router-prop-types';
 import LoadingLarge from '../components/LoadingLarge';
 import UserContainer from './UserContainer';
 import StudentCourse from '../components/StudentCourse';
+import { studentCourseCompact } from '../selectors';
 import { fetchStudentCourseIfNeeded } from '../actions';
 
 class Student extends React.PureComponent {
@@ -41,8 +42,8 @@ class Student extends React.PureComponent {
   }
 }
 
-const mapStateToProps = ({ studentCourses }, { match }) => ({
-  ...(studentCourses.items[match.params.id] || {}),
+const mapStateToProps = (state, { match }) => ({
+  ...studentCourseCompact(match.params.id)(state),
 });
 const mapDispatchToProps = dispatch => bindActionCreators({
   fetchIfNeeded: fetchStudentCourseIfNeeded,

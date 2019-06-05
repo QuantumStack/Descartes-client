@@ -2,8 +2,10 @@ import { normalize, schema } from 'normalizr';
 import { LOG_OUT } from '../actions';
 
 const instructorSchema = new schema.Entity('instructors', {}, { idAttribute: 'email' });
-const assignmentSchema = new schema.Entity('assignments');
 const categorySchema = new schema.Entity('categories');
+const assignmentSchema = new schema.Entity('assignments', {
+  category: categorySchema,
+});
 const courseSchema = new schema.Entity('courses', {
   instructors: [instructorSchema],
   assignments: [assignmentSchema],

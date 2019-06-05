@@ -6,7 +6,7 @@ import { primaryTranslucent, primaryColor } from '../config';
 import Gradebook from '../util/gradebook';
 import palette from 'google-palette';
 
-class GradeForecast extends React.Component {
+class GradeForecast extends React.PureComponent {
   constructor(props) {
     super(props);
     const gradebook = new Gradebook(props.assignments, props.categories);
@@ -31,7 +31,7 @@ class GradeForecast extends React.Component {
       data.push((i === 0 ? 0 : data[i - 1]) + gradebook.getPts(i, 'scored'));
     });
     return (
-      <Chart id={`${this.props.id}-overall`} type='line' data={{
+      <Chart id={`${this.props.id}-overall`} type="line" data={{
         labels,
         datasets: [{
           label: 'Overall grade',
@@ -75,7 +75,7 @@ class GradeForecast extends React.Component {
     });
     console.log(data);
     return (
-      <Chart id={`${this.props.id}-assignments`} type='bar' data={{
+      <Chart id={`${this.props.id}-assignments`} type="bar" data={{
         labels,
         datasets: [{
           label: 'Assignment score',
@@ -114,7 +114,7 @@ class GradeForecast extends React.Component {
       data.push(weight);
     });
     return (
-      <Chart id={`${this.props.id}-categories`} type='pie' data={{
+      <Chart id={`${this.props.id}-categories`} type="pie" data={{
         labels,
         datasets: [{
           label: 'Assignment score',
@@ -135,17 +135,17 @@ class GradeForecast extends React.Component {
         <Route exact path={match.path} render={this.chartOverall} />
         <Route exact path={`${match.path}/assignments`} component={this.chartAssignments} />
         <Route exact path={`${match.path}/categories`} component={this.chartCategories} />
-        <ul className='uk-tab-bottom uk-flex-center' data-uk-tab='toggle: none'>
+        <ul className="uk-tab-bottom uk-flex-center" data-uk-tab="toggle: none">
           <NavLink options={{ to: match.url }}>Overall</NavLink>
           <NavLink options={{ to: `${match.url}/assignments` }}>Assignments</NavLink>
           <NavLink options={{ to: `${match.url}/categories` }}>Categories</NavLink>
         </ul>
         
-        <div className='uk-overflow-auto uk-margin-small-top'>
-          <table className='uk-table uk-table-small uk-table-hover uk-table-divider'>
+        <div className="uk-overflow-auto uk-margin-small-top">
+          <table className="uk-table uk-table-small uk-table-hover uk-table-divider">
             <thead>
               <tr>
-                <th className='uk-table-expand'>Name</th>
+                <th className="uk-table-expand">Name</th>
                 <th>Score</th>
                 <th>Max</th>
                 <th>Percent</th>
@@ -161,7 +161,7 @@ class GradeForecast extends React.Component {
                       {a.score == null ? '-' : a.score}
                     </span>
                     <span className={`assignment-${id}-${i}`} hidden>
-                      <input className='uk-input' type='text' value={a.score} />
+                      <input className="uk-input" type="text" value={a.score} />
                     </span>
                   </td>
                   <td>{a.out_of}</td>

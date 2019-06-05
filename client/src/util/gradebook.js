@@ -28,11 +28,11 @@ export default class {
   }
 
   // sum of assignment scores in a category
-  catScore(name, force) {
-    const cat = this.cats[name];
+  catScore(id, force) {
+    const cat = this.cats[id];
     if (force || cat.score == null) {
       cat.score = this.scored
-        .filter(a => a.category === name)
+        .filter(a => a.category === id)
         .reduce((total, a) =>
           total + (a.override ? a.override / 100 * a.out_of : a.score));
     }
@@ -40,11 +40,11 @@ export default class {
   }
 
   // sum of assignment out_of points in a category
-  catTotal(name, force) {
-    const cat = this.cats[name]
+  catTotal(id, force) {
+    const cat = this.cats[id];
     if (force || cat.out_of == null) {
       cat.out_of = this.scored
-        .filter(a => a.category === name)
+        .filter(a => a.category === id)
         .reduce((total, a) => total + a.out_of, 0);
     }
     return cat.out_of;
