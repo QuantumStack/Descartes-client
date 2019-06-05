@@ -1,82 +1,88 @@
 export default class {
   constructor(assigns, cats) {
     this.assigns = assigns;
-    this.sort();
+    // this.sort();
     this.cats = cats;
-    this.grade = null;
+    this.grade = this.overall();
+    this.hasFake = false;
   }
 
   // assignments that have non-null score
   get scored() {
-    return this.assigns.filter(a => a.score != null);
+    return this.assigns.filter(({ fakeScore, score }) => {
+      if (fakeScore != null) {
+        this.hasFake = true;
+        return true;
+      }
+      return score != null;
+    });
   }
 
   // sort assignments by some parameter
   sort(param = 'date', order = 1) {
-    this.assigns = this.assigns.sort(({ [param]: a }, { [param]: b}) => 
-      (a < b ? -1 :  (a > b ? 1 : 0)) * order);
-  }
-
-  // update assignment score and re-compute grade
-  update(index, score) {
-    const single = this.assigns[index];
-    single.score = score;
-    single.updated = true;
-    this.getPts(index, 'assigns', true);
-    this.catScore(single.category, true);
-    this.overall(true);
+    this.assigns = this.assigns.sort(({ [param]: a }, { [param]: b }) => {
+      let val = 0;
+      if (a < b) val = -1;
+      if (a > b) val = 1;
+      return val * order;
+    });
   }
 
   // sum of assignment scores in a category
-  catScore(id, force) {
+  catScore(id) {
     const cat = this.cats[id];
-    if (force || cat.score == null) {
+    if (cat.score == null) {
       cat.score = this.scored
         .filter(a => a.category === id)
-        .reduce((total, a) =>
-          total + (a.override ? a.override / 100 * a.out_of : a.score));
+        .reduce((total, {
+          fakeScore, score, override, outOf,
+        }) => {
+          let added = fakeScore || score;
+          if (override) added = override * outOf / 100;
+          return total + added;
+        }, 0);
     }
     return cat.score;
   }
 
-  // sum of assignment out_of points in a category
-  catTotal(id, force) {
+  // sum of assignment outOf points in a category
+  catTotal(id) {
     const cat = this.cats[id];
-    if (force || cat.out_of == null) {
-      cat.out_of = this.scored
+    if (cat.outOf == null) {
+      cat.outOf = this.scored
         .filter(a => a.category === id)
-        .reduce((total, a) => total + a.out_of, 0);
+        .reduce((total, { outOf }) => total + outOf, 0);
     }
-    return cat.out_of;
+    return cat.outOf;
   }
 
   // score out of 100 for assignment
-  getPercent(index, type = 'assigns', force) {
+  getPercent(index, type = 'assigns') {
     const single = this[type][index];
-    if (force || single.percent == null) {
-      single.percent = single.override || (single.score / single.out_of * 100);
+    if (single.percent == null) {
+      console.log(single);
+      single.percent = single.override || ((single.fakeScore || single.score) / single.outOf * 100);
     }
     return single.percent;
   }
 
   // individual assignment's contribution to overall
-  getPts(index, type = 'assigns', force) {
+  getPts(index, type = 'assigns') {
     const single = this[type][index];
-    if ((force || single.points == null) && single.score != null) {
-      const percent = this.getPercent(index, type, force);
+    if (single.points == null && single.score != null) {
+      const percent = this.getPercent(index, type);
       const cat = this.cats[single.category];
-      const totalPts = this.catTotal(single.category, force);
-      single.points = percent * (single.out_of / totalPts) * cat.weight / 100;
+      const totalPts = this.catTotal(single.category);
+      single.points = percent * (single.outOf / totalPts) * cat.weight / 100;
     }
     return single.points;
   }
 
   // sum of assignment points = overall grade
-  overall(force) {
-    if (force || this.grade == null) {
-      this.grade = this.assigns
-        .reduce((total, a, index) =>
-          a.score == null ? total : total + this.getPts(index), 0);
+  overall() {
+    if (this.grade == null) {
+      this.grade = this.scored
+        .reduce((total, _, index) => total + this.getPts(index), 0);
     }
     return this.grade;
   }

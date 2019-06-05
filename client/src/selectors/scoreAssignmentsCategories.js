@@ -1,27 +1,25 @@
+import { getTrueScore } from '../util/grades';
+
 const filterAssignsByScore = (assigns) => {
   let hasFake = false;
-  const filtered = assigns.filter(({ fakeScore, score }) => {
+  const filtered = [];
+  const remainder = [];
+  assigns.forEach((assign) => {
+    const { fakeScore, score } = assign;
+    let hasScore = false;
     if (fakeScore != null) {
       hasFake = true;
-      return true;
-    }
-    return score != null;
+      hasScore = true;
+    } else if (score != null) hasScore = true;
+    (hasScore ? filtered : remainder).push(assign);
   });
-  return [filtered, hasFake];
+  return [filtered, remainder, hasFake];
 };
 
 const filterAssignsByCat = (assigns, id) => assigns.filter(({ category }) => category === id);
 
-const getTrueScore = ({
-  fakeScore, score, override, outOf,
-}) => {
-  let master = fakeScore || score;
-  if (override) master = override * outOf / 100;
-  return master;
-};
-
 export default (assigns, cats) => {
-  const [scoredAssigns, hasFake] = filterAssignsByScore(assigns);
+  const [scoredAssigns, unscoredAssigns, hasFake] = filterAssignsByScore(assigns);
   const computedCats = cats.reduce((obj, cat) => {
     const { id } = cat;
     const catAssigns = filterAssignsByCat(scoredAssigns, id);
@@ -50,7 +48,7 @@ export default (assigns, cats) => {
   });
   const overallGrade = computedScoredAssigns.reduce((total, assign) => total + assign.points, 0);
   return {
-    assignments: assigns,
+    assignments: computedScoredAssigns.concat(unscoredAssigns),
     scoredAssignments: computedScoredAssigns,
     categories: computedCats,
     grade: overallGrade,

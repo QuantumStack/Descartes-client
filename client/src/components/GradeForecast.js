@@ -1,146 +1,73 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { withRouter, Route } from 'react-router-dom';
+import RouterPropTypes from 'react-router-prop-types';
+import { modal } from 'uikit';
+import KeyShortcuts from './KeyShortcuts';
 import NavLink from './NavLink';
-import Chart from './Chart';
-import { primaryTranslucent, primaryColor } from '../config';
-import Gradebook from '../util/gradebook';
-import palette from 'google-palette';
+import OverallGradeChart from './OverallGradeChart';
+import AssignmentsChart from './AssignmentsChart';
+import CategoriesChart from './CategoriesChart';
+import { gradeRound } from '../util/grades';
 
 class GradeForecast extends React.PureComponent {
+  static propTypes = {
+    id: PropTypes.string.isRequired,
+    assignments: PropTypes.arrayOf(PropTypes.object).isRequired,
+    scoredAssignments: PropTypes.arrayOf(PropTypes.object).isRequired,
+    categories: PropTypes.objectOf(PropTypes.object).isRequired,
+    resetAllFakes: PropTypes.func.isRequired,
+    match: RouterPropTypes.match.isRequired,
+  }
+
   constructor(props) {
     super(props);
-    const gradebook = new Gradebook(props.assignments, props.categories);
-    this.state = {
-      gradebook,
-    };
-    props.setGrade(gradebook.overall());
+    this.makeShortcuts = this.makeShortcuts.bind(this);
     this.chartOverall = this.chartOverall.bind(this);
     this.chartAssignments = this.chartAssignments.bind(this);
     this.chartCategories = this.chartCategories.bind(this);
-    setTimeout(() => {
-      this.state.gradebook.update(1, 10);
-      this.forceUpdate();
-    }, 3000);
+  }
+
+  makeShortcuts() {
+    const { resetAllFakes } = this.props;
+    return [
+      {
+        combos: 'r',
+        callback: resetAllFakes,
+        description: 'Reset grades you\'re testing',
+      },
+    ];
   }
 
   chartOverall() {
-    const { gradebook } = this.state;
-    const labels = [], data = [];
-    gradebook.scored.forEach(({ name }, i) => {
-      labels.push(name);
-      data.push((i === 0 ? 0 : data[i - 1]) + gradebook.getPts(i, 'scored'));
-    });
-    return (
-      <Chart id={`${this.props.id}-overall`} type="line" data={{
-        labels,
-        datasets: [{
-          label: 'Overall grade',
-          backgroundColor: primaryTranslucent,
-          borderColor: primaryColor,
-          borderWidth: 1,
-          data,
-        }]
-      }} options={{
-        scales: {
-          yAxes: [{
-            ticks: {
-              beginAtZero: true,
-              suggestedMax: 100,
-            },
-          }]
-        },
-        elements: {
-          line: {
-            tension: 0,
-          },
-        },
-        tooltips: {
-          callbacks: {
-            beforeBody: ([{ index: i }]) =>
-            `${gradebook.getPercent(i, 'scored')}% for this (${gradebook.scored[i].category})`,
-            afterFooter: ([{ index: i }]) => 
-              gradebook.scored[i].updated ? 'You are testing this score' : '',
-          },
-        },
-      }} />
-    );
+    return <OverallGradeChart {...this.props} />;
   }
 
   chartAssignments() {
-    const labels = [], data = [];
-    const { gradebook } = this.state;
-    gradebook.scored.forEach(({ name }, i) => {
-      labels.push(name);
-      data.push(gradebook.getPercent(i, 'scored'));
-    });
-    console.log(data);
-    return (
-      <Chart id={`${this.props.id}-assignments`} type="bar" data={{
-        labels,
-        datasets: [{
-          label: 'Assignment score',
-          backgroundColor: primaryTranslucent,
-          borderColor: primaryColor,
-          borderWidth: 1,
-          hoverBackgroundColor: primaryColor,
-          data,
-        }],
-      }} options={{ 
-        scales: {
-          yAxes: [{
-            ticks: {
-              beginAtZero: true,
-              suggestedMax: 100,
-              callback: value => `${value}%`
-            },
-          }],
-        },
-        tooltips: {
-          callbacks: {
-            afterBody: ([{ index: i }]) =>
-              `${gradebook.getPts(i, 'scored')} points overall (${gradebook.scored[i].category})`,
-            afterFooter: ([{ index: i }]) =>
-              gradebook.scored[i].updated ? 'You are testing this score' : '',
-          },
-        },
-      }} />
-    )
+    return <AssignmentsChart {...this.props} />;
   }
 
   chartCategories() {
-    const labels = [], data = [];
-    Object.entries(this.props.categories).forEach(([name, { weight }]) => {
-      labels.push(name);
-      data.push(weight);
-    });
-    return (
-      <Chart id={`${this.props.id}-categories`} type="pie" data={{
-        labels,
-        datasets: [{
-          label: 'Assignment score',
-          backgroundColor: palette('sequential', data.length).map(color => `#${color}`),
-          borderColor: primaryColor,
-          borderWidth: 1,
-          data,
-        }],
-      }} />
-    );
+    return <CategoriesChart {...this.props} />;
   }
 
   render() {
-    const { match, id } = this.props;
-    const { gradebook } = this.state;
+    const {
+      match, id, assignments, categories,
+    } = this.props;
     return (
       <div>
+        <KeyShortcuts key="all-courses-shortcuts" shortcuts={this.makeShortcuts()} />
+
         <Route exact path={match.path} render={this.chartOverall} />
-        <Route exact path={`${match.path}/assignments`} component={this.chartAssignments} />
-        <Route exact path={`${match.path}/categories`} component={this.chartCategories} />
+        <Route exact path={`${match.path}/assignments`} render={this.chartAssignments} />
+        <Route exact path={`${match.path}/categories`} render={this.chartCategories} />
         <ul className="uk-tab-bottom uk-flex-center" data-uk-tab="toggle: none">
           <NavLink options={{ to: match.url }}>Overall</NavLink>
           <NavLink options={{ to: `${match.url}/assignments` }}>Assignments</NavLink>
           <NavLink options={{ to: `${match.url}/categories` }}>Categories</NavLink>
         </ul>
-        
+
         <div className="uk-overflow-auto uk-margin-small-top">
           <table className="uk-table uk-table-small uk-table-hover uk-table-divider">
             <thead>
@@ -153,20 +80,22 @@ class GradeForecast extends React.PureComponent {
               </tr>
             </thead>
             <tbody>
-              {gradebook.assigns.map((a, i) => (
-                <tr key={i}>
-                  <td>{a.name}</td>
-                  <td data-uk-toggle={`target: .assignment-${id}-${i}`}>
-                    <span className={`assignment-${id}-${i}`}>
-                      {a.score == null ? '-' : a.score}
-                    </span>
-                    <span className={`assignment-${id}-${i}`} hidden>
-                      <input className="uk-input" type="text" value={a.score} />
-                    </span>
-                  </td>
-                  <td>{a.out_of}</td>
-                  <td>{a.score == null ? '-' : `${Gradebook.format(gradebook.getPercent(i))}%`}</td>
-                  <td>{a.category}</td>
+              {assignments.map(assign => (
+                <tr key={assign.id}>
+                  <td>{assign.name}</td>
+                  {assign.score == null ? <td>-</td> : (
+                    <td data-uk-toggle={`target: .assignment-${id}-${assign.id}`}>
+                      <span className={`assignment-${id}-${assign.id}`}>
+                        {assign.score}
+                      </span>
+                      <span className={`assignment-${id}-${assign.id}`} hidden>
+                        <input className="uk-input" type="text" value={assign.score} />
+                      </span>
+                    </td>
+                  )}
+                  <td>{assign.outOf}</td>
+                  <td>{assign.score == null ? '-' : `${gradeRound(assign.percent)}%`}</td>
+                  <td>{categories[assign.category].name}</td>
                 </tr>
               ))}
             </tbody>

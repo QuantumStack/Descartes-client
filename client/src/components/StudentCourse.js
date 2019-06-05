@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withRouter, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import pluralize from 'pluralize';
 import DashboardHeader from './DashboardHeader';
 import Modal from './Modal';
 import GradeForecast from './GradeForecast';
 import converter from '../util/markdown';
 
-class StudentCourse extends React.Component {
+class StudentCourse extends React.PureComponent {
   static propTypes = {
     navbar: PropTypes.node.isRequired,
     id: PropTypes.string.isRequired,
@@ -15,22 +15,21 @@ class StudentCourse extends React.Component {
     description: PropTypes.string,
     head: PropTypes.string.isRequired,
     contact: PropTypes.string.isRequired,
+    instructors: PropTypes.arrayOf(PropTypes.shape({
+      email: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      role: PropTypes.string.isRequired,
+    })).isRequired,
+    grade: PropTypes.number.isRequired,
+    hasFake: PropTypes.bool.isRequired,
+    // TODO: are these props subject to change?
+    oh: PropTypes.bool.isRequired,
+    activities: PropTypes.number.isRequired,
+    polls: PropTypes.number.isRequired,
   }
 
   static defaultProps = {
     description: null,
-  }
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      grade: null,
-    };
-    this.setGrade = this.setGrade.bind(this);
-  }
-
-  setGrade(grade) {
-    this.setState({ grade });
   }
 
   render() {
@@ -45,10 +44,9 @@ class StudentCourse extends React.Component {
       oh,
       activities,
       polls,
-      assignments,
-      categories,
+      grade,
+      hasFake,
     } = this.props;
-    const { grade } = this.state;
 
     return (
       <div>
@@ -68,10 +66,10 @@ class StudentCourse extends React.Component {
                   <div className="uk-card uk-card-body uk-card-default uk-card-small">
                     <h5 className="uk-margin-small-bottom">Instructors</h5>
                     <ul className="uk-list">
-                      {instructors.map(({ name, role }, i) => (
-                        <li key={i}>
-                          {name}
-                          {role === 'admin' && <small className="uk-text-muted uk-margin-small-left">Admin</small>}
+                      {instructors.map(instructor => (
+                        <li key={instructor.email}>
+                          {instructor.name}
+                          {instructor.role === 'admin' && <small className="uk-text-muted uk-margin-small-left">Admin</small>}
                         </li>
                       ))}
                     </ul>
@@ -115,7 +113,13 @@ class StudentCourse extends React.Component {
                 <a className="uk-text-primary">
                   Current grade:
                   &nbsp;
-                  {grade && <strong data-uk-scrollspy="cls: uk-animation-fade; delay: 500">{grade}%</strong>}
+                  {grade && (
+                    <strong data-uk-scrollspy="cls: uk-animation-fade; delay: 500">
+                      {hasFake && <span className="uk-text-link">*</span>}
+                      {grade}
+                      <span>%</span>
+                    </strong>
+                  )}
                 </a>
                 <div data-uk-drop="mode: click; pos: bottom-center">
                   <div className="uk-card uk-card-body uk-card-default uk-card-small uk-text-justify">
@@ -124,17 +128,30 @@ class StudentCourse extends React.Component {
                       <span>Disclaimer</span>
                     </h5>
                     <p className="uk-margin-small">
-                      <span>This is only your </span>
-                      <i>projected</i>
-                      <span> course grade, based on scores that may be incomplete or subject-to-change.</span>
+                      {hasFake ? (
+                        <span>
+                          <span>You are only </span>
+                          <strong>testing</strong>
+                          <span> this score. It has no bearing on your real course grade.</span>
+                        </span>
+                      ) : (
+                        <span>
+                          <span>This is only your </span>
+                          <i>projected</i>
+                          <span> course grade, based on scores that may be incomplete or subject-to-change.</span>
+                        </span>
+                      )}
                     </p>
-                    <p className="uk-margin-small-top"><a href={`mailto:${contact}`}>Ask your instructor</a> for more specific and definitive information.</p>
+                    <p className="uk-margin-small-top">
+                      <a href={`mailto:${contact}`}>Ask the instructor</a>
+                      <span> for more specific and definitive information.</span>
+                    </p>
                   </div>
                 </div>
               </div>
             </div>
-            
-            <GradeForecast id={`course-${id}`} assignments={assignments} categories={categories} setGrade={this.setGrade} />
+
+            <GradeForecast id={`course-${id}`} {...this.props} />
           </div>
         </div>
         <br />
@@ -143,4 +160,4 @@ class StudentCourse extends React.Component {
   }
 }
 
-export default withRouter(StudentCourse);
+export default StudentCourse;

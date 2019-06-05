@@ -8,7 +8,12 @@ import LoadingLarge from '../components/LoadingLarge';
 import UserContainer from './UserContainer';
 import StudentCourse from '../components/StudentCourse';
 import { studentCourseCompact } from '../selectors';
-import { fetchStudentCourseIfNeeded } from '../actions';
+import {
+  fetchStudentCourseIfNeeded,
+  studentCourseFakeScore,
+  studentCourseUnfakeScore,
+  studentCourseScoreReset,
+} from '../actions';
 
 class Student extends React.PureComponent {
   static propTypes = {
@@ -45,8 +50,13 @@ class Student extends React.PureComponent {
 const mapStateToProps = (state, { match }) => ({
   ...studentCourseCompact(match.params.id)(state),
 });
-const mapDispatchToProps = dispatch => bindActionCreators({
-  fetchIfNeeded: fetchStudentCourseIfNeeded,
-}, dispatch);
+const mapDispatchToProps = (dispatch, { match }) => ({
+  ...bindActionCreators({
+    fetchIfNeeded: fetchStudentCourseIfNeeded,
+    setFakeScore: studentCourseFakeScore,
+    resetFakeScore: studentCourseUnfakeScore,
+  }, dispatch),
+  resetAllFakes: () => dispatch(studentCourseScoreReset(match.params.id)),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Student));
