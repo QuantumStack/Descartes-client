@@ -19,7 +19,7 @@ export const studentCourseCompact = courseId => createSelector(
   ],
   (courses, instructors, assignments, categories) => {
     const courseItem = courses[courseId];
-    return courseItem && !courseItem.isLoading ? {
+    return courseItem && !courseItem.isLoading && courseItem.isHydrated ? {
       ...courseItem,
       instructors: courseItem.instructors.map(email => instructors[email]),
       assignments: courseItem.assignments.map(id => assignments[id]),
