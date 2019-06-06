@@ -46,8 +46,10 @@ class GradeForecast extends React.PureComponent {
 
   getAssignments() {
     const { assignments } = this.props;
-    const filterDrop = drop('#assignments-filter-drop');
-    if (filterDrop) filterDrop.hide();
+    setTimeout(() => {
+      const filterDrop = drop('#assignments-filter-drop');
+      if (filterDrop) filterDrop.hide();
+    }, 500);
     const {
       sort, order, search, display,
     } = this.state;
@@ -119,88 +121,92 @@ class GradeForecast extends React.PureComponent {
 
   render() {
     const {
-      match, assignments, categories, hasFake, setFakeScore, resetFakeScore, resetAllFakes,
+      match, categories, hasFake, setFakeScore, resetFakeScore, resetAllFakes,
     } = this.props;
     // TODO: display assignment flags and stats (mean, med, etc.)
     return (
       <div>
         <KeyShortcuts name="grade-forecaster" shortcuts={this.makeShortcuts()} />
 
-        <Route exact path={match.path} render={this.chartOverall} />
-        <Route exact path={`${match.path}/assignments`} render={this.chartAssignments} />
-        <Route exact path={`${match.path}/categories`} render={this.chartCategories} />
-        <ul className="uk-tab-bottom uk-flex-center" data-uk-tab="toggle: none">
-          <NavLink options={{ to: match.url }}>Overall</NavLink>
-          <NavLink options={{ to: `${match.url}/assignments` }}>Assignments</NavLink>
-          <NavLink options={{ to: `${match.url}/categories` }}>Categories</NavLink>
-        </ul>
-
-        <div className="uk-grid-small uk-flex-middle" data-uk-grid>
-          {hasFake && (
-            <div>
-              <button type="button" className="uk-button uk-button-link" onClick={resetAllFakes}>Reset All</button>
-            </div>
-          )}
-          <div className="uk-width-expand">
-            <p>
-              <span className="uk-text-success uk-margin-small-right" data-uk-icon="icon: star; ratio: 0.75" />
-              <small className="uk-text-middle">
-                <strong className="uk-margin-small-right">Pro Tip</strong>
-                <span>Click the icons next to each assignment for details or to test a score.</span>
-              </small>
-            </p>
-          </div>
-          <div>
-            <ResponsiveFilters id="assignments" breakpoint="l">
-              <AssignmentFilters categories={categories} {...this.state} toggleSortOrder={this.toggleSortOrder} handleFilterChange={this.handleFilterChange} />
-            </ResponsiveFilters>
-          </div>
+        <div className="uk-container uk-container-small uk-margin-bottom">
+          <Route exact path={match.path} render={this.chartOverall} />
+          <Route exact path={`${match.path}/assignments`} render={this.chartAssignments} />
+          <Route exact path={`${match.path}/categories`} render={this.chartCategories} />
         </div>
+        <div className="uk-container">
+          <ul className="uk-tab-bottom uk-flex-center" data-uk-tab="toggle: none">
+            <NavLink options={{ to: match.url }}>Overall</NavLink>
+            <NavLink options={{ to: `${match.url}/assignments` }}>Assignments</NavLink>
+            <NavLink options={{ to: `${match.url}/categories` }}>Categories</NavLink>
+          </ul>
 
-        <div className="uk-overflow-auto uk-margin-small-top">
-          <table className="uk-table uk-table-small uk-table-hover uk-table-divider">
-            <thead>
-              <tr>
-                <th className="uk-table-expand">Name</th>
-                <th>Score</th>
-                <th>Max</th>
-                <th>Percent</th>
-                <th>Category</th>
-              </tr>
-            </thead>
-            <tbody>
-              {this.getAssignments().map(assign => (
-                <tr key={assign.id}>
-                  <td id={`details-${assign.id}-boundary`}>
-                    <span>{assign.name}</span>
-                    <a className="uk-margin-small-left">
-                      {assign.override != null && <span className="uk-text-danger uk-margin-xsmall-right" data-uk-icon="icon: lifesaver; ratio: 0.9" />}
-                      {assign.fakeScore != null && <span className="uk-text-link uk-margin-xsmall-right" data-uk-icon="icon: pencil; ratio: 0.9" />}
-                      <span className="uk-text-emphasis" data-uk-icon={`icon: ${assign.description ? 'info' : 'chevron-down'}; ratio: 0.9`} />
-                    </a>
-                    <AssignmentDropdown {...assign} setFakeScore={setFakeScore} resetFakeScore={resetFakeScore} />
-                  </td>
-                  <td>
-                    {assign.fakeScore != null && <strong className="uk-text-link">{assign.fakeScore}</strong>}
-                    {assign.fakeScore == null && assign.score != null && assign.score}
-                    {assign.fakeScore == null && assign.score == null && '-'}
-                  </td>
-                  <td>{assign.outOf}</td>
-                  <td>
-                    {assign.fakeScore != null && (
-                      <strong className="uk-text-link">
-                        {gradeRound(assign.percent)}
-                        <span>%</span>
-                      </strong>
-                    )}
-                    {assign.fakeScore == null && assign.percent != null && `${gradeRound(assign.percent)}%`}
-                    {assign.percent == null && '-'}
-                  </td>
-                  <td>{categories[assign.category].name}</td>
+          <div className="uk-grid-small uk-flex-middle" data-uk-grid>
+            {hasFake && (
+              <div>
+                <button type="button" className="uk-button uk-button-link" onClick={resetAllFakes}>Reset All</button>
+              </div>
+            )}
+            <div className="uk-width-expand">
+              <p>
+                <span className="uk-text-success uk-margin-small-right" data-uk-icon="icon: star; ratio: 0.75" />
+                <small className="uk-text-middle">
+                  <strong className="uk-margin-small-right">Pro Tip</strong>
+                  <span>Click the icons next to each assignment for details or to test a score.</span>
+                </small>
+              </p>
+            </div>
+            <div>
+              <ResponsiveFilters id="assignments" breakpoint="l">
+                <AssignmentFilters categories={categories} {...this.state} toggleSortOrder={this.toggleSortOrder} handleFilterChange={this.handleFilterChange} />
+              </ResponsiveFilters>
+            </div>
+          </div>
+
+          <div className="uk-overflow-auto uk-margin-small-top uk-margin-bottom">
+            <table className="uk-table uk-table-small uk-table-hover uk-table-divider">
+              <thead>
+                <tr>
+                  <th className="uk-table-expand">Name</th>
+                  <th>Score</th>
+                  <th>Max</th>
+                  <th>Percent</th>
+                  <th>Category</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {this.getAssignments().map(assign => (
+                  <tr key={assign.id}>
+                    <td id={`details-${assign.id}-boundary`}>
+                      <span>{assign.name}</span>
+                      <a className="uk-margin-small-left">
+                        {assign.override != null && <span className="uk-text-danger uk-margin-xsmall-right" data-uk-icon="icon: lifesaver; ratio: 0.9" />}
+                        {assign.fakeScore != null && <span className="uk-text-link uk-margin-xsmall-right" data-uk-icon="icon: pencil; ratio: 0.9" />}
+                        <span className="uk-text-emphasis" data-uk-icon={`icon: ${assign.description ? 'info' : 'chevron-down'}; ratio: 0.9`} />
+                      </a>
+                      <AssignmentDropdown {...assign} setFakeScore={setFakeScore} resetFakeScore={resetFakeScore} />
+                    </td>
+                    <td>
+                      {assign.fakeScore != null && <strong className="uk-text-link">{assign.fakeScore}</strong>}
+                      {assign.fakeScore == null && assign.score != null && assign.score}
+                      {assign.fakeScore == null && assign.score == null && '-'}
+                    </td>
+                    <td>{assign.outOf}</td>
+                    <td>
+                      {assign.fakeScore != null && (
+                        <strong className="uk-text-link">
+                          {gradeRound(assign.percent)}
+                          <span>%</span>
+                        </strong>
+                      )}
+                      {assign.fakeScore == null && assign.percent != null && `${gradeRound(assign.percent)}%`}
+                      {assign.percent == null && '-'}
+                    </td>
+                    <td>{categories[assign.category].name}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     );

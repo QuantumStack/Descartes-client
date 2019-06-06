@@ -58,7 +58,7 @@ class StudentCourse extends React.PureComponent {
           </Modal>
         )}
         <div className="uk-section uk-section-xsmall">
-          <div className="uk-container">
+          <div className="uk-container uk-container-small">
             <DashboardHeader small>
               <div className="uk-width-expand">
                 <h4>{name}</h4>
@@ -151,9 +151,8 @@ class StudentCourse extends React.PureComponent {
                 </div>
               </div>
             </div>
-
-            <GradeForecast id={`course-${id}`} {...this.props} />
           </div>
+          <GradeForecast id={`course-${id}`} {...this.props} />
         </div>
         <br />
       </div>

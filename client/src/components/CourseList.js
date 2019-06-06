@@ -31,8 +31,10 @@ class CourseList extends React.Component {
 
   getCourses() {
     const { id, courses } = this.props;
-    const filterDrop = drop(`#${id}-filter-drop`);
-    if (filterDrop) filterDrop.hide();
+    setTimeout(() => {
+      const filterDrop = drop(`#${id}-filter-drop`);
+      if (filterDrop) filterDrop.hide();
+    }, 500);
     const { expired, search, sort } = this.state;
     return courses
       .filter((course) => {
