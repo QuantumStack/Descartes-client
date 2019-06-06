@@ -15,8 +15,8 @@ class OverallGradeChart extends React.PureComponent {
     const labels = [];
     const data = [];
     const { id, scoredAssignments, categories } = this.props;
-    scoredAssignments.forEach(({ name, points }, i) => {
-      labels.push(name);
+    scoredAssignments.forEach(({ name, fakeScore, points }, i) => {
+      labels.push(name + (fakeScore == null ? '' : '*'));
       data.push((i === 0 ? 0 : data[i - 1]) + points);
     });
     return (

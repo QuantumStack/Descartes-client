@@ -45,10 +45,10 @@ class AllCourses extends React.PureComponent {
         {instructorCourses.length > 0 || studentCourses.length > 0 ? (
           <div className="uk-container">
             {navbar}
-            <CourseList id="instructor" title={'I\'m An Instructor'} courses={instructorCourses}>
+            <CourseList id="instructor" title="I'm An Instructor" courses={instructorCourses}>
               <CreateButton />
             </CourseList>
-            <CourseList id="student" title={'Courses I\'m Taking'} courses={studentCourses}>
+            <CourseList id="student" title="Courses I'm Taking" courses={studentCourses}>
               <JoinButton />
             </CourseList>
             <br />

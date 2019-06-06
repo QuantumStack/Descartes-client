@@ -15,8 +15,8 @@ class AssignmentsChart extends React.PureComponent {
     const labels = [];
     const data = [];
     const { id, scoredAssignments, categories } = this.props;
-    scoredAssignments.forEach(({ name, percent }) => {
-      labels.push(name);
+    scoredAssignments.forEach(({ name, fakeScore, percent }) => {
+      labels.push(name + (fakeScore == null ? '' : '*'));
       data.push(percent);
     });
     return (
