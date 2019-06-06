@@ -133,6 +133,7 @@ class GradeForecast extends React.PureComponent {
   render() {
     const {
       match,
+      assignments,
       categories,
       hasFake,
       options: { allowTestingScores },
@@ -141,7 +142,7 @@ class GradeForecast extends React.PureComponent {
       resetAllFakes,
     } = this.props;
     const displayAssignments = this.getAssignments();
-    return (
+    return assignments.length > 0 || categories.length > 0 ? (
       <div className="uk-margin-bottom">
         <KeyShortcuts name="grade-forecaster" shortcuts={this.makeShortcuts()} />
 
@@ -233,6 +234,19 @@ class GradeForecast extends React.PureComponent {
               <span>create your own test assignments.</span>
             </div>
           )}
+        </div>
+      </div>
+    ) : (
+      <div className="uk-flex uk-flex-center uk-margin-top">
+        <div className="uk-card uk-card-primary uk-card-body uk-text-center">
+          <h4>Nothing here...</h4>
+          <p>
+            <span>There are no assignments </span>
+            <br />
+            <span>or categories to display. </span>
+            <br />
+            <span>Please check back later.</span>
+          </p>
         </div>
       </div>
     );
