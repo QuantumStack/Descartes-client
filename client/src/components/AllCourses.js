@@ -41,7 +41,7 @@ class AllCourses extends React.PureComponent {
     const { navbar, instructorCourses, studentCourses } = this.props;
     return (
       <div>
-        <KeyShortcuts key="all-courses-shortcuts" shortcuts={this.makeShortcuts()} />
+        <KeyShortcuts name="all-courses" shortcuts={this.makeShortcuts()} />
         {instructorCourses.length > 0 || studentCourses.length > 0 ? (
           <div className="uk-container">
             {navbar}

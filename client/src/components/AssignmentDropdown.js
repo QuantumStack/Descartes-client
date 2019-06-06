@@ -58,7 +58,7 @@ class AssignmentDropdown extends React.PureComponent {
             <span>Your percent score for this assignment has been manually overriden by an instructor.</span>
           </p>
         )}
-        <div className="uk-grid-small" data-uk-grid>
+        <div className="uk-grid-small uk-margin-small-bottom" data-uk-grid>
           <div className="uk-width-expand">
             <div className="uk-inline uk-width-expand">
               <input className="uk-input uk-form-small" placeholder="Test different score..." type="number" value={fakeScore || ''} onChange={this.handleScoreTestChange} />
@@ -71,9 +71,10 @@ class AssignmentDropdown extends React.PureComponent {
           </div>
         </div>
         <small>
-          <span>Assignment due: </span>
+          <span>Due: </span>
           <span data-uk-tooltip={`title: ${exactDate}`}>{relativeDate}</span>
-          <span> | ID: </span>
+          <span className="uk-margin-small-left uk-margin-small-right uk-text-muted">|</span>
+          <span>ID: </span>
           {id}
         </small>
       </div>

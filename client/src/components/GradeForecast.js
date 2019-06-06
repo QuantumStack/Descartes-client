@@ -15,6 +15,7 @@ class GradeForecast extends React.PureComponent {
     assignments: PropTypes.arrayOf(PropTypes.object).isRequired,
     scoredAssignments: PropTypes.arrayOf(PropTypes.object).isRequired,
     categories: PropTypes.objectOf(PropTypes.object).isRequired,
+    hasFake: PropTypes.bool.isRequired,
     setFakeScore: PropTypes.func.isRequired,
     resetFakeScore: PropTypes.func.isRequired,
     resetAllFakes: PropTypes.func.isRequired,
@@ -70,12 +71,12 @@ class GradeForecast extends React.PureComponent {
 
   render() {
     const {
-      match, assignments, categories, setFakeScore, resetFakeScore,
+      match, assignments, categories, hasFake, setFakeScore, resetFakeScore, resetAllFakes,
     } = this.props;
     // TODO: display assignment flags and stats (mean, med, etc.)
     return (
       <div>
-        <KeyShortcuts key="grade-forecaster-shortcuts" shortcuts={this.makeShortcuts()} />
+        <KeyShortcuts name="grade-forecaster" shortcuts={this.makeShortcuts()} />
 
         <Route exact path={match.path} render={this.chartOverall} />
         <Route exact path={`${match.path}/assignments`} render={this.chartAssignments} />
@@ -86,13 +87,22 @@ class GradeForecast extends React.PureComponent {
           <NavLink options={{ to: `${match.url}/categories` }}>Categories</NavLink>
         </ul>
 
-        <p>
-          <span className="uk-text-success uk-margin-small-right" data-uk-icon="icon: star; ratio: 0.75" />
-          <small className="uk-text-middle">
-            <strong className="uk-margin-small-right">Pro Tip</strong>
-            <span> Click the icons next to each assignment for details and to test a different score.</span>
-          </small>
-        </p>
+        <div className="uk-grid-small" data-uk-grid>
+          <div className="uk-width-expand">
+            <p>
+              <span className="uk-text-success uk-margin-small-right" data-uk-icon="icon: star; ratio: 0.75" />
+              <small className="uk-text-middle">
+                <strong className="uk-margin-small-right">Pro Tip</strong>
+                <span> Click the icons next to each assignment for details and to test a different score.</span>
+              </small>
+            </p>
+          </div>
+          {hasFake && (
+            <div>
+              <button type="button" className="uk-button uk-button-link" onClick={resetAllFakes}>Reset All</button>
+            </div>
+          )}
+        </div>
 
         <div className="uk-overflow-auto uk-margin-small-top">
           <table className="uk-table uk-table-small uk-table-hover uk-table-divider">

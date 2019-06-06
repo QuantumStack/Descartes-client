@@ -4,9 +4,9 @@ import Mousetrap from 'mousetrap';
 import { modal } from 'uikit';
 import Modal from './Modal';
 
-// TODO: fix overlapping shortcuts modals between routes
 class KeyShortcuts extends React.PureComponent {
   static propTypes = {
+    name: PropTypes.string.isRequired,
     shortcuts: PropTypes.arrayOf(PropTypes.shape({
       combos: PropTypes.oneOfType([
         PropTypes.string,
@@ -21,10 +21,11 @@ class KeyShortcuts extends React.PureComponent {
   }
 
   componentDidMount() {
-    const { shortcuts } = this.props;
+    const { name, shortcuts } = this.props;
     shortcuts.forEach(({ combos, callback }) => Mousetrap.bind(combos, callback));
-    Mousetrap.bind('?', () => modal('#shortcuts-help-modal').show());
-    Mousetrap.bind('?', () => modal('#shortcuts-help-modal').hide(), 'keyup');
+    const helpModal = modal(`#shortcuts-${name}-help-modal`);
+    Mousetrap.bind('?', () => helpModal.show());
+    Mousetrap.bind('?', () => helpModal.hide(), 'keyup');
   }
 
   componentWillUnmount() {
@@ -32,9 +33,9 @@ class KeyShortcuts extends React.PureComponent {
   }
 
   render() {
-    const { shortcuts } = this.props;
+    const { name, shortcuts } = this.props;
     return (
-      <Modal name="shortcuts-help">
+      <Modal name={`shortcuts-${name}-help`}>
         <h2 className="uk-modal-title">
           <span className="uk-text-middle">Keyboard Shortcuts</span>
           <span className="uk-margin-small-left uk-text-success" data-uk-icon="icon: bolt; ratio: 1.5" data-uk-scrollspy="cls: uk-animation-scale-up" />
