@@ -18,13 +18,13 @@ class AllCourses extends React.PureComponent {
 
   makeShortcuts() {
     const { history, instructorCourses, studentCourses } = this.props;
-    const instructorShortcuts = instructorCourses.slice(0, 10).map(({ id, name }, i) => ({
-      combos: i.toString(),
+    const instructorShortcuts = instructorCourses.slice(0, 9).map(({ id, name }, i) => ({
+      combos: (i + 1).toString(),
       callback: () => history.push(`/dashboard/instructor/${id}`),
       description: name,
     }));
-    const studentShortcuts = studentCourses.slice(0, 10).map(({ id, name }, i) => ({
-      combos: `alt+${i}`,
+    const studentShortcuts = studentCourses.slice(0, 9).map(({ id, name }, i) => ({
+      combos: `alt+${i + 1}`,
       callback: () => history.push(`/dashboard/student/${id}`),
       description: name,
     }));
