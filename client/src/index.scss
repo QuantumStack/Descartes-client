@@ -17,6 +17,12 @@ $global-danger-background: #f62336;
   margin-right: 5px !important;
 }
 
+@media print {
+  .uk-hidden-print {
+    display: none !important;
+  }
+}
+
 // 2. Import default variables and available mixins
 @import "uikit/src/scss/variables-theme.scss";
 @import "uikit/src/scss/mixins-theme.scss";

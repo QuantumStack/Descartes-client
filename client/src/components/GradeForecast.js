@@ -157,7 +157,7 @@ class GradeForecast extends React.PureComponent {
             <NavLink options={{ to: `${match.url}/categories` }}>Categories</NavLink>
           </ul>
 
-          <div className="uk-grid-small uk-flex-middle" data-uk-grid>
+          <div className="uk-grid-small uk-flex-middle uk-hidden-print" data-uk-grid>
             {hasFake && (
               <div>
                 <button type="button" className="uk-button uk-button-link" onClick={resetAllFakes}>Reset All</button>

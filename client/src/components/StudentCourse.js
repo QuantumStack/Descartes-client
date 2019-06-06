@@ -49,6 +49,7 @@ class StudentCourse extends React.PureComponent {
       grade,
       hasFake,
     } = this.props;
+    const headName = instructors.find(instructor => instructor.email === head).name;
 
     return (
       <div>
@@ -68,7 +69,7 @@ class StudentCourse extends React.PureComponent {
                 <h4>{name}</h4>
               </div>
               <div className="uk-visible@s">
-                {head}
+                {headName}
               </div>
               <div data-uk-scrollspy="target: .uk-icon-button; cls: uk-animation-scale-up; delay: 100">
                 <a className="uk-icon-button" data-uk-icon="users" data-uk-tooltip="All instructors" />
@@ -78,14 +79,25 @@ class StudentCourse extends React.PureComponent {
                     <ul className="uk-list">
                       {instructors.map(instructor => (
                         <li key={instructor.email}>
-                          {instructor.name}
-                          {instructor.role === 'admin' && <small className="uk-text-muted uk-margin-small-left">Admin</small>}
+                          <div className="uk-grid-small" data-uk-grid>
+                            <div className="uk-width-expand">
+                              {instructor.name}
+                            </div>
+                            <div>
+                              {instructor.role === 'admin' && <small className="uk-text-muted uk-margin-small-left">Admin</small>}
+                            </div>
+                            {instructor.showEmail && (
+                              <div>
+                                <a className="uk-text-link uk-icon-link" data-uk-icon="mail" />
+                              </div>
+                            )}
+                          </div>
                         </li>
                       ))}
                     </ul>
                   </div>
                 </div>
-                <a className="uk-icon-button uk-margin-small-left" data-uk-icon="print" data-uk-tooltip="Print grade report" />
+                <a className="uk-icon-button uk-margin-small-left" data-uk-icon="print" data-uk-tooltip="Print grade report" onClick={() => window.print()} />
                 <a href={`mailto:${contact}`} className="uk-icon-button uk-margin-small-left" data-uk-icon="mail" data-uk-tooltip="Course contact" />
               </div>
             </DashboardHeader>
