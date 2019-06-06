@@ -13,6 +13,7 @@ class AssignmentDropdown extends React.PureComponent {
     percent: PropTypes.number,
     exactDate: PropTypes.string.isRequired,
     relativeDate: PropTypes.string.isRequired,
+    allowTesting: PropTypes.bool.isRequired,
     setFakeScore: PropTypes.func.isRequired,
     resetFakeScore: PropTypes.func.isRequired,
   }
@@ -45,7 +46,15 @@ class AssignmentDropdown extends React.PureComponent {
 
   render() {
     const {
-      id, unpublished, description, override, fakeScore, percent, exactDate, relativeDate,
+      id,
+      unpublished,
+      description,
+      override,
+      fakeScore,
+      percent,
+      exactDate,
+      relativeDate,
+      allowTesting,
     } = this.props;
     return (
       <div id={`details-${id}-dropdown`} data-uk-dropdown={`mode: click; boundary: #details-${id}-boundary; boundary-align: true; pos: bottom-justify; animation: uk-animation-slide-top-small uk-animation-fast`}>
@@ -68,18 +77,20 @@ class AssignmentDropdown extends React.PureComponent {
             <span>Your percent score for this assignment has been manually overriden by an instructor.</span>
           </p>
         )}
-        <div className="uk-grid-small uk-margin-small-bottom" data-uk-grid>
-          <div className="uk-width-expand">
-            <div className="uk-inline uk-width-expand">
-              <input className="uk-input uk-form-small" placeholder="Test different score..." type="number" value={fakeScore || ''} onChange={this.handleScoreTestChange} />
+        {allowTesting && (
+          <div className="uk-grid-small uk-margin-small-bottom" data-uk-grid>
+            <div className="uk-width-expand">
+              <div className="uk-inline uk-width-expand">
+                <input className="uk-input uk-form-small" placeholder="Test different score..." type="number" value={fakeScore || ''} onChange={this.handleScoreTestChange} />
+              </div>
+            </div>
+            <div>
+              <button type="button" className="uk-button uk-button-link uk-button-small" data-uk-tooltip="Undo testing score" onClick={this.handleScoreTestReset}>
+                <span data-uk-icon="icon: history; ratio: 0.75" />
+              </button>
             </div>
           </div>
-          <div>
-            <button type="button" className="uk-button uk-button-link uk-button-small" data-uk-tooltip="Undo testing score" onClick={this.handleScoreTestReset}>
-              <span data-uk-icon="icon: history; ratio: 0.75" />
-            </button>
-          </div>
-        </div>
+        )}
         <small>
           <span>Due: </span>
           <span data-uk-tooltip={`title: ${exactDate}`}>{relativeDate}</span>

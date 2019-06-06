@@ -10,8 +10,8 @@ import AssignmentsChart from './AssignmentsChart';
 import CategoriesChart from './CategoriesChart';
 import AssignmentDropdown from './AssignmentDropdown';
 import { gradeRound } from '../util/grades';
+import ResponsiveFilters from './ResponsiveFilters';
 import AssignmentFilters from './AssignmentFilters';
-import ResponsiveFilters from './ResponsiveFilters'
 
 class GradeForecast extends React.PureComponent {
   static propTypes = {
@@ -20,11 +20,22 @@ class GradeForecast extends React.PureComponent {
     scoredAssignments: PropTypes.arrayOf(PropTypes.object).isRequired,
     categories: PropTypes.objectOf(PropTypes.object).isRequired,
     hasFake: PropTypes.bool.isRequired,
+    options: {
+      allowTestingScores: PropTypes.bool,
+      allowTestingAssignments: PropTypes.bool,
+    },
     setFakeScore: PropTypes.func.isRequired,
     resetFakeScore: PropTypes.func.isRequired,
     resetAllFakes: PropTypes.func.isRequired,
     history: RouterPropTypes.history.isRequired,
     match: RouterPropTypes.match.isRequired,
+  }
+
+  static defaultProps = {
+    options: {
+      allowTestingScores: true,
+      allowTestingAssignments: true,
+    },
   }
 
   constructor(props) {
@@ -121,11 +132,15 @@ class GradeForecast extends React.PureComponent {
 
   render() {
     const {
-      match, categories, hasFake, setFakeScore, resetFakeScore, resetAllFakes,
+      match,
+      categories,
+      hasFake,
+      options: { allowTestingScores },
+      setFakeScore,
+      resetFakeScore,
+      resetAllFakes,
     } = this.props;
     const displayAssignments = this.getAssignments();
-    // TODO: display assignment flags and stats (mean, med, etc.)
-    // TODO: create test assignments
     return (
       <div className="uk-margin-bottom">
         <KeyShortcuts name="grade-forecaster" shortcuts={this.makeShortcuts()} />
@@ -187,7 +202,7 @@ class GradeForecast extends React.PureComponent {
                           {assign.fakeScore != null && <span className="uk-text-link uk-margin-xsmall-right" data-uk-icon="icon: pencil; ratio: 0.9" />}
                           <span className="uk-text-emphasis" data-uk-icon={`icon: ${assign.description ? 'info' : 'chevron-down'}; ratio: 0.9`} />
                         </a>
-                        <AssignmentDropdown {...assign} setFakeScore={setFakeScore} resetFakeScore={resetFakeScore} />
+                        <AssignmentDropdown {...assign} setFakeScore={setFakeScore} resetFakeScore={resetFakeScore} allowTesting={allowTestingScores} />
                       </td>
                       <td>
                         {assign.fakeScore != null && <strong className="uk-text-link">{assign.fakeScore}</strong>}
