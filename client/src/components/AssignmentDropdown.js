@@ -7,7 +7,9 @@ class AssignmentDropdown extends React.PureComponent {
   static propTypes = {
     id: PropTypes.string.isRequired,
     description: PropTypes.string,
+    unpublished: PropTypes.bool,
     fakeScore: PropTypes.number,
+    override: PropTypes.number,
     percent: PropTypes.number,
     exactDate: PropTypes.string.isRequired,
     relativeDate: PropTypes.string.isRequired,
@@ -16,8 +18,10 @@ class AssignmentDropdown extends React.PureComponent {
   }
 
   static defaultProps = {
+    unpublished: false,
     description: null,
     fakeScore: null,
+    override: null,
     percent: null,
   }
 
@@ -41,11 +45,17 @@ class AssignmentDropdown extends React.PureComponent {
 
   render() {
     const {
-      id, description, override, fakeScore, percent, exactDate, relativeDate,
+      id, unpublished, description, override, fakeScore, percent, exactDate, relativeDate,
     } = this.props;
     return (
       <div id={`details-${id}-dropdown`} data-uk-dropdown={`mode: click; boundary: #details-${id}-boundary; boundary-align: true; pos: bottom-justify; animation: uk-animation-slide-top-small uk-animation-fast`}>
         {description && <Markdown source={description} />}
+        {unpublished && (
+          <p>
+            <span className="uk-text-primary uk-margin-small-right" data-uk-icon="lock" />
+            <span>This assignment is unpublished, so students can&apos;t see it.</span>
+          </p>
+        )}
         {percent === 100 && (
           <p>
             <span className="uk-text-success uk-margin-small-right" data-uk-icon="happy" />

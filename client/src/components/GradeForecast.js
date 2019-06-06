@@ -182,6 +182,7 @@ class GradeForecast extends React.PureComponent {
                       <td id={`details-${assign.id}-boundary`}>
                         <span>{assign.name}</span>
                         <a className="uk-margin-small-left">
+                          {assign.unpublished && <span className="uk-text-primary uk-margin-xsmall-right" data-uk-icon="icon: lock; ratio: 0.9" />}
                           {assign.override != null && <span className="uk-text-danger uk-margin-xsmall-right" data-uk-icon="icon: lifesaver; ratio: 0.9" />}
                           {assign.fakeScore != null && <span className="uk-text-link uk-margin-xsmall-right" data-uk-icon="icon: pencil; ratio: 0.9" />}
                           <span className="uk-text-emphasis" data-uk-icon={`icon: ${assign.description ? 'info' : 'chevron-down'}; ratio: 0.9`} />
