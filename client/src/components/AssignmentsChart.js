@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import pluralize from 'pluralize';
 import Chart from './Chart';
 import { gradeRound } from '../util/grades';
 import { primaryTranslucent, primaryColor } from '../config';
@@ -26,7 +27,7 @@ class AssignmentsChart extends React.PureComponent {
         data={{
           labels,
           datasets: [{
-            label: 'Assignment score',
+            label: 'Assignment percent',
             backgroundColor: primaryTranslucent,
             borderColor: primaryColor,
             borderWidth: 1,
@@ -49,7 +50,7 @@ class AssignmentsChart extends React.PureComponent {
               afterBody: ([{ index: i }]) => {
                 const { points, category: catId } = scoredAssignments[i];
                 const { name: catName } = categories[catId];
-                return `${gradeRound(points)} points overall (${catName})`;
+                return `${gradeRound(points)} ${pluralize('points', points)} overall (${catName})`;
               },
               afterFooter: ([{ index: i }]) => {
                 const { fakeScore } = scoredAssignments[i];

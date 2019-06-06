@@ -20,16 +20,29 @@ class KeyShortcuts extends React.PureComponent {
     })).isRequired,
   }
 
+  constructor(props) {
+    super(props);
+    this.bindShortcuts = this.bindShortcuts.bind(this);
+  }
+
   componentDidMount() {
+    this.bindShortcuts();
+  }
+
+  componentDidUpdate() {
+    this.bindShortcuts();
+  }
+
+  componentWillUnmount() {
+    Mousetrap.reset();
+  }
+
+  bindShortcuts() {
     const { name, shortcuts } = this.props;
     shortcuts.forEach(({ combos, callback }) => Mousetrap.bind(combos, callback));
     const helpModal = modal(`#shortcuts-${name}-help-modal`);
     Mousetrap.bind('?', () => helpModal.show());
     Mousetrap.bind('?', () => helpModal.hide(), 'keyup');
-  }
-
-  componentWillUnmount() {
-    Mousetrap.reset();
   }
 
   render() {

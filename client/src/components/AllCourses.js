@@ -11,13 +11,23 @@ import KeyShortcuts from './KeyShortcuts';
 class AllCourses extends React.PureComponent {
   static propTypes = {
     navbar: PropTypes.node.isRequired,
-    instructorCourses: PropTypes.array.isRequired,
-    studentCourses: PropTypes.array.isRequired,
+    instructorCourses: PropTypes.arrayOf(PropTypes.object).isRequired,
+    studentCourses: PropTypes.arrayOf(PropTypes.object).isRequired,
     history: RouterPropTypes.history.isRequired,
   }
 
   makeShortcuts() {
-    const { history } = this.props;
+    const { history, instructorCourses, studentCourses } = this.props;
+    const instructorShortcuts = instructorCourses.slice(0, 10).map(({ id, name }, i) => ({
+      combos: i.toString(),
+      callback: () => history.push(`/dashboard/instructor/${id}`),
+      description: name,
+    }));
+    const studentShortcuts = studentCourses.slice(0, 10).map(({ id, name }, i) => ({
+      combos: `alt+${i}`,
+      callback: () => history.push(`/dashboard/student/${id}`),
+      description: name,
+    }));
     return [
       {
         combos: ['n', 'c'],
@@ -34,6 +44,8 @@ class AllCourses extends React.PureComponent {
         callback: () => history.push('/dashboard/account'),
         description: 'Go to account settings',
       },
+      ...instructorShortcuts,
+      ...studentShortcuts,
     ];
   }
 

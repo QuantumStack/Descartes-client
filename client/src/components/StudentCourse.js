@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import Helmet from 'react-helmet';
 import Markdown from 'react-markdown';
 import pluralize from 'pluralize';
 import DashboardHeader from './DashboardHeader';
@@ -51,6 +52,9 @@ class StudentCourse extends React.PureComponent {
 
     return (
       <div>
+        <Helmet>
+          <title>{name} | Descartes</title>
+        </Helmet>
         {navbar}
         {description && (
           <Modal name={`student-${id}-description`}>
@@ -138,7 +142,7 @@ class StudentCourse extends React.PureComponent {
                       ) : (
                         <span>
                           <span>This is only your </span>
-                          <i>projected</i>
+                          <strong>projected</strong>
                           <span> course grade, based on scores that may be incomplete or subject-to-change.</span>
                         </span>
                       )}
