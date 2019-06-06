@@ -123,9 +123,11 @@ class GradeForecast extends React.PureComponent {
     const {
       match, categories, hasFake, setFakeScore, resetFakeScore, resetAllFakes,
     } = this.props;
+    const displayAssignments = this.getAssignments();
     // TODO: display assignment flags and stats (mean, med, etc.)
+    // TODO: create test assignments
     return (
-      <div>
+      <div className="uk-margin-bottom">
         <KeyShortcuts name="grade-forecaster" shortcuts={this.makeShortcuts()} />
 
         <div className="uk-container uk-container-small uk-margin-bottom">
@@ -162,51 +164,59 @@ class GradeForecast extends React.PureComponent {
             </div>
           </div>
 
-          <div className="uk-overflow-auto uk-margin-small-top uk-margin-bottom">
-            <table className="uk-table uk-table-small uk-table-hover uk-table-divider">
-              <thead>
-                <tr>
-                  <th className="uk-table-expand">Name</th>
-                  <th>Score</th>
-                  <th>Max</th>
-                  <th>Percent</th>
-                  <th>Category</th>
-                </tr>
-              </thead>
-              <tbody>
-                {this.getAssignments().map(assign => (
-                  <tr key={assign.id}>
-                    <td id={`details-${assign.id}-boundary`}>
-                      <span>{assign.name}</span>
-                      <a className="uk-margin-small-left">
-                        {assign.override != null && <span className="uk-text-danger uk-margin-xsmall-right" data-uk-icon="icon: lifesaver; ratio: 0.9" />}
-                        {assign.fakeScore != null && <span className="uk-text-link uk-margin-xsmall-right" data-uk-icon="icon: pencil; ratio: 0.9" />}
-                        <span className="uk-text-emphasis" data-uk-icon={`icon: ${assign.description ? 'info' : 'chevron-down'}; ratio: 0.9`} />
-                      </a>
-                      <AssignmentDropdown {...assign} setFakeScore={setFakeScore} resetFakeScore={resetFakeScore} />
-                    </td>
-                    <td>
-                      {assign.fakeScore != null && <strong className="uk-text-link">{assign.fakeScore}</strong>}
-                      {assign.fakeScore == null && assign.score != null && assign.score}
-                      {assign.fakeScore == null && assign.score == null && '-'}
-                    </td>
-                    <td>{assign.outOf}</td>
-                    <td>
-                      {assign.fakeScore != null && (
-                        <strong className="uk-text-link">
-                          {gradeRound(assign.percent)}
-                          <span>%</span>
-                        </strong>
-                      )}
-                      {assign.fakeScore == null && assign.percent != null && `${gradeRound(assign.percent)}%`}
-                      {assign.percent == null && '-'}
-                    </td>
-                    <td>{categories[assign.category].name}</td>
+          {displayAssignments.length > 0 ? (
+            <div className="uk-overflow-auto uk-margin-small-top">
+              <table className="uk-table uk-table-small uk-table-hover uk-table-divider">
+                <thead>
+                  <tr>
+                    <th className="uk-table-expand">Name</th>
+                    <th>Score</th>
+                    <th>Max</th>
+                    <th>Percent</th>
+                    <th>Category</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                </thead>
+                <tbody>
+                  {displayAssignments.map(assign => (
+                    <tr key={assign.id}>
+                      <td id={`details-${assign.id}-boundary`}>
+                        <span>{assign.name}</span>
+                        <a className="uk-margin-small-left">
+                          {assign.override != null && <span className="uk-text-danger uk-margin-xsmall-right" data-uk-icon="icon: lifesaver; ratio: 0.9" />}
+                          {assign.fakeScore != null && <span className="uk-text-link uk-margin-xsmall-right" data-uk-icon="icon: pencil; ratio: 0.9" />}
+                          <span className="uk-text-emphasis" data-uk-icon={`icon: ${assign.description ? 'info' : 'chevron-down'}; ratio: 0.9`} />
+                        </a>
+                        <AssignmentDropdown {...assign} setFakeScore={setFakeScore} resetFakeScore={resetFakeScore} />
+                      </td>
+                      <td>
+                        {assign.fakeScore != null && <strong className="uk-text-link">{assign.fakeScore}</strong>}
+                        {assign.fakeScore == null && assign.score != null && assign.score}
+                        {assign.fakeScore == null && assign.score == null && '-'}
+                      </td>
+                      <td>{assign.outOf}</td>
+                      <td>
+                        {assign.fakeScore != null && (
+                          <strong className="uk-text-link">
+                            {gradeRound(assign.percent)}
+                            <span>%</span>
+                          </strong>
+                        )}
+                        {assign.fakeScore == null && assign.percent != null && `${gradeRound(assign.percent)}%`}
+                        {assign.percent == null && '-'}
+                      </td>
+                      <td>{categories[assign.category].name}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ) : (
+            <div className="uk-text-danger uk-text-center uk-margin-top">
+              <span>No data for this course. </span>
+              <strong>Coming soon: </strong>
+              <span>create your own test assignments.</span>
+            </div>
+          )}
         </div>
       </div>
     );
