@@ -20,6 +20,7 @@ class UserNavbar extends React.PureComponent {
         <span className="uk-margin-small-left uk-animation-scale-up" data-uk-icon="happy" />
       </div>
     );
+    // TODO: close offcanvas when link is clicked
     const links = [
       <li key="get-help">
         <a>

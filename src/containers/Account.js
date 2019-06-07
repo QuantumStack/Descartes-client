@@ -32,7 +32,7 @@ class Account extends React.PureComponent {
         <Helmet>
           <title>Account | Descartes </title>
         </Helmet>
-        <LoadingLarge isLoading={!isHydrated}>
+        <LoadingLarge key="account-settings" isLoading={!isHydrated}>
           <div className="uk-container">
             <UserContainer>
               <AccountSettings {...this.props} />

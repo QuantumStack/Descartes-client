@@ -10,7 +10,7 @@ class Instructor extends React.Component {
         <div className='uk-container'>
           <DataContainer url={INSTRUCTOR_URL}>
             <div>
-              <LoadingLarge />
+              <LoadingLarge key="instructor-course" />
             </div>
           </DataContainer>
         </div>

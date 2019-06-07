@@ -35,7 +35,7 @@ class Student extends React.PureComponent {
     const { isLoading } = this.props;
     return (
       <div>
-        <LoadingLarge isLoading={isLoading}>
+        <LoadingLarge key="student-course" isLoading={isLoading}>
           <div className="uk-container">
             <UserContainer>
               <StudentCourse {...this.props} />
