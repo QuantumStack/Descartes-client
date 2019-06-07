@@ -8,10 +8,10 @@ import NavLink from './NavLink';
 import OverallGradeChart from './OverallGradeChart';
 import AssignmentsChart from './AssignmentsChart';
 import CategoriesChart from './CategoriesChart';
-import AssignmentDropdown from './AssignmentDropdown';
-import { gradeRound } from '../util/grades';
 import ResponsiveFilters from './ResponsiveFilters';
 import AssignmentFilters from './AssignmentFilters';
+import StudentAssignmentsTable from './StudentAssignmentsTable';
+import EmptyCourse from './EmptyCourse';
 
 class GradeForecast extends React.PureComponent {
   static propTypes = {
@@ -169,64 +169,32 @@ class GradeForecast extends React.PureComponent {
                 <span className="uk-text-success uk-margin-small-right" data-uk-icon="icon: star; ratio: 0.75" />
                 <small className="uk-text-middle">
                   <strong className="uk-margin-small-right">Pro Tip</strong>
-                  <span>Click the icons next to each assignment for details or to test a score.</span>
+                  <span>
+                    Click the icons next to each assignment for details or to test a score.
+                  </span>
                 </small>
               </p>
             </div>
             <div>
               <ResponsiveFilters id="assignments" breakpoint="l">
-                <AssignmentFilters categories={categories} {...this.state} toggleSortOrder={this.toggleSortOrder} handleFilterChange={this.handleFilterChange} />
+                <AssignmentFilters
+                  categories={categories}
+                  {...this.state}
+                  toggleSortOrder={this.toggleSortOrder}
+                  handleFilterChange={this.handleFilterChange}
+                />
               </ResponsiveFilters>
             </div>
           </div>
 
           {displayAssignments.length > 0 ? (
-            <div className="uk-overflow-auto uk-margin-small-top">
-              <table className="uk-table uk-table-small uk-table-hover uk-table-divider">
-                <thead>
-                  <tr>
-                    <th className="uk-table-expand">Name</th>
-                    <th>Score</th>
-                    <th>Max</th>
-                    <th>Percent</th>
-                    <th>Category</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {displayAssignments.map(assign => (
-                    <tr key={assign.id}>
-                      <td id={`details-${assign.id}-boundary`}>
-                        <span>{assign.name}</span>
-                        <a className="uk-margin-small-left">
-                          {assign.unpublished && <span className="uk-text-primary uk-margin-xsmall-right" data-uk-icon="icon: lock; ratio: 0.9" />}
-                          {assign.override != null && <span className="uk-text-danger uk-margin-xsmall-right" data-uk-icon="icon: lifesaver; ratio: 0.9" />}
-                          {assign.fakeScore != null && <span className="uk-text-link uk-margin-xsmall-right" data-uk-icon="icon: pencil; ratio: 0.9" />}
-                          <span className="uk-text-emphasis" data-uk-icon={`icon: ${assign.description ? 'info' : 'chevron-down'}; ratio: 0.9`} />
-                        </a>
-                        <AssignmentDropdown {...assign} setFakeScore={setFakeScore} resetFakeScore={resetFakeScore} allowTesting={allowTestingScores} />
-                      </td>
-                      <td>
-                        {assign.fakeScore != null && <strong className="uk-text-link">{assign.fakeScore}</strong>}
-                        {assign.fakeScore == null && assign.score != null && assign.score}
-                        {assign.fakeScore == null && assign.score == null && '-'}
-                      </td>
-                      <td>{assign.outOf}</td>
-                      <td>
-                        {assign.fakeScore != null && (
-                          <strong className="uk-text-link">
-                            {gradeRound(assign.percent)}
-                            <span>%</span>
-                          </strong>
-                        )}
-                        {assign.fakeScore == null && assign.percent != null && `${gradeRound(assign.percent)}%`}
-                        {assign.percent == null && '-'}
-                      </td>
-                      <td>{categories[assign.category].name}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+            <StudentAssignmentsTable
+              assignments={displayAssignments}
+              categories={categories}
+              allowTestingScores={allowTestingScores}
+              setFakeScore={setFakeScore}
+              resetFakeScore={resetFakeScore}
+            />
           ) : (
             <div className="uk-text-danger uk-text-center uk-margin-top">
               <span>No data for this course. </span>
@@ -237,18 +205,7 @@ class GradeForecast extends React.PureComponent {
         </div>
       </div>
     ) : (
-      <div className="uk-flex uk-flex-center uk-margin-top">
-        <div className="uk-card uk-card-primary uk-card-body uk-text-center">
-          <h4>Nothing here...</h4>
-          <p>
-            <span>There are no assignments </span>
-            <br />
-            <span>or categories to display. </span>
-            <br />
-            <span>Please check back later.</span>
-          </p>
-        </div>
-      </div>
+      <EmptyCourse />
     );
   }
 }

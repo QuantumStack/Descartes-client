@@ -18,29 +18,27 @@ import NotFound from './pages/NotFound';
 import ScrollToTop from './components/ScrollToTop';
 import Foot from './components/Foot';
 
-function App() {
-  return (
-    <ScrollToTop>
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route path="/legal" component={Legal} />
-        <PrivateRoute exact path="/dashboard" component={Dashboard} />
-        <PrivateRoute path="/dashboard/account" component={Account} />
-        <PrivateRoute path="/dashboard/instructor/:id" component={Instructor} />
-        <PrivateRoute path="/dashboard/student/:id" component={Student} />
-        <PrivateRoute exact path="/create" component={Create} />
-        <PrivateRoute path="/create/success" component={Purchased} />
-        <PrivateRoute exact path="/join" component={Join} />
-        <PrivateRoute path="/join/:code" component={Join} />
-        <UnprivateRoute exact path="/verify" component={Verify} />
-        <UnprivateRoute exact path="/login" component={LogIn} />
-        <UnprivateRoute exact path="/signup" component={SignUp} />
-        <Route path="*" component={NotFound} />
-      </Switch>
+const App = () => (
+  <ScrollToTop>
+    <Switch>
+      <Route exact path="/" component={Home} />
+      <Route path="/legal" component={Legal} />
+      <PrivateRoute exact path="/dashboard" component={Dashboard} />
+      <PrivateRoute path="/dashboard/account" component={Account} />
+      <PrivateRoute path="/dashboard/instructor/:id" component={Instructor} />
+      <PrivateRoute path="/dashboard/student/:id" component={Student} />
+      <PrivateRoute exact path="/create" component={Create} />
+      <PrivateRoute path="/create/success" component={Purchased} />
+      <PrivateRoute exact path="/join" component={Join} />
+      <PrivateRoute path="/join/:code" component={Join} />
+      <UnprivateRoute exact path="/verify" component={Verify} />
+      <UnprivateRoute exact path="/login" component={LogIn} />
+      <UnprivateRoute exact path="/signup" component={SignUp} />
+      <Route path="*" component={NotFound} />
+    </Switch>
 
-      <Foot />
-    </ScrollToTop>
-  );
-}
+    <Foot />
+  </ScrollToTop>
+);
 
 export default App;
