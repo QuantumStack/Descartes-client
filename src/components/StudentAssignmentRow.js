@@ -59,13 +59,13 @@ class StudentAssignmentRow extends React.PureComponent {
         <td id={`details-${id}-boundary`}>
           <span>{name}</span>
           <span className="uk-margin-small-left">
-            <span className="uk-visible@s">
+            <span className="uk-visible@m">
               <a>{icons}</a>
               <div id={`details-${id}-dropdown`} data-uk-dropdown={`mode: click; boundary: #details-${id}-boundary; boundary-align: true; pos: top-justify; animation: uk-animation-slide-top-small uk-animation-fast`}>
                 {details}
               </div>
             </span>
-            <span className="uk-hidden@s">
+            <span className="uk-hidden@m">
               <a data-uk-toggle={`target: #details-${id}-modal`}>{icons}</a>
               <Modal name={`details-${id}`} isCentered>
                 <span className="uk-text-center">
