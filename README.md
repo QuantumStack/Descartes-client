@@ -1,4 +1,4 @@
-# Descartes
+# Descartes [![Build Status](https://travis-ci.com/QuantumStack/Descartes.svg?branch=grade-forecaster)](https://travis-ci.com/QuantumStack/Descartes)
 
 I think, therefore I am.
 
