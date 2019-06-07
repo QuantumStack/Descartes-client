@@ -1,4 +1,4 @@
-# Descartes [![Build Status](https://travis-ci.com/QuantumStack/Descartes.svg?branch=grade-forecaster)](https://travis-ci.com/QuantumStack/Descartes)
+# Descartes     [![Build Status](https://travis-ci.com/QuantumStack/Descartes-client.svg?branch=grade-forecaster)](https://travis-ci.com/QuantumStack/Descartes-client)
 
 I think, therefore I am.
 
