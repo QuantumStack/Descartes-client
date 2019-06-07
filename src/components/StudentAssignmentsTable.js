@@ -11,11 +11,19 @@ class StudentAssignmentsTable extends React.PureComponent {
     resetFakeScore: PropTypes.func.isRequired,
   }
 
-  getCategoryName(id) {}
+  constructor(props) {
+    super(props);
+    this.getCategoryName = this.getCategoryName.bind(this);
+  }
+
+  getCategoryName(id) {
+    const { categories } = this.props;
+    return categories[id].name;
+  }
 
   render() {
     const {
-      assignments, categories, allowTestingScores, setFakeScore, resetFakeScore,
+      assignments, allowTestingScores, setFakeScore, resetFakeScore,
     } = this.props;
     return (
       <div className="uk-overflow-auto uk-margin-small-top">
@@ -33,7 +41,7 @@ class StudentAssignmentsTable extends React.PureComponent {
             {assignments.map(assign => (
               <StudentAssignmentRow
                 {...assign}
-                categories={categories}
+                getCategoryName={this.getCategoryName}
                 allowTesting={allowTestingScores}
                 setFakeScore={setFakeScore}
                 resetFakeScore={resetFakeScore}

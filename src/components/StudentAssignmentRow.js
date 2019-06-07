@@ -9,16 +9,37 @@ class StudentAssignmentRow extends React.PureComponent {
     name: PropTypes.string.isRequired,
     description: PropTypes.string,
     unpublished: PropTypes.bool,
+    fakeScore: PropTypes.number,
+    score: PropTypes.number,
+    override: PropTypes.number,
+    percent: PropTypes.number,
+    outOf: PropTypes.number.isRequired,
+    category: PropTypes.string.isRequired,
+    getCategoryName: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
     description: null,
     unpublished: false,
+    fakeScore: null,
+    score: null,
+    override: null,
+    percent: null,
   }
 
   render() {
     const {
-      id, name, description, unpublished, override, fakeScore, score, percent, categories,
+      id,
+      name,
+      description,
+      unpublished,
+      override,
+      fakeScore,
+      score,
+      outOf,
+      percent,
+      category,
+      getCategoryName,
     } = this.props;
     return (
       <tr>
@@ -33,24 +54,24 @@ class StudentAssignmentRow extends React.PureComponent {
           <AssignmentDropdown {...this.props} />
         </td>
         <td>
-          {assign.fakeScore != null && <strong className="uk-text-link">{assign.fakeScore}</strong>}
-          {assign.fakeScore == null && assign.score != null && assign.score}
-          {assign.fakeScore == null && assign.score == null && '-'}
+          {fakeScore != null && <strong className="uk-text-link">{fakeScore}</strong>}
+          {fakeScore == null && score != null && score}
+          {fakeScore == null && score == null && '-'}
         </td>
-        <td>{assign.outOf}</td>
+        <td>{outOf}</td>
         <td>
-          {assign.fakeScore != null && (
+          {fakeScore != null && (
             <strong className="uk-text-link">
-              {gradeRound(assign.percent)}
+              {gradeRound(percent)}
               <span>%</span>
             </strong>
           )}
-          {assign.fakeScore == null && assign.percent != null && `${gradeRound(assign.percent)}%`}
-          {assign.percent == null && '-'}
+          {fakeScore == null && percent != null && `${gradeRound(percent)}%`}
+          {percent == null && '-'}
         </td>
-        <td>{categories[assign.category].name}</td>
+        <td>{getCategoryName(category)}</td>
       </tr>
-    )
+    );
   }
 }
 
