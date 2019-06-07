@@ -40,6 +40,7 @@ class StudentAssignmentsTable extends React.PureComponent {
           <tbody>
             {assignments.map(assign => (
               <StudentAssignmentRow
+                key={assign.id}
                 {...assign}
                 getCategoryName={this.getCategoryName}
                 allowTesting={allowTestingScores}

@@ -1,17 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import AssignmentDropdown from './AssignmentDropdown';
+import AssignmentIcons from './AssignmentIcons';
+import AssignmentDetails from './AssignmentDetails';
 import { gradeRound } from '../util/grades';
+import Modal from './Modal';
 
 class StudentAssignmentRow extends React.PureComponent {
   static propTypes = {
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    description: PropTypes.string,
-    unpublished: PropTypes.bool,
     fakeScore: PropTypes.number,
     score: PropTypes.number,
-    override: PropTypes.number,
     percent: PropTypes.number,
     outOf: PropTypes.number.isRequired,
     category: PropTypes.string.isRequired,
@@ -19,11 +18,8 @@ class StudentAssignmentRow extends React.PureComponent {
   }
 
   static defaultProps = {
-    description: null,
-    unpublished: false,
     fakeScore: null,
     score: null,
-    override: null,
     percent: null,
   }
 
@@ -31,9 +27,6 @@ class StudentAssignmentRow extends React.PureComponent {
     const {
       id,
       name,
-      description,
-      unpublished,
-      override,
       fakeScore,
       score,
       outOf,
@@ -41,35 +34,67 @@ class StudentAssignmentRow extends React.PureComponent {
       category,
       getCategoryName,
     } = this.props;
+
+    const icons = <AssignmentIcons {...this.props} />;
+    const details = <AssignmentDetails {...this.props} />;
+
+    let displayScore = '-';
+    if (fakeScore != null) displayScore = <strong className="uk-text-link">{fakeScore}</strong>;
+    else if (score != null) displayScore = score;
+
+    let displayPercent = '-';
+    if (fakeScore != null) {
+      displayPercent = (
+        <strong className="uk-text-link">
+          {gradeRound(percent)}
+          <span>%</span>
+        </strong>
+      );
+    } else if (percent != null) displayPercent = `${gradeRound(percent)}%`;
+
+    const displayCategory = getCategoryName(category);
+
     return (
       <tr>
         <td id={`details-${id}-boundary`}>
           <span>{name}</span>
-          <a className="uk-margin-small-left">
-            {unpublished && <span className="uk-text-primary uk-margin-xsmall-right" data-uk-icon="icon: lock; ratio: 0.9" />}
-            {override != null && <span className="uk-text-danger uk-margin-xsmall-right" data-uk-icon="icon: lifesaver; ratio: 0.9" />}
-            {fakeScore != null && <span className="uk-text-link uk-margin-xsmall-right" data-uk-icon="icon: pencil; ratio: 0.9" />}
-            <span className="uk-text-emphasis" data-uk-icon={`icon: ${description ? 'info' : 'chevron-down'}; ratio: 0.9`} />
-          </a>
-          <AssignmentDropdown {...this.props} />
+          <span className="uk-margin-small-left">
+            <span className="uk-visible@s">
+              <a>{icons}</a>
+              <div id={`details-${id}-dropdown`} data-uk-dropdown={`mode: click; boundary: #details-${id}-boundary; boundary-align: true; pos: top-justify; animation: uk-animation-slide-top-small uk-animation-fast`}>
+                {details}
+              </div>
+            </span>
+            <span className="uk-hidden@s">
+              <a data-uk-toggle={`target: #details-${id}-modal`}>{icons}</a>
+              <Modal name={`details-${id}`} isCentered>
+                <span className="uk-text-center">
+                  <h4 className="uk-heading-line uk-margin-remove-bottom"><span>{name}</span></h4>
+                  <p className="uk-text-muted uk-margin-remove-top">
+                    <strong>Score: </strong>
+                    {displayScore}
+                    <span> / </span>
+                    {outOf}
+                    <span> | </span>
+                    <strong>Percent: </strong>
+                    {displayPercent}
+                    <span> | </span>
+                    {displayCategory}
+                  </p>
+                </span>
+                {details}
+              </Modal>
+            </span>
+          </span>
         </td>
         <td>
-          {fakeScore != null && <strong className="uk-text-link">{fakeScore}</strong>}
-          {fakeScore == null && score != null && score}
-          {fakeScore == null && score == null && '-'}
+          {displayScore}
         </td>
         <td>{outOf}</td>
         <td>
-          {fakeScore != null && (
-            <strong className="uk-text-link">
-              {gradeRound(percent)}
-              <span>%</span>
-            </strong>
-          )}
-          {fakeScore == null && percent != null && `${gradeRound(percent)}%`}
-          {percent == null && '-'}
+          {displayPercent}
         </td>
-        <td>{getCategoryName(category)}</td>
+        <td>{displayCategory}</td>
       </tr>
     );
   }

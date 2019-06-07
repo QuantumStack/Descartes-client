@@ -20,10 +20,10 @@ class GradeForecast extends React.PureComponent {
     scoredAssignments: PropTypes.arrayOf(PropTypes.object).isRequired,
     categories: PropTypes.objectOf(PropTypes.object).isRequired,
     hasFake: PropTypes.bool.isRequired,
-    options: {
+    options: PropTypes.shape({
       allowTestingScores: PropTypes.bool,
       allowTestingAssignments: PropTypes.bool,
-    },
+    }),
     setFakeScore: PropTypes.func.isRequired,
     resetFakeScore: PropTypes.func.isRequired,
     resetAllFakes: PropTypes.func.isRequired,

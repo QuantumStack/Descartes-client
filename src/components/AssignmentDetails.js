@@ -1,16 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Markdown from 'react-markdown';
-import { dropdown } from 'uikit';
+import { Boxplot } from 'react-boxplot';
+import { dropdown, modal } from 'uikit';
+import GradeComparison from './GradeComparison';
 
-class AssignmentDropdown extends React.PureComponent {
+class AssignmentDetails extends React.PureComponent {
   static propTypes = {
     id: PropTypes.string.isRequired,
     description: PropTypes.string,
     unpublished: PropTypes.bool,
-    fakeScore: PropTypes.number,
+    fakeScore: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     override: PropTypes.number,
     percent: PropTypes.number,
+    stats: PropTypes.shape({
+      mean: PropTypes.number.isRequired,
+      q1: PropTypes.number.isRequired,
+      med: PropTypes.number.isRequired,
+      q3: PropTypes.number.isRequired,
+      min: PropTypes.number.isRequired,
+      max: PropTypes.number.isRequired,
+    }),
     exactDate: PropTypes.string.isRequired,
     relativeDate: PropTypes.string.isRequired,
     allowTesting: PropTypes.bool.isRequired,
@@ -24,6 +34,7 @@ class AssignmentDropdown extends React.PureComponent {
     fakeScore: null,
     override: null,
     percent: null,
+    stats: null,
   }
 
   constructor(props) {
@@ -41,7 +52,13 @@ class AssignmentDropdown extends React.PureComponent {
   handleScoreTestReset() {
     const { id, resetFakeScore } = this.props;
     resetFakeScore(id);
-    dropdown(`#details-${id}-dropdown`).hide();
+
+    const assignDrop = dropdown(`#details-${id}-dropdown`);
+    if (assignDrop) assignDrop.hide();
+    setTimeout(() => {
+      const assignModal = modal(`#details-${id}-modal`);
+      if (assignModal) assignModal.hide();
+    }, 500);
   }
 
   render() {
@@ -52,12 +69,13 @@ class AssignmentDropdown extends React.PureComponent {
       override,
       fakeScore,
       percent,
+      stats,
       exactDate,
       relativeDate,
       allowTesting,
     } = this.props;
     return (
-      <div id={`details-${id}-dropdown`} data-uk-dropdown={`mode: click; boundary: #details-${id}-boundary; boundary-align: true; pos: bottom-justify; animation: uk-animation-slide-top-small uk-animation-fast`}>
+      <div>
         {description && <Markdown source={description} />}
         {unpublished && (
           <p>
@@ -73,9 +91,57 @@ class AssignmentDropdown extends React.PureComponent {
         )}
         {override != null && (
           <p>
-            <span className="uk-text-danger uk-margin-small-right" data-uk-icon="lifesaver" />
+            <span className="uk-text-warning uk-margin-small-right" data-uk-icon="lifesaver" />
             <span>Your percent score for this assignment has been manually overriden by an instructor.</span>
           </p>
+        )}
+        {stats && (
+          <div data-uk-grid>
+            <div>
+              <Boxplot
+                width={25}
+                height={225}
+                orientation="vertical"
+                min={Math.min(0, stats.min)}
+                max={Math.max(100, stats.max)}
+                stats={{
+                  whiskerLow: stats.min,
+                  whiskerHigh: stats.max,
+                  quartile1: stats.q1,
+                  quartile2: stats.med,
+                  quartile3: stats.q3,
+                  outliers: [],
+                }}
+              />
+            </div>
+            <div className="uk-width-expand">
+              <h5 className="uk-margin-small-bottom">Performance stats</h5>
+              <dl className="uk-margin-small-top">
+                <dt>Average</dt>
+                <dd>
+                  {stats.mean}
+                  <span>%</span>
+                  {percent != null && <GradeComparison target={stats.mean} value={percent} />}
+                </dd>
+                <dt>Median</dt>
+                <dd>
+                  {stats.med}
+                  <span>%</span>
+                  {percent != null && <GradeComparison target={stats.med} value={percent} />}
+                </dd>
+                <dt>Minimum</dt>
+                <dd>
+                  {stats.min}
+                  <span>%</span>
+                </dd>
+                <dt>Maximum</dt>
+                <dd>
+                  {stats.max}
+                  <span>%</span>
+                </dd>
+              </dl>
+            </div>
+          </div>
         )}
         {allowTesting && (
           <div className="uk-grid-small uk-margin-small-bottom" data-uk-grid>
@@ -103,4 +169,4 @@ class AssignmentDropdown extends React.PureComponent {
   }
 }
 
-export default AssignmentDropdown;
+export default AssignmentDetails;
