@@ -9,7 +9,8 @@ class AccountSettings extends React.Component {
   static propTypes = {
     navbar: PropTypes.node.isRequired,
     isLoading: PropTypes.bool.isRequired,
-    name: PropTypes.string.isRequired,
+    firstName: PropTypes.string.isRequired,
+    lastName: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
     changePassword: PropTypes.bool,
     oldPassword: PropTypes.string.isRequired,
@@ -39,18 +40,24 @@ class AccountSettings extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     const {
-      editUser, name, oldPassword, password, mismatch, strength,
+      editUser, firstName, lastName, oldPassword, password, mismatch, strength,
     } = this.props;
-    const newPassword = oldPassword && password && !mismatch
-      && strength > passwordStrengthThreshold ? password : null;
-    editUser(name, newPassword);
+    const delta = {};
+    if (firstName) delta.firstName = firstName;
+    if (lastName) delta.lastName = lastName;
+    if (oldPassword && password && !mismatch && strength > passwordStrengthThreshold) {
+      delta.oldPassword = oldPassword;
+      delta.password = password;
+    }
+    editUser(delta);
   }
 
   render() {
     const {
       navbar,
       isLoading,
-      name,
+      firstName,
+      lastName,
       email,
       changePassword,
       oldPassword,
@@ -74,9 +81,18 @@ class AccountSettings extends React.Component {
               <div className="uk-margin">
                 <label className="uk-form-label">Full Name</label>
                 <div className="uk-form-controls">
-                  <div className="uk-inline uk-width-expand">
-                    <span className="uk-form-icon" data-uk-icon="icon: user" />
-                    <input className="uk-input" type="text" name="name" value={name} onChange={handleChange} />
+                  <div className="uk-grid-small uk-child-width-1-2" data-uk-grid>
+                    <div>
+                      <div className="uk-inline uk-width-expand">
+                        <span className="uk-form-icon" data-uk-icon="icon: user" />
+                        <input className="uk-input" type="text" name="firstName" value={firstName} onChange={handleChange} required />
+                      </div>
+                    </div>
+                    <div>
+                      <div className="uk-inline uk-width-expand">
+                        <input className="uk-input" type="text" name="lastName" value={lastName} onChange={handleChange} required />
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

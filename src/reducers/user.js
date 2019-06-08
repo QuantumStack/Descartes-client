@@ -5,7 +5,8 @@ import passwordChange from '../util/passwordChange';
 import { error } from '../util/alert';
 
 const defaultState = {
-  name: '',
+  firstName: '',
+  lastName: '',
   email: '',
   oldPassword: '',
   password: '',
@@ -53,8 +54,7 @@ export default (state = defaultState, { type, payload, error: err }) => {
       }
       return {
         ...state,
-        name: payload.name,
-        email: payload.email,
+        ...payload,
         isLoading: false,
         isHydrated: true,
       };

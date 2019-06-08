@@ -7,9 +7,12 @@ export const USER_CHANGE_RESPONSE = 'USER_CHANGE_RESPONSE';
 
 export const userChangeResponse = createAction(USER_CHANGE_RESPONSE);
 
-export const userChange = (name, password) => (dispatch) => {
+export const userChange = data => (dispatch) => {
   dispatch(userRequest());
-  ax.post(ACCOUNT_CHANGE_URL, { data: { name, password }, headers: authHeader() })
+  ax.post(ACCOUNT_CHANGE_URL, {
+    data,
+    headers: authHeader(),
+  })
     .then(() => dispatch(userChangeResponse()))
     .catch((err) => {
       if (!deauthenticateIfNeeded(err.response, dispatch)) dispatch(userChangeResponse(err));

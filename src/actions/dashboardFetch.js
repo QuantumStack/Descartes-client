@@ -1,7 +1,6 @@
 import { createActions } from 'redux-actions';
 import { ax, OVERVIEW_URL, authHeader } from '../util/api';
 import deauthenticateIfNeeded from './deauthenticateIfNeeded';
-import { userResponse } from './userFetch';
 import { instructorCoursesReceive, studentCoursesReceive } from './identities';
 
 export const DASHBOARD_REQUEST = 'DASHBOARD_REQUEST';
@@ -15,7 +14,6 @@ export const fetchDashboard = () => (dispatch) => {
   dispatch(dashboardRequest());
   ax.get(OVERVIEW_URL, { headers: authHeader() })
     .then(({ data }) => {
-      dispatch(userResponse(data.user));
       dispatch(dashboardResponse());
       dispatch(studentCoursesReceive(data.studentCourses));
       dispatch(instructorCoursesReceive(data.instructorCourses));

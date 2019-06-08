@@ -6,10 +6,10 @@ export const SIGN_UP_RESPONSE = 'SIGN_UP_RESPONSE';
 
 export const { signUpRequest, signUpResponse } = createActions(SIGN_UP_REQUEST, SIGN_UP_RESPONSE);
 
-export const signUp = (name, email, password, recaptcha) => (dispatch) => {
+export const signUp = (firstName, lastName, email, password, recaptcha) => (dispatch) => {
   dispatch(signUpRequest());
   ax.post(SIGN_UP_URL, {
-    fullName: name, email, password, 'g-recaptcha-response': recaptcha,
+    firstName, lastName, email, password, 'g-recaptcha-response': recaptcha,
   })
     .then(res => dispatch(signUpResponse(res)))
     .catch(err => dispatch(signUpResponse(err)));

@@ -21,7 +21,6 @@ const LogIn = React.lazy(() => import('./containers/LogIn'));
 const SignUp = React.lazy(() => import('./containers/SignUp'));
 const NotFound = React.lazy(() => import('./pages/NotFound'));
 
-// TODO: create page loading component
 const App = () => (
   <ScrollToTop>
     <ErrorBoundary>

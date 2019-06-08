@@ -5,17 +5,22 @@ import NavLink from './NavLink';
 
 class UserNavbar extends React.PureComponent {
   static propTypes = {
-    name: PropTypes.string.isRequired,
+    firstName: PropTypes.string,
     doLogOut: PropTypes.func.isRequired,
   };
 
+  static defaultProps = {
+    firstName: null,
+  }
+
   render() {
-    const { name, doLogOut } = this.props;
+    const { firstName, doLogOut } = this.props;
     const greeting = (
       <div data-uk-scrollspy="cls: uk-animation-slide-left-small">
         <span className="uk-text-middle">
-          <span>Hello, &nbsp;</span>
-          <strong>{name}</strong>
+          <span>Hello, </span>
+          &nbsp;
+          <strong>{firstName}</strong>
         </span>
         <span className="uk-margin-small-left uk-animation-scale-up" data-uk-icon="happy" />
       </div>
@@ -47,7 +52,7 @@ class UserNavbar extends React.PureComponent {
             <button className="uk-offcanvas-close" type="button" data-uk-close />
             <h3>Descartes</h3>
             <ul className="uk-nav uk-nav-default">
-              {name && <li className="uk-active">{greeting}</li>}
+              {firstName && <li className="uk-active">{greeting}</li>}
               <li className="uk-nav-header">Navigation</li>
               <li>
                 <Link to="/dashboard">
@@ -62,7 +67,7 @@ class UserNavbar extends React.PureComponent {
         <div className="uk-navbar-container uk-navbar-transparent" data-uk-navbar>
           <div className="uk-navbar-left">
             <Link className="uk-navbar-item uk-logo" to="/dashboard">Descartes</Link>
-            {name && (
+            {firstName && (
               <div className="uk-navbar-item uk-text-uppercase uk-text-muted uk-visible@m">
                 {greeting}
               </div>

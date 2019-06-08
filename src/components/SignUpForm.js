@@ -7,7 +7,8 @@ import { recaptchaSiteKey, passwordStrengthThreshold } from '../config';
 
 class SignUp extends React.Component {
   static propTypes = {
-    name: PropTypes.string.isRequired,
+    firstName: PropTypes.string.isRequired,
+    lastName: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
     password: PropTypes.string.isRequired,
     strength: PropTypes.number.isRequired,
@@ -33,11 +34,11 @@ class SignUp extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     const {
-      name, email, password, mismatch, strength, agreement, recaptcha, signUp,
+      firstName, lastName, email, password, mismatch, strength, agreement, recaptcha, signUp,
     } = this.props;
-    if (name && email && password && !mismatch && strength >= passwordStrengthThreshold
-      && agreement && recaptcha) {
-      signUp(name, email, password, recaptcha);
+    if (firstName && lastName && email && password && !mismatch
+      && strength >= passwordStrengthThreshold && agreement && recaptcha) {
+      signUp(firstName, lastName, email, password, recaptcha);
     }
   }
 
@@ -48,7 +49,8 @@ class SignUp extends React.Component {
 
   render() {
     const {
-      name,
+      firstName,
+      lastName,
       email,
       password,
       password2,
@@ -95,9 +97,18 @@ class SignUp extends React.Component {
           <strong>free</strong>
           <span>, but you&apos;ll need to subscribe to a paid plan to register a course.</span>
         </p>
-        <div className="uk-inline uk-margin-small-top">
-          <span className="uk-form-icon" data-uk-icon="icon: user" />
-          <input className="uk-input uk-form-width-large" type="text" name="name" placeholder="Full Name" value={name} onChange={handleChange} required />
+        <div className="uk-grid-small uk-child-width-1-2" data-uk-grid>
+          <div>
+            <div className="uk-inline uk-width-expand">
+              <span className="uk-form-icon" data-uk-icon="icon: user" />
+              <input className="uk-input" type="text" name="firstName" placeholder="First name" value={firstName} onChange={handleChange} required />
+            </div>
+          </div>
+          <div>
+            <div className="uk-inline uk-width-expand">
+              <input className="uk-input" type="text" name="lastName" placeholder="Last name" value={lastName} onChange={handleChange} required />
+            </div>
+          </div>
         </div>
         <div className="uk-inline uk-margin-small">
           <span className="uk-form-icon" data-uk-icon="icon: mail" />

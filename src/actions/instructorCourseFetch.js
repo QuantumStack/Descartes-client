@@ -1,7 +1,6 @@
 import { createActions } from 'redux-actions';
 import { ax, INSTRUCTOR_URL, authHeader } from '../util/api';
 import deauthenticateIfNeeded from './deauthenticateIfNeeded';
-import { userResponse } from './userFetch';
 
 export const INSTRUCTOR_COURSE_REQUEST = 'INSTRUCTOR_COURSE_REQUEST';
 export const INSTRUCTOR_COURSE_RESPONSE = 'INSTRUCTOR_COURSE_RESPONSE';
@@ -14,7 +13,6 @@ export const fetchInstructorCourse = id => (dispatch) => {
   dispatch(instructorCourseRequest());
   ax.get(INSTRUCTOR_URL, { params: { id }, headers: authHeader() })
     .then(({ data }) => {
-      dispatch(userResponse(data.user));
       dispatch(instructorCourseResponse({ id, data: data.course }));
     })
     .catch((err) => {
