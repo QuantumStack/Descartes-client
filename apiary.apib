@@ -462,11 +462,13 @@ Get all details about a course from a student's perspective. Notes:
                 "instructors": [
                     {
                         "email": "albert@smart.com",
+                        "showEmail": true,
                         "name": "Albert Einstein",
                         "role": "admin"
                     },
                     {
                         "email": "ashwin@fishdev.xyz",
+                        "showEmail": true,
                         "name": "Ashwin Srinivasan",
                         "role": "instructor"
                     }
@@ -487,6 +489,14 @@ Get all details about a course from a student's perspective. Notes:
                         "outOf": 100,
                         "override": 97,
                         "category":  "1",
+                        "stats": {
+                            "mean": 97,
+                            "q1": 76,
+                            "med": 85,
+                            "q3": 92,
+                            "min": 3,
+                            "max": 105
+                        },
                         "date": 1558885206658
                     },
                     {
@@ -531,6 +541,14 @@ Get all details about a course from a student's perspective. Notes:
                         "score": 5,
                         "outOf": 5,
                         "category": "p2",
+                        "stats": {
+                            "mean": 96.7,
+                            "q1": 50,
+                            "med": 100,
+                            "q3": 100,
+                            "min": 0,
+                            "max": 100
+                        },
                         "date": 1558886493794
                     }
                 ],
@@ -561,7 +579,11 @@ Get all details about a course from a student's perspective. Notes:
                         "polls": true,
                         "weight": 25
                     }
-                ]
+                ],
+                "options": {
+                    "allowTestingScores": true,
+                    "allowTestingAssignments": true
+                }
             }
         }
 
