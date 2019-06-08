@@ -35,12 +35,10 @@ class FakeAssignmentForm extends React.PureComponent {
     const {
       name, fakeScore, outOf, category,
     } = this.state;
-    const { id, create } = this.props;
+    const { create } = this.props;
     if (name && fakeScore != null && outOf != null && category) {
       create(name, fakeScore, outOf, category);
       this.setState(initialState);
-      const formToggle = toggle(`#new-fake-assignment-${id}-form`);
-      if (formToggle) formToggle.toggle();
     }
   }
 
@@ -50,7 +48,7 @@ class FakeAssignmentForm extends React.PureComponent {
       name, fakeScore, outOf, category,
     } = this.state;
     return (
-      <form id={`new-fake-assignment-${id}-form`} className="uk-margin-small-top" onSubmit={this.handleSubmit} hidden>
+      <form id={`new-fake-assignment-${id}-form`} className="uk-margin-small-top" onSubmit={this.handleSubmit} data-uk-scrollspy="target: .uk-form-icon, .uk-icon; cls: uk-animation-scale-up; delay: 100" hidden>
         <div className="uk-grid-small" data-uk-grid>
           <div className="uk-width-expand@s">
             <div className="uk-inline uk-width-expand">
@@ -59,15 +57,19 @@ class FakeAssignmentForm extends React.PureComponent {
             </div>
           </div>
           <div>
-            <div className="uk-inline">
-              <span className="uk-form-icon" data-uk-icon="pencil" />
-              <input className="uk-input" type="number" min={1} placeholder="Test score" name="fakeScore" value={fakeScore} onChange={this.handleInputChange} required />
-            </div>
-          </div>
-          <div>
-            <div className="uk-inline">
-              <span className="uk-form-icon" data-uk-icon="paint-bucket" />
-              <input className="uk-input" type="number" min={1} placeholder="Max" name="outOf" value={outOf} onChange={this.handleInputChange} required />
+            <div className="uk-grid-small uk-child-width-1-2" data-uk-grid>
+              <div>
+                <div className="uk-inline">
+                  <span className="uk-form-icon" data-uk-icon="pencil" />
+                  <input className="uk-input" type="number" min={1} placeholder="Test score" name="fakeScore" value={fakeScore} onChange={this.handleInputChange} required />
+                </div>
+              </div>
+              <div>
+                <div className="uk-inline">
+                  <span className="uk-form-icon" data-uk-icon="paint-bucket" />
+                  <input className="uk-input" type="number" min={1} placeholder="Max" name="outOf" value={outOf} onChange={this.handleInputChange} required />
+                </div>
+              </div>
             </div>
           </div>
           <div>
@@ -80,7 +82,7 @@ class FakeAssignmentForm extends React.PureComponent {
               </select>
               <button className="uk-button uk-button-default" type="button" tabIndex="-1">
                 <span />
-                <span data-uk-icon="icon: chevron-down" />
+                <span className="uk-icon" data-uk-icon="icon: chevron-down" />
               </button>
             </div>
           </div>

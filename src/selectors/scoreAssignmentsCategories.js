@@ -23,7 +23,7 @@ export default (assigns, cats) => {
   const computedCats = cats.reduce((obj, cat) => {
     const { id } = cat;
     const catAssigns = filterAssignsByCat(scoredAssigns, id);
-    const score = catAssigns.reduce((total, assign) => total + getTrueScore(assign));
+    const score = catAssigns.reduce((total, assign) => total + getTrueScore(assign), 0);
     const outOf = catAssigns.reduce((total, assign) => total + assign.outOf, 0);
     return {
       ...obj,
