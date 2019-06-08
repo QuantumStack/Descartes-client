@@ -9,15 +9,18 @@ class StudentAssignmentRow extends React.PureComponent {
   static propTypes = {
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
+    isFake: PropTypes.bool,
     fakeScore: PropTypes.number,
     score: PropTypes.number,
     percent: PropTypes.number,
     outOf: PropTypes.number.isRequired,
     category: PropTypes.string.isRequired,
     getCategoryName: PropTypes.func.isRequired,
+    removeFakeAssignment: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
+    isFake: false,
     fakeScore: null,
     score: null,
     percent: null,
@@ -27,12 +30,14 @@ class StudentAssignmentRow extends React.PureComponent {
     const {
       id,
       name,
+      isFake,
       fakeScore,
       score,
       outOf,
       percent,
       category,
       getCategoryName,
+      removeFakeAssignment,
     } = this.props;
 
     const icons = <AssignmentIcons {...this.props} />;
@@ -57,7 +62,12 @@ class StudentAssignmentRow extends React.PureComponent {
     return (
       <tr>
         <td id={`details-${id}-boundary`}>
-          <span>{name}</span>
+          {isFake ? (
+            <span className="uk-text-link">
+              <strong>{name}</strong>
+              <a className="uk-margin-small-left" data-uk-icon="trash" onClick={() => removeFakeAssignment(id)} />
+            </span>
+          ) : name}
           <span className="uk-margin-small-left">
             <span className="uk-visible@m">
               <a>{icons}</a>

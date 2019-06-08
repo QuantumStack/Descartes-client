@@ -12,6 +12,8 @@ import {
   fetchStudentCourseIfNeeded,
   studentCourseFakeScore,
   studentCourseUnfakeScore,
+  studentCourseFakeAssignment,
+  studentCourseUnfakeAssignment,
   studentCourseScoreReset,
 } from '../actions';
 
@@ -56,6 +58,12 @@ const mapDispatchToProps = (dispatch, { match }) => ({
     setFakeScore: studentCourseFakeScore,
     resetFakeScore: studentCourseUnfakeScore,
   }, dispatch),
+  createFakeAssignment: (...args) => dispatch(studentCourseFakeAssignment(
+    match.params.id, ...args,
+  )),
+  removeFakeAssignment: fakeId => dispatch(studentCourseUnfakeAssignment(
+    match.params.id, fakeId,
+  )),
   resetAllFakes: () => dispatch(studentCourseScoreReset(match.params.id)),
 });
 

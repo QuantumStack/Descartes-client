@@ -61,22 +61,44 @@ export default coursesReducer(
             },
           },
         };
-      case STUDENT_COURSE_FAKE_ASSIGNMENT:
+      case STUDENT_COURSE_FAKE_ASSIGNMENT: {
+        const fakeId = `fake-${payload.id}-${Date.now()}`;
+        const courseItem = state.items[payload.id];
         return {
           ...state,
           assignments: {
             ...state.assignments,
-            [payload.id]: {
+            [fakeId]: {
               ...payload,
+              id: fakeId,
               isFake: true,
             },
           },
+          items: {
+            ...state.items,
+            [courseItem.id]: {
+              ...courseItem,
+              assignments: [
+                ...courseItem.assignments,
+                fakeId,
+              ],
+            },
+          },
         };
+      }
       case STUDENT_COURSE_UNFAKE_ASSIGNMENT: {
-        const { [payload]: fake, ...rest } = state.assignments;
+        const { [payload.fakeId]: fake, ...rest } = state.assignments;
+        const courseItem = state.items[payload.id];
         return {
           ...state,
           assignments: rest,
+          items: {
+            ...state.items,
+            [courseItem.id]: {
+              ...courseItem,
+              assignments: courseItem.assignments.filter(id => id !== payload.fakeId),
+            },
+          },
         };
       }
       case STUDENT_COURSE_SCORE_RESET: {

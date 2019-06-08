@@ -12,6 +12,7 @@ import ResponsiveFilters from './ResponsiveFilters';
 import AssignmentFilters from './AssignmentFilters';
 import StudentAssignmentsTable from './StudentAssignmentsTable';
 import EmptyCourse from './EmptyCourse';
+import FakeAssignmentForm from './FakeAssignmentForm';
 
 class GradeForecast extends React.PureComponent {
   static propTypes = {
@@ -26,6 +27,8 @@ class GradeForecast extends React.PureComponent {
     }),
     setFakeScore: PropTypes.func.isRequired,
     resetFakeScore: PropTypes.func.isRequired,
+    createFakeAssignment: PropTypes.func.isRequired,
+    removeFakeAssignment: PropTypes.func.isRequired,
     resetAllFakes: PropTypes.func.isRequired,
     history: RouterPropTypes.history.isRequired,
     match: RouterPropTypes.match.isRequired,
@@ -133,12 +136,15 @@ class GradeForecast extends React.PureComponent {
   render() {
     const {
       match,
+      id,
       assignments,
       categories,
       hasFake,
-      options: { allowTestingScores },
+      options: { allowTestingScores, allowTestingAssignments },
       setFakeScore,
       resetFakeScore,
+      createFakeAssignment,
+      removeFakeAssignment,
       resetAllFakes,
     } = this.props;
     const displayAssignments = this.getAssignments();
@@ -194,12 +200,22 @@ class GradeForecast extends React.PureComponent {
               allowTestingScores={allowTestingScores}
               setFakeScore={setFakeScore}
               resetFakeScore={resetFakeScore}
+              removeFakeAssignment={removeFakeAssignment}
             />
           ) : (
             <div className="uk-text-danger uk-text-center uk-margin-top">
               <span>No data for this course. </span>
               <strong>Coming soon: </strong>
               <span>create your own test assignments.</span>
+            </div>
+          )}
+          {allowTestingAssignments && (
+            <div className="uk-margin-top">
+              <a className="uk-text-link" data-uk-toggle={`target: #new-fake-assignment-${id}-form; animation: uk-animation-slide-top-small`}>
+                <span className="uk-margin-small-right" data-uk-icon="plus-circle" />
+                <span>Test a new assignment</span>
+              </a>
+              <FakeAssignmentForm id={id} categories={categories} create={createFakeAssignment} />
             </div>
           )}
         </div>

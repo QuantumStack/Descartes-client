@@ -26,7 +26,6 @@ export const {
   studentCoursesReceive,
   studentCourseDehydrate,
   studentCourseUnfakeScore,
-  studentCourseUnfakeAssignment,
   studentCourseScoreReset,
 } = createActions(
   LOG_IN_INPUT_BLUR,
@@ -40,6 +39,5 @@ export const {
   STUDENT_COURSES_RECEIVE,
   STUDENT_COURSE_DEHYDRATE,
   STUDENT_COURSE_UNFAKE_SCORE,
-  STUDENT_COURSE_UNFAKE_ASSIGNMENT,
   STUDENT_COURSE_SCORE_RESET,
 );

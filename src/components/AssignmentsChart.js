@@ -52,6 +52,7 @@ class AssignmentsChart extends React.PureComponent {
                 const { name: catName } = categories[catId];
                 return `${gradeRound(points)} ${pluralize('points', points)} overall (${catName})`;
               },
+              label: ({ yLabel }) => `Assignment percent: ${gradeRound(yLabel)}%`,
               afterFooter: ([{ index: i }]) => {
                 const { fakeScore } = scoredAssignments[i];
                 return fakeScore != null ? 'Testing this score' : '';

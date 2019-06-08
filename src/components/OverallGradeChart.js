@@ -54,6 +54,7 @@ class OverallGradeChart extends React.PureComponent {
                 const { name: catName } = categories[catId];
                 return `${gradeRound(percent)}% for this (${catName})`;
               },
+              label: ({ yLabel }) => `Grade up to here: ${gradeRound(yLabel)}`,
               afterFooter: ([{ index: i }]) => {
                 const { fakeScore } = scoredAssignments[i];
                 return fakeScore != null ? 'Testing this score' : '';

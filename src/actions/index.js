@@ -15,6 +15,7 @@ export * from './instructorCourseFetch';
 export * from './studentCourseFetch';
 export * from './studentCourseFakeScore';
 export * from './studentCourseFakeAssignment';
+export * from './studentCourseUnfakeAssignment';
 export * from './createCoursePhaseChange';
 export * from './createCourseInputChange';
 export * from './createCourse';

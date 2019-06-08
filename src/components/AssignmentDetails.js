@@ -8,6 +8,7 @@ import GradeComparison from './GradeComparison';
 class AssignmentDetails extends React.PureComponent {
   static propTypes = {
     id: PropTypes.string.isRequired,
+    isFake: PropTypes.bool,
     description: PropTypes.string,
     unpublished: PropTypes.bool,
     fakeScore: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
@@ -29,6 +30,7 @@ class AssignmentDetails extends React.PureComponent {
   }
 
   static defaultProps = {
+    isFake: false,
     unpublished: false,
     description: null,
     fakeScore: null,
@@ -64,6 +66,7 @@ class AssignmentDetails extends React.PureComponent {
   render() {
     const {
       id,
+      isFake,
       unpublished,
       description,
       override,
@@ -76,6 +79,12 @@ class AssignmentDetails extends React.PureComponent {
     } = this.props;
     return (
       <div>
+        {isFake && (
+          <p>
+            <span className="uk-text-link uk-margin-small-right" data-uk-icon="plus-circle" />
+            <span>You are testing this assignment. It does not actually exist.</span>
+          </p>
+        )}
         {description && <Markdown source={description} />}
         {unpublished && (
           <p>

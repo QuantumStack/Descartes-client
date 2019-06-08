@@ -9,6 +9,7 @@ class StudentAssignmentsTable extends React.PureComponent {
     allowTestingScores: PropTypes.bool.isRequired,
     setFakeScore: PropTypes.func.isRequired,
     resetFakeScore: PropTypes.func.isRequired,
+    removeFakeAssignment: PropTypes.func.isRequired,
   }
 
   constructor(props) {
@@ -23,7 +24,7 @@ class StudentAssignmentsTable extends React.PureComponent {
 
   render() {
     const {
-      assignments, allowTestingScores, setFakeScore, resetFakeScore,
+      assignments, allowTestingScores, setFakeScore, resetFakeScore, removeFakeAssignment,
     } = this.props;
     return (
       <div className="uk-overflow-auto uk-margin-small-top">
@@ -46,6 +47,7 @@ class StudentAssignmentsTable extends React.PureComponent {
                 allowTesting={allowTestingScores}
                 setFakeScore={setFakeScore}
                 resetFakeScore={resetFakeScore}
+                removeFakeAssignment={removeFakeAssignment}
               />
             ))}
           </tbody>

@@ -49,8 +49,8 @@ export const coursesReducer = (
           isHydrated: false,
         };
       case RECEIVE: {
-        const courseSchema = new schema.Entity('courses');
-        const { entities: { courses } } = normalize(payload, [courseSchema]);
+        const courseOverviewSchema = new schema.Entity('courses');
+        const { entities: { courses } } = normalize(payload, [courseOverviewSchema]);
         return {
           ...state,
           isHydrated: true,
