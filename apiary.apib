@@ -98,7 +98,8 @@ Create a new user.
             {
                 "email": "aditya@example.com",
                 "password": "example_password",
-                "fullName": "Aditya Pillai",
+                "firstName": "Aditya",
+                "lastName": "Pillai"
                 "g-recaptcha-response": "recaptcha-token"
             }
 
@@ -115,7 +116,8 @@ Create a new user.
             {
                 "email": "aditya@example.com",
                 "password": "example_password",
-                "fullName": "Aditya Pillai",
+                "firstName": "Aditya",
+                "lastName": "Pillai"
                 "g-recaptcha-response": "invalid-recaptcha-token"
             }
 
@@ -133,7 +135,8 @@ Create a new user.
             {
                 "email": "aditya@example.com",
                 "password": "example_password",
-                "fullName": "Aditya Pillai",
+                "firstName": "Aditya",
+                "lastName": "Pillai"
                 "g-recaptcha-response": "recaptcha-token"
             }
         
@@ -152,7 +155,8 @@ Create a new user.
             {
                 "email": "aditya@example.com",
                 "password": "short",
-                "fullName": "Aditya Pillai",
+                "firstName": "Aditya",
+                "lastName": "Pillai"
                 "g-recaptcha-response": "recaptcha-token"
             }
             
@@ -169,7 +173,8 @@ Create a new user.
 
             {
                 "password": "example_password",
-                "fullName": "Aditya Pillai",
+                "firstName": "Aditya",
+                "lastName": "Pillai"
                 "g-recaptcha-response": "recaptcha-token"
             }
         
@@ -187,7 +192,8 @@ Create a new user.
 
             {
                 "email": "aditya@example.com",
-                "fullName": "Aditya Pillai",
+                "firstName": "Aditya",
+                "lastName": "Pillai"
                 "g-recaptcha-response": "recaptcha-token"
             }
             
@@ -199,7 +205,7 @@ Create a new user.
             "message": "Please provide a password"
         }
 
-+ Request 400 Full Name Not Provided (application/json)
++ Request 400 Name Not Provided (application/json)
     + Body
 
             {
@@ -213,8 +219,8 @@ Create a new user.
 
         {
             "success": false,
-            "error": "no-fullname",
-            "message": "Please provide your full name."
+            "error": "no-name",
+            "message": "Please provide your name."
         }
 
 ### Email Verification [POST /auth/verify]
@@ -627,8 +633,9 @@ Modify a user's name and/or password.
     + Body
 
         {
-            "name": "Ashwin Srinivasan",
-            "old_password": "example_password",
+            "firstName": "Ashwin",
+            "lastName": "Srinivasan",
+            "oldPassword": "example_password",
             "password": "super_secure"
         }
 
