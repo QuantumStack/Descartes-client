@@ -61,7 +61,7 @@ class StudentAssignmentRow extends React.PureComponent {
           <span className="uk-margin-small-left">
             <span className="uk-visible@m">
               <a>{icons}</a>
-              <div id={`details-${id}-dropdown`} data-uk-dropdown={`mode: click; boundary: #details-${id}-boundary; boundary-align: true; pos: top-justify; animation: uk-animation-slide-top-small uk-animation-fast`}>
+              <div id={`details-${id}-dropdown`} data-uk-dropdown={`mode: click; boundary: #details-${id}-boundary; boundary-align: true; pos: top-justify; animation: uk-animation-slide-bottom-small uk-animation-fast`}>
                 {details}
               </div>
             </span>

@@ -7,6 +7,8 @@ import {
   STUDENT_COURSE_RESPONSE,
   STUDENT_COURSE_FAKE_SCORE,
   STUDENT_COURSE_UNFAKE_SCORE,
+  STUDENT_COURSE_FAKE_ASSIGNMENT,
+  STUDENT_COURSE_UNFAKE_ASSIGNMENT,
   STUDENT_COURSE_SCORE_RESET,
 } from '../actions';
 import { coursesReducer, updateCourse, courseTemplate } from './courses';
@@ -59,6 +61,24 @@ export default coursesReducer(
             },
           },
         };
+      case STUDENT_COURSE_FAKE_ASSIGNMENT:
+        return {
+          ...state,
+          assignments: {
+            ...state.assignments,
+            [payload.id]: {
+              ...payload,
+              isFake: true,
+            },
+          },
+        };
+      case STUDENT_COURSE_UNFAKE_ASSIGNMENT: {
+        const { [payload]: fake, ...rest } = state.assignments;
+        return {
+          ...state,
+          assignments: rest,
+        };
+      }
       case STUDENT_COURSE_SCORE_RESET: {
         const courseAssignments = state.items[payload].assignments.reduce((obj, id) => ({
           ...obj,
