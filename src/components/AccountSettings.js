@@ -105,7 +105,7 @@ class AccountSettings extends React.Component {
                     <input className="uk-input" type="text" name="name" value={email} disabled />
                   </div>
                   <label>
-                    <input className="uk-checkbox" type="checkbox" checked={showEmail} onChange={handleChange}>
+                    <input className="uk-checkbox" type="checkbox" checked={showEmail} onChange={handleChange} />
                     <span> Display email for courses I instruct</span>
                   </label>
                 </div>

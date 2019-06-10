@@ -2,7 +2,7 @@ import {
   USER_REQUEST, USER_RESPONSE, USER_INPUT_CHANGE, USER_CHANGE_RESPONSE, LOG_OUT,
 } from '../actions';
 import passwordChange from '../util/passwordChange';
-import { error } from '../util/alert';
+import { error, success } from '../util/alert';
 
 const defaultState = {
   firstName: '',
@@ -35,6 +35,7 @@ export default (state = defaultState, { type, payload, error: err }) => {
     }
     case USER_CHANGE_RESPONSE:
       if (err) error(payload.response ? payload.response.statusText : '');
+      success('Account settings updated');
       return {
         ...state,
         isLoading: false,
