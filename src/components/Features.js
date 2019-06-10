@@ -4,7 +4,7 @@ import FeatureItem from './FeatureItem';
 const Features = () => (
   <div className="uk-section" id="about">
     <div className="uk-container">
-      <div className="uk-child-width-1-4@m" data-uk-grid data-uk-scrollspy="target: .uk-icon; cls: uk-animation-slide-top-small; delay: 100">
+      <div className="uk-child-width-1-2@s uk-child-width-1-4@m" data-uk-grid data-uk-scrollspy="target: .uk-icon; cls: uk-animation-slide-top-small; delay: 100">
         <FeatureItem icon="bolt" title="Activities">
           <span>Simple </span>
           <strong>check-in</strong>

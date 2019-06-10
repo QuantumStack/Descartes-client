@@ -7,11 +7,11 @@ export const LOG_IN_URL = 'auth/login';
 export const SIGN_UP_URL = 'auth/signup';
 export const RESEND_URL = 'auth/resend';
 export const VERIFY_URL = 'auth/verify';
-export const OVERVIEW_URL = 'overview';
-export const ACCOUNT_URL = 'account';
-export const ACCOUNT_CHANGE_URL = 'account';
-export const CREATE_URL = 'create';
-export const JOIN_URL = 'enroll';
+export const OVERVIEW_URL = 'api/course/overview';
+export const ACCOUNT_URL = 'api/account';
+export const ACCOUNT_CHANGE_URL = 'api/account';
+export const CREATE_URL = 'api/create';
+export const JOIN_URL = 'api/enroll';
 export const INSTRUCTOR_URL = 'course/instructor';
 export const STUDENT_URL = 'course/student';
 
