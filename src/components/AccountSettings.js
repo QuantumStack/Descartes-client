@@ -59,6 +59,7 @@ class AccountSettings extends React.Component {
       firstName,
       lastName,
       email,
+      showEmail,
       changePassword,
       oldPassword,
       password,
@@ -103,6 +104,10 @@ class AccountSettings extends React.Component {
                     <span className="uk-form-icon" data-uk-icon="icon: mail" />
                     <input className="uk-input" type="text" name="name" value={email} disabled />
                   </div>
+                  <label>
+                    <input className="uk-checkbox" type="checkbox" checked={showEmail} onChange={handleChange} />
+                    <span> Display email for courses I instruct</span>
+                  </label>
                 </div>
               </div>
               <h4 className="uk-margin-small">
