@@ -35,7 +35,7 @@ export default (state = defaultState, { type, payload, error: err }) => {
     }
     case USER_CHANGE_RESPONSE:
       if (err) error(payload.response ? payload.response.statusText : '');
-      success('Account settings updated');
+      else success('Account settings updated');
       return {
         ...state,
         isLoading: false,

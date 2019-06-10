@@ -9,11 +9,11 @@ export const RESEND_URL = 'auth/resend';
 export const VERIFY_URL = 'auth/verify';
 export const OVERVIEW_URL = 'api/course/overview';
 export const ACCOUNT_URL = 'api/account';
-export const ACCOUNT_CHANGE_URL = 'api/account';
+export const ACCOUNT_CHANGE_URL = 'api/account/modify';
 export const CREATE_URL = 'api/create';
 export const JOIN_URL = 'api/enroll';
 export const INSTRUCTOR_URL = 'course/instructor';
-export const STUDENT_URL = 'course/student';
+export const STUDENT_URL = 'api/course/student';
 
 export const authHeader = () => ({ Authorization: `bearer ${getToken()}` });
 export const ax = axios.create({ baseURL: BASE_URL });

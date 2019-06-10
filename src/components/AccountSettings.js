@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import NewPassword from './NewPassword';
 import { passwordStrengthThreshold } from '../config';
 import DashboardHeader from './DashboardHeader';
+import PaymentHistoryTable from './PaymentHistoryTable';
 
 class AccountSettings extends React.Component {
   static propTypes = {
@@ -12,18 +13,14 @@ class AccountSettings extends React.Component {
     firstName: PropTypes.string.isRequired,
     lastName: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
+    showEmail: PropTypes.bool.isRequired,
     changePassword: PropTypes.bool,
     oldPassword: PropTypes.string.isRequired,
     password: PropTypes.string.isRequired,
     password2: PropTypes.string.isRequired,
     mismatch: PropTypes.bool.isRequired,
     strength: PropTypes.number.isRequired,
-    payments: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      plan: PropTypes.string.isRequired,
-      date: PropTypes.number.isRequired,
-    })).isRequired,
+    payments: PropTypes.arrayOf(PropTypes.object).isRequired,
     editUser: PropTypes.func.isRequired,
     handleChange: PropTypes.func.isRequired,
   }
@@ -104,10 +101,12 @@ class AccountSettings extends React.Component {
                     <span className="uk-form-icon" data-uk-icon="icon: mail" />
                     <input className="uk-input" type="text" name="name" value={email} disabled />
                   </div>
-                  <label>
-                    <input className="uk-checkbox" type="checkbox" checked={showEmail} onChange={handleChange} />
-                    <span> Display email for courses I instruct</span>
-                  </label>
+                  <div className="uk-margin-small-top">
+                    <label>
+                      <input className="uk-checkbox" type="checkbox" name="showEmail" checked={showEmail} onChange={handleChange} />
+                      <span> Show email for courses I instruct</span>
+                    </label>
+                  </div>
                 </div>
               </div>
               <h4 className="uk-margin-small">
@@ -142,30 +141,7 @@ class AccountSettings extends React.Component {
               </div>
             </form>
             <h4 className="uk-margin-small-bottom">Payment History</h4>
-            {payments.length > 0 ? (
-              <div className="uk-overflow-auto uk-margin-small-top">
-                <table className="uk-table uk-table-small uk-table-hover uk-table-divider">
-                  <thead>
-                    <tr>
-                      <th className="uk-table-expand">Course Name</th>
-                      <th>Plan</th>
-                      <th className="uk-table-expand">Date</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {payments.map(payment => (
-                      <tr key={payment.id}>
-                        <td><Link to={`/dashboard/instructor/${payment.id}`}>{payment.name}</Link></td>
-                        <td>{payment.plan}</td>
-                        <td><span data-uk-tooltip={`title: ${payment.exactDate}`}>{payment.relativeDate}</span></td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            ) : (
-              <div className="uk-text-danger uk-text-center uk-margin-top">No courses here. Add one using the button above.</div>
-            )}
+            <PaymentHistoryTable payments={payments} />
           </div>
         </div>
         <br />
