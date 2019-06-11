@@ -1,3 +1,4 @@
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/37353c32ca024139b79b937a6d1e14e9)](https://app.codacy.com/app/fishdev/Descartes-client?utm_source=github.com&utm_medium=referral&utm_content=QuantumStack/Descartes-client&utm_campaign=Badge_Grade_Dashboard)
 # Descartes     [![Build Status](https://travis-ci.com/QuantumStack/Descartes-client.svg?branch=grade-forecaster)](https://travis-ci.com/QuantumStack/Descartes-client)
 
 I think, therefore I am.
