@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { injectStripe } from 'react-stripe-elements';
 import SimpleMDE from 'react-simplemde-editor';
 import 'easymde/dist/easymde.min.css';
-// import converter from '../util/markdown';
-// TODO: decide whether to use showdown globally
 import PricingPlan from './PricingPlan';
 import { plans } from '../config';
 
@@ -14,12 +12,19 @@ class CreateForm extends React.PureComponent {
     name: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     plan: PropTypes.string.isRequired,
+    coupon: PropTypes.string.isRequired,
+    couponLoading: PropTypes.bool.isRequired,
+    couponHydrated: PropTypes.bool.isRequired,
+    couponVerified: PropTypes.bool.isRequired,
+    couponPrice: PropTypes.number.isRequired,
     isLoading: PropTypes.bool.isRequired,
     updatePhase: PropTypes.func.isRequired,
     handleChange: PropTypes.func.isRequired,
+    verifyCoupon: PropTypes.func.isRequired,
     doCreate: PropTypes.func.isRequired,
-    // eslint-disable-next-line react/forbid-prop-types
-    stripe: PropTypes.any.isRequired,
+    stripe: PropTypes.shape({
+      redirectToCheckout: PropTypes.func.isRequired,
+    }).isRequired,
   }
 
   constructor(props) {
@@ -52,7 +57,18 @@ class CreateForm extends React.PureComponent {
 
   render() {
     const {
-      phase, name, description, plan, isLoading, handleChange,
+      phase,
+      name,
+      description,
+      plan,
+      coupon,
+      couponLoading,
+      couponHydrated,
+      couponVerified,
+      couponPrice,
+      isLoading,
+      handleChange,
+      verifyCoupon,
     } = this.props;
 
     const phases = [
@@ -71,7 +87,11 @@ class CreateForm extends React.PureComponent {
           <div className="uk-margin-small">
             <label className="uk-form-label" htmlFor="form-stacked-text">Description</label>
             <div className="uk-form-controls uk-width-expand">
-              <SimpleMDE value={description} onChange={this.handleDescriptionChange} options={{ status: false, spellChecker: false }} />
+              <SimpleMDE
+                value={description}
+                onChange={this.handleDescriptionChange}
+                options={{ status: false, spellChecker: false }}
+              />
             </div>
           </div>
         </div>,
@@ -104,6 +124,38 @@ class CreateForm extends React.PureComponent {
                 </PricingPlan>
               </div>
             ))}
+          </div>
+          <div className="uk-grid-small uk-margin" data-uk-grid>
+            <div className="uk-width-expand">
+              <div className="uk-form-controls">
+                <div className="uk-inline uk-width-expand">
+                  <span className="uk-form-icon" data-uk-icon="tag" />
+                  <input className="uk-input uk-form-small" type="text" placeholder="Have a coupon code?" name="coupon" value={coupon} onChange={handleChange} />
+                </div>
+              </div>
+            </div>
+            <div>
+              <button className="uk-button uk-button-default uk-button-small" type="button" onClick={verifyCoupon}>Apply</button>
+            </div>
+            <div className="uk-width-1-3@s uk-width-2-5@l">
+              {couponLoading ? (
+                <div key="loading" data-uk-spinner="ratio: 0.5" />
+              ) : (
+                <div>
+                  {couponHydrated && (couponVerified ? (
+                    <span className="uk-text-success">
+                      <span>Verified! New price: </span>
+                      <strong>
+                        <span>$</span>
+                        {couponPrice}
+                      </strong>
+                    </span>
+                  ) : (
+                    <span className="uk-text-danger">Unable to verify coupon.</span>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         </div>,
       ],
