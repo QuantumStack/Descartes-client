@@ -5,7 +5,6 @@ import SimpleMDE from 'react-simplemde-editor';
 import 'easymde/dist/easymde.min.css';
 import PricingPlan from './PricingPlan';
 import { plans } from '../config';
-import { combinationsReplacement } from 'simple-statistics';
 
 class CreateForm extends React.PureComponent {
   static propTypes = {
