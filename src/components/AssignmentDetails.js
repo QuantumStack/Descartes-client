@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import Markdown from 'react-markdown';
 import { Boxplot } from 'react-boxplot';
 import { dropdown, modal } from 'uikit';
@@ -10,6 +11,10 @@ class AssignmentDetails extends React.PureComponent {
     id: PropTypes.string.isRequired,
     isFake: PropTypes.bool,
     description: PropTypes.string,
+    type: PropTypes.oneOf(['custom', 'activity', 'poll']).isRequired,
+    activity: PropTypes.string,
+    poll: PropTypes.string,
+    flags: PropTypes.arrayOf(PropTypes.object),
     unpublished: PropTypes.bool,
     fakeScore: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     override: PropTypes.number,
@@ -31,6 +36,9 @@ class AssignmentDetails extends React.PureComponent {
 
   static defaultProps = {
     isFake: false,
+    activity: null,
+    poll: null,
+    flags: [],
     unpublished: false,
     description: null,
     fakeScore: null,
@@ -69,6 +77,10 @@ class AssignmentDetails extends React.PureComponent {
       isFake,
       unpublished,
       description,
+      type,
+      activity,
+      poll,
+      flags,
       override,
       fakeScore,
       percent,
@@ -91,6 +103,35 @@ class AssignmentDetails extends React.PureComponent {
             <span className="uk-text-primary uk-margin-small-right" data-uk-icon="lock" />
             <span>This assignment is unpublished, so students can&apos;t see it.</span>
           </p>
+        )}
+        {type === 'activity' && (
+          <p>
+            <span className="uk-margin-small-right" data-uk-icon="link" />
+            <span>From an activity on Descartes. </span>
+            <Link to={`/activities/${activity}`}>See details</Link>
+          </p>
+        )}
+        {type === 'poll' && (
+          <p>
+            <span className="uk-margin-small-right" data-uk-icon="link" />
+            <span>From a poll on Descartes. </span>
+            <Link to={`/polls/${poll}`}>See details</Link>
+          </p>
+        )}
+        {flags.length > 0 && (
+          <div className="uk-grid-collapse" data-uk-grid>
+            <div>
+              <span className="uk-text-danger uk-margin-small-right" data-uk-icon="bell" />
+            </div>
+            <div className="uk-width-expand">
+              {flags.map(flag => (
+                <p className="uk-margin-small">
+                  {flag.type === 'section' && <span>Attended the wrong section time.</span>}
+                  {flag.type === 'attempts' && <span>Multiple attempts, which is not allowed.</span>}
+                </p>
+              ))}
+            </div>
+          </div>
         )}
         {percent === 100 && (
           <p>
