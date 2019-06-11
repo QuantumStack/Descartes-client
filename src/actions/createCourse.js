@@ -1,4 +1,5 @@
 import { createActions } from 'redux-actions';
+import { push } from 'connected-react-router';
 import { ax, CREATE_URL, authHeader } from '../util/api';
 import findPlan from '../util/plan';
 import deauthenticateIfNeeded from './deauthenticateIfNeeded';
@@ -23,12 +24,13 @@ export const createCourse = (name, description, plan, stripe) => (dispatch) => {
     },
     headers: authHeader(),
   })
-    .then(() => {
+    // TODO: don't prompt for sessionId (use server response);
+    .then(({ data }) => {
       dispatch(paymentsDehydrate());
       dispatch(instructorCoursesDehydrate());
+      if (data.isFree) dispatch(push('/create/success'));
+      else stripe.redirectToCheckout({ sessionId: prompt() /* data.stripeId */ });
     })
-    // TODO: don't prompt for sessionId (use server response);
-    .then(({ data }) => stripe.redirectToCheckout({ sessionId: prompt() /* data.id */ }))
     .then(res => dispatch(createCourseResponse(res)))
     .catch((err) => {
       if (!deauthenticateIfNeeded(err.response, dispatch)) dispatch(createCourseResponse(err));

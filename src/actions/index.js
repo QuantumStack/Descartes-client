@@ -18,6 +18,7 @@ export * from './studentCourseFakeAssignment';
 export * from './studentCourseUnfakeAssignment';
 export * from './createCoursePhaseChange';
 export * from './createCourseInputChange';
+export * from './checkCoupon';
 export * from './createCourse';
 export * from './joinInputChange';
 export * from './joinCourse';
