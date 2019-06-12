@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
-import RouterPropTypes from 'react-router-prop-types';
 import LoadingLarge from '../components/LoadingLarge';
 import UserContainer from './UserContainer';
 import StudentCourse from '../components/StudentCourse';
@@ -21,7 +20,6 @@ class Student extends React.PureComponent {
   static propTypes = {
     isLoading: PropTypes.bool,
     fetchIfNeeded: PropTypes.func.isRequired,
-    match: RouterPropTypes.match.isRequired,
   }
 
   static defaultProps = {
@@ -29,8 +27,8 @@ class Student extends React.PureComponent {
   }
 
   componentDidMount() {
-    const { fetchIfNeeded, match } = this.props;
-    fetchIfNeeded(match.params.id);
+    const { fetchIfNeeded } = this.props;
+    fetchIfNeeded();
   }
 
   render() {
@@ -49,12 +47,10 @@ class Student extends React.PureComponent {
   }
 }
 
-const mapStateToProps = (state, { match }) => ({
-  ...studentCourseCompact(match.params.id)(state),
-});
+const mapStateToProps = (state, { match }) => studentCourseCompact(match.params.id)(state);
 const mapDispatchToProps = (dispatch, { match }) => ({
+  fetchIfNeeded: () => dispatch(fetchStudentCourseIfNeeded(match.params.id)),
   ...bindActionCreators({
-    fetchIfNeeded: fetchStudentCourseIfNeeded,
     setFakeScore: studentCourseFakeScore,
     resetFakeScore: studentCourseUnfakeScore,
   }, dispatch),

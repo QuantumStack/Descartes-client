@@ -1,11 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import LoadingLarge from '../components/LoadingLarge';
 import UserContainer from './UserContainer';
+import { instructorCourseCompact } from '../selectors';
+import { fetchInstructorCourseIfNeeded } from '../actions';
 
 class Instructor extends React.PureComponent {
   static propTypes = {
-    isLoading: PropTypes.bool.isRequired,
+    isLoading: PropTypes.bool,
+    fetchIfNeeded: PropTypes.func.isRequired,
+  }
+
+  static defaultProps = {
+    isLoading: true,
+  }
+
+  componentDidMount() {
+    const { fetchIfNeeded } = this.props;
+    fetchIfNeeded();
   }
 
   render() {
@@ -24,5 +38,9 @@ class Instructor extends React.PureComponent {
   }
 }
 
-// TODO: connect to redux
-export default Instructor;
+const mapStateToProps = (state, { match }) => instructorCourseCompact(match.params.id)(state);
+const mapDispatchToProps = (dispatch, { match }) => ({
+  fetchIfNeeded: () => dispatch(fetchInstructorCourseIfNeeded(match.params.id)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Instructor));
