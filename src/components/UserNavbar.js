@@ -10,7 +10,7 @@ class UserNavbar extends React.PureComponent {
   };
 
   static defaultProps = {
-    firstName: null,
+    firstName: undefined,
   }
 
   render() {

@@ -34,7 +34,7 @@ class StudentCourse extends React.PureComponent {
   }
 
   static defaultProps = {
-    description: null,
+    description: undefined,
   }
 
   render() {

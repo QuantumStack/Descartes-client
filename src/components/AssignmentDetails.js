@@ -36,15 +36,15 @@ class AssignmentDetails extends React.PureComponent {
 
   static defaultProps = {
     isFake: false,
-    activity: null,
-    poll: null,
+    activity: undefined,
+    poll: undefined,
     flags: [],
     unpublished: false,
-    description: null,
-    fakeScore: null,
-    override: null,
-    percent: null,
-    stats: null,
+    description: undefined,
+    fakeScore: undefined,
+    override: undefined,
+    percent: undefined,
+    stats: undefined,
   }
 
   constructor(props) {

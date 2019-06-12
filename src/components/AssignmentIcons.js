@@ -13,9 +13,9 @@ class AssignmentIcons extends React.PureComponent {
   static defaultProps = {
     flags: [],
     unpublished: false,
-    override: null,
-    fakeScore: null,
-    description: null,
+    override: undefined,
+    fakeScore: undefined,
+    description: undefined,
   }
 
   render() {

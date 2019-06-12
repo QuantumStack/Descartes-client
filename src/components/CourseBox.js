@@ -24,7 +24,7 @@ class CourseBox extends React.PureComponent {
   static defaultProps = {
     head: undefined,
     role: 'student',
-    grade: null,
+    grade: undefined,
     oh: false,
     expired: false,
   }
