@@ -204,9 +204,7 @@ class GradeForecast extends React.PureComponent {
             />
           ) : (
             <div className="uk-text-danger uk-text-center uk-margin-top">
-              <span>No data for this course. </span>
-              <strong>Coming soon: </strong>
-              <span>create your own test assignments.</span>
+              No assignments found.
             </div>
           )}
           {allowTestingAssignments && (
