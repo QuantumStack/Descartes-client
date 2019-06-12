@@ -15,7 +15,10 @@ class StudentCourse extends React.PureComponent {
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     description: PropTypes.string,
-    head: PropTypes.string.isRequired,
+    head: PropTypes.shape({
+      email: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+    }).isRequired,
     contact: PropTypes.string.isRequired,
     instructors: PropTypes.arrayOf(PropTypes.shape({
       email: PropTypes.string.isRequired,
@@ -26,8 +29,8 @@ class StudentCourse extends React.PureComponent {
     hasFake: PropTypes.bool.isRequired,
     // TODO: are these props subject to change?
     oh: PropTypes.bool.isRequired,
-    activities: PropTypes.number.isRequired,
-    polls: PropTypes.number.isRequired,
+    numActivities: PropTypes.number.isRequired,
+    numPolls: PropTypes.number.isRequired,
   }
 
   static defaultProps = {
@@ -44,12 +47,11 @@ class StudentCourse extends React.PureComponent {
       contact,
       instructors,
       oh,
-      activities,
-      polls,
+      numActivities,
+      numPolls,
       grade,
       hasFake,
     } = this.props;
-    const headName = instructors.find(instructor => instructor.email === head).name;
 
     return (
       <div>
@@ -69,7 +71,7 @@ class StudentCourse extends React.PureComponent {
                 <h4>{name}</h4>
               </div>
               <div className="uk-visible@s">
-                {headName}
+                {head.name}
               </div>
               <div data-uk-scrollspy="target: .uk-icon-button; cls: uk-animation-scale-up; delay: 100">
                 <a className="uk-icon-button" data-uk-icon="users" data-uk-tooltip="All instructors" />
@@ -118,13 +120,13 @@ class StudentCourse extends React.PureComponent {
               )}
               <div className="uk-width-expand uk-visible@s" />
               <div>
-                <strong>{activities}</strong>
+                <strong>{numActivities}</strong>
                 &nbsp;
-                {pluralize('activity', activities)}
+                {pluralize('activity', numActivities)}
                 <span>, </span>
-                <strong>{polls}</strong>
+                <strong>{numPolls}</strong>
                 &nbsp;
-                {pluralize('poll', polls)}
+                {pluralize('poll', numPolls)}
               </div>
               <div>
                 <a className="uk-text-primary">
