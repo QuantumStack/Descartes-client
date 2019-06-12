@@ -26,6 +26,8 @@ class StudentCategoryRow extends React.PureComponent {
       <tr>
         <td>
           <span>{name}</span>
+          {activities && <small> (activities on Descartes)</small>}
+          {polls && <small> (polls on Descartes)</small>}
           <br />
           <span className="uk-text-muted">{description}</span>
         </td>
