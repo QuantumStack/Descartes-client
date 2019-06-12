@@ -50,9 +50,9 @@ class StudentAssignmentsTable extends React.PureComponent {
                 <th>Max</th>
                 <th>Percent</th>
                 <th>
-                  <a data-uk-tooltip="Click for details per category" data-uk-toggle={`target: #categories-table-${id}-modal`}>
+                  <button className="uk-button uk-button-link" type="button" data-uk-tooltip="Click for details per category" data-uk-toggle={`target: #categories-table-${id}-modal`}>
                     Category
-                  </a>
+                  </button>
                 </th>
               </tr>
             </thead>
