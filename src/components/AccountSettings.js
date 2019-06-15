@@ -98,7 +98,7 @@ class AccountSettings extends React.Component {
                 <div className="uk-form-controls">
                   <div className="uk-inline uk-width-expand">
                     <span className="uk-form-icon" data-uk-icon="icon: mail" />
-                    <input className="uk-input" type="text" name="name" value={email} disabled />
+                    <input className="uk-input" type="text" name="email" value={email} disabled />
                   </div>
                   <div className="uk-margin-small-top">
                     <label>
