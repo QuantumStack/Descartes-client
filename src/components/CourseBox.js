@@ -8,12 +8,12 @@ class CourseBox extends React.PureComponent {
     role: PropTypes.string,
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    numInstructors: PropTypes.number.isRequired,
+    numInstructors: PropTypes.number,
     head: PropTypes.shape({
       email: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
     }),
-    numStudents: PropTypes.number.isRequired,
+    numStudents: PropTypes.number,
     grade: PropTypes.number,
     numActivities: PropTypes.number.isRequired,
     numPolls: PropTypes.number.isRequired,
@@ -22,7 +22,9 @@ class CourseBox extends React.PureComponent {
   }
 
   static defaultProps = {
+    numInstructors: 0,
     head: undefined,
+    numStudents: 0,
     role: 'student',
     grade: undefined,
     oh: false,
