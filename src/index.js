@@ -5,6 +5,7 @@ import { ConnectedRouter } from 'connected-react-router';
 import UIkit from 'uikit';
 import Icons from 'uikit/dist/js/uikit-icons';
 import './index.css';
+import 'semantic-ui-less/semantic.less';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import configureStore, { history } from './store/configureStore';
