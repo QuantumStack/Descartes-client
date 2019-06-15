@@ -4,6 +4,7 @@ import AccountSettings from '../AccountSettings';
 
 describe('AccountSettings', () => {
   const editUserMock = jest.fn(() => { });
+  jest.mock('../../config', () => ({ passwordStrengthThreshold: 3 }));
   const options = {
     navbar: <div />,
     isLoading: false,

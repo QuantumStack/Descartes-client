@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
-import RouterPropTypes from 'react-router-prop-types';
 import CourseList from './CourseList';
 import Intro from './Intro';
 import CreateButton from './CreateButton';
@@ -13,35 +12,35 @@ class AllCourses extends React.PureComponent {
     navbar: PropTypes.node.isRequired,
     instructorCourses: PropTypes.arrayOf(PropTypes.object).isRequired,
     studentCourses: PropTypes.arrayOf(PropTypes.object).isRequired,
-    history: RouterPropTypes.history.isRequired,
+    historyPush: PropTypes.func.isRequired,
   }
 
   makeShortcuts() {
-    const { history, instructorCourses, studentCourses } = this.props;
+    const { historyPush, instructorCourses, studentCourses } = this.props;
     const instructorShortcuts = instructorCourses.slice(0, 9).map(({ id, name }, i) => ({
       combos: (i + 1).toString(),
-      callback: () => history.push(`/dashboard/instructor/${id}`),
+      callback: () => historyPush(`/dashboard/instructor/${id}`),
       description: name,
     }));
     const studentShortcuts = studentCourses.slice(0, 9).map(({ id, name }, i) => ({
       combos: `alt+${i + 1}`,
-      callback: () => history.push(`/dashboard/student/${id}`),
+      callback: () => historyPush(`/dashboard/student/${id}`),
       description: name,
     }));
     return [
       {
         combos: ['n', 'c'],
-        callback: () => history.push('/create'),
+        callback: () => historyPush('/create'),
         description: 'Create a course',
       },
       {
         combos: ['j', 'N'],
-        callback: () => history.push('/join'),
+        callback: () => historyPush('/join'),
         description: 'Join a course',
       },
       {
         combos: ',',
-        callback: () => history.push('/dashboard/account'),
+        callback: () => historyPush('/dashboard/account'),
         description: 'Go to account settings',
       },
       ...instructorShortcuts,

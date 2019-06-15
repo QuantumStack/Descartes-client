@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { push } from 'connected-react-router';
 import { Helmet } from 'react-helmet';
 import { fetchDashboardIfNeeded } from '../actions';
 import { instructorCoursesAsArray, studentCoursesAsArray } from '../selectors';
@@ -43,6 +44,7 @@ const mapStateToProps = state => ({
   studentCourses: studentCoursesAsArray(state),
 });
 const mapDispatchToProps = dispatch => bindActionCreators({
+  historyPush: push,
   fetchIfNeeded: fetchDashboardIfNeeded,
 }, dispatch);
 
