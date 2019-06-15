@@ -1,8 +1,10 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { shallow } from 'enzyme';
 import LegalInfo from '../LegalInfo';
 
-it('renders without crashing', () => {
-  const { getByText } = render(<LegalInfo />);
-  expect(getByText('Descartes')).toBeInTheDocument();
+it('renders title', () => {
+  const wrapper = shallow(<LegalInfo />);
+  expect(wrapper).toIncludeText('Descartes');
+  expect(wrapper).toIncludeText('Terms of Use');
+  expect(wrapper).toIncludeText('Privacy Policy');
 });
