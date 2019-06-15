@@ -21,9 +21,9 @@ class StudentAssignmentRow extends React.PureComponent {
 
   static defaultProps = {
     isFake: false,
-    fakeScore: null,
-    score: null,
-    percent: null,
+    fakeScore: undefined,
+    score: undefined,
+    percent: undefined,
   }
 
   render() {

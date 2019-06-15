@@ -8,30 +8,42 @@ class CourseBox extends React.PureComponent {
     role: PropTypes.string,
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    instructors: PropTypes.number.isRequired,
+    numInstructors: PropTypes.number,
     head: PropTypes.shape({
       email: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
-      role: PropTypes.oneOf(['admin', 'instructor']).isRequired,
-    }).isRequired,
-    students: PropTypes.number.isRequired,
+    }),
+    numStudents: PropTypes.number,
     grade: PropTypes.number,
-    activities: PropTypes.number.isRequired,
-    polls: PropTypes.number.isRequired,
+    numActivities: PropTypes.number.isRequired,
+    numPolls: PropTypes.number.isRequired,
     oh: PropTypes.bool,
     expired: PropTypes.bool,
   }
 
   static defaultProps = {
+    numInstructors: 0,
+    head: undefined,
+    numStudents: 0,
     role: 'student',
-    grade: null,
+    grade: undefined,
     oh: false,
     expired: false,
   }
 
   render() {
     const {
-      role, id, name, instructors, students, head, grade, activities, polls, oh, expired,
+      role,
+      id,
+      name,
+      numInstructors,
+      numStudents,
+      head,
+      grade,
+      numActivities,
+      numPolls,
+      oh,
+      expired,
     } = this.props;
     return (
       <div className={`uk-card uk-card-${expired ? 'secondary' : 'default'} uk-card-small uk-card-hover uk-card-body`}>
@@ -41,7 +53,7 @@ class CourseBox extends React.PureComponent {
           </div>
           {(grade || role !== 'student') && (
             <div>
-              <span className="uk-badge uk-align-right uk-text-center uk-margin-remove">{students || `${grade}%`}</span>
+              <span className="uk-badge uk-align-right uk-text-center uk-margin-remove">{numStudents || `${grade}%`}</span>
             </div>
           )}
         </div>
@@ -51,19 +63,19 @@ class CourseBox extends React.PureComponent {
         <p className="uk-margin-small">
           {role !== 'student' && (
             <span>
-              <strong>{instructors - 1}</strong>
+              <strong>{numInstructors - 1}</strong>
               <span> other </span>
-              {pluralize('instructor', instructors - 1)}
+              {pluralize('instructor', numInstructors - 1)}
               <br />
             </span>
           )}
-          <strong>{activities}</strong>
+          <strong>{numActivities}</strong>
           &nbsp;
-          {pluralize('activity', activities)}
+          {pluralize('activity', numActivities)}
           <span>, </span>
-          <strong>{polls}</strong>
+          <strong>{numPolls}</strong>
           &nbsp;
-          {pluralize('poll', polls)}
+          {pluralize('poll', numPolls)}
         </p>
         <Link to={`/dashboard/${role === 'student' ? role : 'instructor'}/${id}`} className="uk-button uk-button-primary uk-button-small">
           <span>Details</span>

@@ -13,7 +13,7 @@ export const ACCOUNT_CHANGE_URL = 'api/account/modify';
 export const CHECK_COUPON_URL = '/api/course/create/coupon';
 export const CREATE_URL = 'api/course/create';
 export const JOIN_URL = 'api/enroll';
-export const INSTRUCTOR_URL = 'course/instructor';
+export const INSTRUCTOR_URL = 'api/course/instructor';
 export const STUDENT_URL = 'api/course/student';
 
 export const authHeader = () => ({ Authorization: `bearer ${getToken()}` });

@@ -36,15 +36,15 @@ class AssignmentDetails extends React.PureComponent {
 
   static defaultProps = {
     isFake: false,
-    activity: null,
-    poll: null,
+    activity: undefined,
+    poll: undefined,
     flags: [],
     unpublished: false,
-    description: null,
-    fakeScore: null,
-    override: null,
-    percent: null,
-    stats: null,
+    description: undefined,
+    fakeScore: undefined,
+    override: undefined,
+    percent: undefined,
+    stats: undefined,
   }
 
   constructor(props) {
@@ -125,7 +125,7 @@ class AssignmentDetails extends React.PureComponent {
             </div>
             <div className="uk-width-expand">
               {flags.map(flag => (
-                <p className="uk-margin-small">
+                <p key={flag.type} className="uk-margin-small">
                   {flag.type === 'section' && <span>Attended the wrong section time.</span>}
                   {flag.type === 'attempts' && <span>Multiple attempts, which is not allowed.</span>}
                 </p>

@@ -8,7 +8,7 @@ const defaultState = {
   firstName: '',
   lastName: '',
   email: '',
-  showEmail: null,
+  showEmail: undefined,
   oldPassword: '',
   password: '',
   password2: '',
