@@ -1,16 +1,22 @@
 import React from 'react';
-import { stripeApiKey } from '../config';
+import PropTypes from 'prop-types';
 import { StripeProvider, Elements } from 'react-stripe-elements';
+import { stripeApiKey } from '../config';
 
-class PaymentContainer extends React.Component {
+class PaymentContainer extends React.PureComponent {
+  static propTypes = {
+    children: PropTypes.node.isRequired,
+  }
+
   render() {
+    const { children } = this.props;
     return (
       <StripeProvider apiKey={stripeApiKey}>
         <Elements>
-          {this.props.children}
+          {children}
         </Elements>
       </StripeProvider>
-    )
+    );
   }
 }
 

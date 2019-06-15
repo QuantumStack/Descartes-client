@@ -57,7 +57,7 @@ export default coursesReducer(
             ...state.assignments,
             [payload]: {
               ...state.assignments[payload],
-              fakeScore: null,
+              fakeScore: undefined,
             },
           },
         };
@@ -106,7 +106,7 @@ export default coursesReducer(
           ...obj,
           [id]: {
             ...state.assignments[id],
-            fakeScore: null,
+            fakeScore: undefined,
           },
         }), {});
         return {

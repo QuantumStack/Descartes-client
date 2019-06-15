@@ -22,7 +22,7 @@ class StudentCategoryTable extends React.PureComponent {
             </tr>
           </thead>
           <tbody>
-            {categoriesArr.map(category => <StudentCategoryRow {...category} />)}
+            {categoriesArr.map(category => <StudentCategoryRow key={category.id} {...category} />)}
           </tbody>
         </table>
       </div>

@@ -14,7 +14,7 @@ const Account = React.lazy(() => import('./containers/Account'));
 const Create = React.lazy(() => import('./containers/Create'));
 const Purchased = React.lazy(() => import('./pages/Purchased'));
 const Join = React.lazy(() => import('./containers/Join'));
-const Instructor = React.lazy(() => import('./pages/Instructor'));
+const Instructor = React.lazy(() => import('./containers/Instructor'));
 const Student = React.lazy(() => import('./containers/Student'));
 const Verify = React.lazy(() => import('./containers/Verify'));
 const LogIn = React.lazy(() => import('./containers/LogIn'));
