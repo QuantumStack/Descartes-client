@@ -66,7 +66,7 @@ class StudentCourse extends React.PureComponent {
         )}
         <div className="uk-section uk-section-xsmall">
           <div className="uk-container uk-container-small">
-            <DashboardHeader small>
+            <DashboardHeader smallMargin>
               <div className="uk-width-expand">
                 <h4>{name}</h4>
               </div>

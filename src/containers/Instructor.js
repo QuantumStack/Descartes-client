@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import LoadingLarge from '../components/LoadingLarge';
 import UserContainer from './UserContainer';
+import InstructorCourse from '../components/InstructorCourse';
 import { instructorCourseCompact } from '../selectors';
 import { fetchInstructorCourseIfNeeded } from '../actions';
 
@@ -29,7 +30,7 @@ class Instructor extends React.PureComponent {
         <LoadingLarge key="student-course" isLoading={isLoading}>
           <div className="uk-container">
             <UserContainer>
-              <div>Coming soon</div>
+              <InstructorCourse {...this.props} />
             </UserContainer>
           </div>
         </LoadingLarge>
