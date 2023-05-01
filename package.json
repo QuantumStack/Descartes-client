@@ -30,7 +30,7 @@
     "react-redux": "^7.0.3",
     "react-router-dom": "^5.0.0",
     "react-router-prop-types": "^1.0.4",
-    "react-scripts": "3.0.1",
+    "react-scripts": "5.0.1",
     "react-simplemde-editor": "^4.0.1",
     "react-stripe-elements": "^3.0.0",
     "react-typist": "^2.0.5",
